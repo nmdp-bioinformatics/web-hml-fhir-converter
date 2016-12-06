@@ -5,11 +5,21 @@
     'use strict';
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('file', file);
-    file.$inject = ['$scope'];
+    file.$inject = ['$scope', '$uibModalInstance'];
 
-    function file ($scope) {
+    function file ($scope, $uibModalInstance) {
         var fileCtrl = this;
 
+        fileCtrl.close = function () {
+            $uibModalInstance.close(true);
+        };
 
+        fileCtrl.cancel = function () {
+            $uibModalInstance.dismiss();
+        };
+
+        fileCtrl.upload = function () {
+
+        };
     }
 }());
