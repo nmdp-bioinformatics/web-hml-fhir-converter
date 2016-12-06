@@ -18,7 +18,7 @@
         mainCtrl.launchFileConverter = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
-                template: 'views/file/file.html',
+                template: '/views/file/file.html',
                 controller: 'file',
                 controllerAs: 'fileCtrl',
                 resolve: {
