@@ -1,17 +1,19 @@
-'use strict';
+(function () {
+    'use strict';
 
-/**
- * @ngdoc function
- * @name hmlFhirAngularClientApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the hmlFhirAngularClientApp
- */
-angular.module('hmlFhirAngularClientApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    /**
+     * @ngdoc function
+     * @name hmlFhirAngularClientApp.controller:MainCtrl
+     * @description
+     * # MainCtrl
+     * Controller of the hmlFhirAngularClientApp
+     */
+
+    angular.module('hmlFhirAngularClientApp.controllers').controller('main', main);
+    main.$inject = ['$scope'];
+
+    function main($scope) {
+        var mainCtrl = this;
+
+    }
+}());

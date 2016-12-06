@@ -8,26 +8,33 @@
  *
  * Main module of the application.
  */
-angular
-  .module('hmlFhirAngularClientApp', [
+
+angular.module('hmlFhirAngularClientApp.controllers', []);
+angular.module('hmlFhirAngularClientApp.services', []);
+angular.module('hmlFhirAngularClientApp.directives', []);
+angular.module('hmlFhirAngularClientApp.factories', []);
+
+angular.module('hmlFhirAngularClientApp', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'hmlFhirAngularClientApp.controllers',
+    'hmlFhirAngularClientApp.services',
+    'hmlFhirAngularClientApp.directives',
+    'hmlFhirAngularClientApp.factories'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        controller: 'main',
+        controllerAs: 'mainCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+        controller: 'about',
+        controllerAs: 'aboutCtrl'
       })
-      .otherwise({
-        redirectTo: '/'
-      });
+      .otherwise({ redirectTo: '/' });
   });
