@@ -12,6 +12,7 @@
     "gulp": "^3.9.1",
     "gulp-inject": "^4.1.0",
     "gulp-webserver": "^0.9.1",
+    "run-sequence": "^1.2.2",
     "wiredep": "^4.0.0"
   }
 }
