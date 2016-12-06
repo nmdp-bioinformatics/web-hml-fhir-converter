@@ -19,6 +19,7 @@ angular.module('hmlFhirAngularClientApp', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ui.bootstrap',
     'hmlFhirAngularClientApp.controllers',
     'hmlFhirAngularClientApp.services',
     'hmlFhirAngularClientApp.directives',
