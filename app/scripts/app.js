@@ -24,6 +24,7 @@ angular.module('hmlFhirAngularClientApp', [
     'hmlFhirAngularClientApp.directives',
     'hmlFhirAngularClientApp.factories'
   ])
+
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

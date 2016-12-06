@@ -47,6 +47,31 @@ body {
   margin: 30px 0;
 }
 
+.centered-heading {
+  text-align: center;
+}
+
+.button-row {
+  margin-top: 60px;
+  margin-bottom: 30px;
+  margin-left: 0px;
+}
+
+.heading-button {
+  width: 90%;
+  font-weight: 400;
+  margin: auto;
+  text-align: center;
+}
+
+.heading-button:hover {
+  filter: brightness(80%);
+}
+
+.pull-right {
+  float: right;
+}
+
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;

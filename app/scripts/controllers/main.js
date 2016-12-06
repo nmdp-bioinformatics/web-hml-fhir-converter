@@ -10,10 +10,21 @@
      */
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('main', main);
-    main.$inject = ['$scope'];
+    main.$inject = ['$scope', '$modal'];
 
-    function main($scope) {
+    function main($scope, $modal) {
         var mainCtrl = this;
 
+        mainCtrl.launchFileConverter = function () {
+
+        };
+
+        mainCtrl.launchGuidedUiConverter = function () {
+
+        };
+
+        mainCtrl.launchSettings = function () {
+
+        };
     }
 }());
