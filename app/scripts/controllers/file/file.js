@@ -5,10 +5,12 @@
     'use strict';
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('file', file);
-    file.$inject = ['$scope', '$uibModalInstance'];
+    file.$inject = ['$scope', '$uibModalInstance', 'title'];
 
-    function file ($scope, $uibModalInstance) {
+    function file ($scope, $uibModalInstance, title) {
         var fileCtrl = this;
+
+        fileCtrl.title = title;
 
         fileCtrl.close = function () {
             $uibModalInstance.close(true);
