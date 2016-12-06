@@ -9,9 +9,12 @@
   "author": "Andrew S Brown Ph.D.",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.18.2",
+    "browser-sync-spa": "^1.0.3",
     "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
     "gulp-inject": "^4.1.0",
-    "gulp-webserver": "^0.9.1",
+    "gulp-serve": "^1.4.0",
     "run-sequence": "^1.2.2",
     "wiredep": "^4.0.0"
   }
