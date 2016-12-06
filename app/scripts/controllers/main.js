@@ -18,12 +18,13 @@
         mainCtrl.launchFileConverter = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
-                template: '/views/file/file.html',
+                templateUrl: 'views/file/file.html',
                 controller: 'file',
                 controllerAs: 'fileCtrl',
                 resolve: {
-                    title: '',
-                    description: ''
+                    title: function () {
+                        return 'Upload HML file to parse.'
+                    }
                 }
             });
 
