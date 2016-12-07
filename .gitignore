@@ -1,5 +1,14 @@
 bower_components/*
+
 node_modules/*
+!node_modules/grunt-contrib-cssmin/
+
+node_modules/grunt-contrib-cssmin/*
+!node_modules/grunt-contrib-cssmin/tasks/
+
+node_modules/grunt-contrib-cssmin/tasks/*
+!node_modules/grunt-contrib-cssmin/tasks/cssmin.js
+
 .idea
 dist/*
 .sass-cache/*
