@@ -3,17 +3,17 @@
 
     /**
      * @ngdoc function
-     * @name hmlFhirAngularClientApp.controller:MainCtrl
+     * @name hmlFhirAngularClientApp.controller:mainCtrl
      * @description
-     * # MainCtrl
+     * # mainCtrl
      * Controller of the hmlFhirAngularClientApp
      */
 
-    angular.module('hmlFhirAngularClientApp.controllers').controller('main', main);
-    main.$inject = ['$scope', '$uibModal'];
-
     function main($scope, $uibModal) {
+        /*jshint validthis: true */
         var mainCtrl = this;
+
+        mainCtrl.scope = $scope;
 
         mainCtrl.launchFileConverter = function () {
             var modalInstance = $uibModal.open({
@@ -23,13 +23,15 @@
                 controllerAs: 'fileCtrl',
                 resolve: {
                     title: function () {
-                        return 'Upload HML file to parse.'
+                        return 'Upload HML file to parse.';
                     }
                 }
             });
 
             modalInstance.result.then(function (result) {
+                if (result) {
 
+                }
             });
         };
 
@@ -41,4 +43,7 @@
 
         };
     }
+
+    angular.module('hmlFhirAngularClientApp.controllers').controller('main', main);
+    main.$inject = ['$scope', '$uibModal'];
 }());

@@ -1,23 +1,25 @@
 'use strict';
 
-describe('Controller: AboutCtrl', function () {
+describe('Controller: about', function () {
 
   // load the controller's module
   beforeEach(module('hmlFhirAngularClientApp'));
 
-  var AboutCtrl,
+  var aboutCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AboutCtrl = $controller('AboutCtrl', {
+    aboutCtrl = $controller('about', {
       $scope: scope
       // place here mocked dependencies
     });
+
+    aboutCtrl.awesomeThings = ['1', '2', '3'];
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(AboutCtrl.awesomeThings.length).toBe(3);
+    expect(aboutCtrl.awesomeThings.length).toBe(3);
   });
 });

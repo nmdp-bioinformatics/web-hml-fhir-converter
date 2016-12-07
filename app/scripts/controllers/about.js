@@ -3,18 +3,20 @@
 
     /**
      * @ngdoc function
-     * @name hmlFhirAngularClientApp.controller:AboutCtrl
+     * @name hmlFhirAngularClientApp.controller:aboutCtrl
      * @description
-     * # AboutCtrl
+     * # aboutCtrl
      * Controller of the hmlFhirAngularClientApp
      */
 
-    angular.module('hmlFhirAngularClientApp.controllers').controller('about', about);
-    about.$inject = ['$scope'];
-
     function about ($scope) {
+        /*jshint validthis: true */
         var aboutCtrl = this;
 
+        aboutCtrl.scope = $scope;
     }
+
+    angular.module('hmlFhirAngularClientApp.controllers').controller('about', about);
+    about.$inject = ['$scope'];
 }());
 
