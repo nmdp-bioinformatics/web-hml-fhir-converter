@@ -11,6 +11,7 @@
         var fileCtrl = this;
 
         fileCtrl.title = title;
+        fileCtrl.mode = 1; // this will set it to 'upload' mode.
 
         fileCtrl.close = function () {
             $uibModalInstance.close(true);
@@ -20,8 +21,12 @@
             $uibModalInstance.dismiss();
         };
 
-        fileCtrl.upload = function () {
-
+        fileCtrl.instructions = function () {
+            if (fileCtrl.mode > 1) {
+                fileCtrl.mode = 1;
+            } else {
+                fileCtrl.mode = 2;
+            }
         };
     }
 }());

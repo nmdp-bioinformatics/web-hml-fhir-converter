@@ -3,22 +3,29 @@
     <h3 class="modal-title">{{ fileCtrl.title }}</h3>
 </div>
 <div class="modal-body">
-    <div class="row">
+    <div class="row" data-ng-if="fileCtrl.mode === 1">
         <div class="col-md-12">
-            <h5 class="centered-heading">Upload a valid HML file to begin converting to HL7-Fhir.</h5>
-            <div class="input-group">
-                <label class="input-group-btn">
-                    <span class="btn btn-success">
+            <div class="centered-heading">
+                <h5>Upload a valid HML file to begin converting to HL7-Fhir.</h5>
+                <div class="input-group">
+                    <label class="input-group-btn">
+                    <span class="btn btn-success upload-container">
                        Upload&hellip; <input type="file" data-ng-model="file.data" file-select="data" file-loaded="fileCtrl.loaded()"
-                            file-error="fileCtrl.error($error)" file-progress="fileCtrl.progress($total, $loaded)"
-                            style="display: none;" multiple />
+                         file-error="fileCtrl.error($error)" file-progress="fileCtrl.progress($total, $loaded)"
+                         style="display: none;" multiple />
                     </span>
-                </label>
+                    </label>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="row" data-ng-if="fileCtrl.mode === 2">
+        <div class="col-md-12">
+            <h6>INSTRUCTIONS FOR USING THIS FILE PARSING UTILITY</h6>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="fileCtrl.upload()">Instructions</button>
+    <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="fileCtrl.instructions()">{{ fileCtrl.mode === 1 ? 'Instructions' : 'Upload' }}</button>
     <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="fileCtrl.close()">Close</button>
 </div>
