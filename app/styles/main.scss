@@ -52,7 +52,7 @@ body {
 }
 
 .upload-container {
-  width: 30%;
+  width: 40%;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -78,12 +78,8 @@ body {
   float: right;
 }
 
-.modal-header-default {
-  background-color: lighten(#428BCA, 55%);
-}
-
-.modal-footer-default {
-  background-color: lighten(#428BCA, 55%);
+:focus {
+  outline: none;
 }
 
 /* Main marketing message and sign up button */
