@@ -8,8 +8,17 @@
         /*jshint validthis: true */
         var uploadCtrl = this;
 
-        uploadCtrl.files = files;
+        uploadCtrl.files = addUploadedBytesToFiles(files);
         uploadCtrl.scope = $scope;
+
+        function addUploadedBytesToFiles (files) {
+            for (var i = 0; i < files.length; i++) {
+                files[i].uploadedBytes = 0;
+                files[i].percentageUploaded = 0;
+            }
+
+            return files;
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);

@@ -105,6 +105,22 @@ body {
   padding-top: 25px;
 }
 
+.progress-container {
+  display: block;
+  position: relative;
+  width: 100%;
+  border: 2px solid #aad1f9;
+  transition: opacity 0.1s linear;
+}
+
+.border {
+  margin: 1.2em;
+}
+
+.border-up {
+  margin-bottom: 0.8em;
+}
+
 .push-up {
   padding-bottom: 25px;
 }
@@ -126,6 +142,18 @@ body {
   background-color: #f0f0f0 !important;
 }
 
+.upload-row {
+  margin: 5px;
+}
+
+.upload-row-container {
+  padding: 25px;
+}
+
+.vertical-center {
+  vertial-align: middle;
+}
+
 .modal-default-body {
   background: #c4e3f3;
   min-height: 150px;
@@ -135,6 +163,15 @@ body {
   border-radius: 5px;
   outline: dashed 2px black;
   outline-offset: -8px;
+}
+
+.modal-status-body {
+  background: #c4e3f3;
+  min-height: 150px;
+  width: 90%;
+  float: none;
+  margin: 0 auto;
+  border-radius: 5px;
 }
 
 /* Supporting marketing content */

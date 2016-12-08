@@ -1,1 +1,27 @@
-<div>Upload page</div>
+<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" data-ng-click="uploadCtrl.cancel()">&times;</button>
+    <h3 class="modal-title">Uploading files to validation server...</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12 modal-status-body">
+            <div class="upload-row-container">
+                <div class="row upload-row" data-ng-class="$even ? 'even-row' : 'odd-row'" data-ng-repeat="file in uploadCtrl.files">
+                    <div class="border">
+                        <div class="col-md-3">
+                            <label class="border-up">{{ file.name }}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="progress-container">
+                                <md-progress-linear md-mode="determinate" value="{{ file.percentageUploaded }}"></md-progress-linear>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="uploadCtrl.close()">Cancel</button>
+</div>

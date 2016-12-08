@@ -24,7 +24,8 @@ angular.module('hmlFhirAngularClientApp', [
     'hmlFhirAngularClientApp.services',
     'hmlFhirAngularClientApp.directives',
     'hmlFhirAngularClientApp.factories',
-    'smart-table'
+    'smart-table',
+    'ngMaterial'
   ])
 
   .config(function ($routeProvider) {
