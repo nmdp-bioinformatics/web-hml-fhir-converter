@@ -30,7 +30,23 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    var uploadModal = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/file/upload.html',
+                        controller: 'upload',
+                        controllerAs: 'uploadCtrl',
+                        resolve: {
+                            files: function () {
+                                return result;
+                            }
+                        }
+                    });
 
+                    uploadModal.result.then(function (uploadResult) {
+                        if (uploadResult) {
+
+                        }
+                    });
                 }
             });
         };

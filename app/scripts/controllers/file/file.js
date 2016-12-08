@@ -28,9 +28,68 @@
             }
         };
 
-        $scope.fileInputChange = function (element) {
-            fileCtrl.files = element.files;
+        fileCtrl.parseFileSize = function (file) {
+            return printFileSize(file);
         };
+
+        fileCtrl.removeFileFromList = function (file) {
+            var index = getFileIndex(file);
+            fileCtrl.files.splice(index, 1);
+        };
+
+        fileCtrl.uploadList = function () {
+            $uibModalInstance.close(fileCtrl.files);
+        };
+
+        $scope.fileInputChange = function (element) {
+            for (var i = 0; i < element.files.length; i++) {
+                handleFileChange(element.files[i]);
+            }
+
+            $scope.$apply();
+        };
+
+        function handleFileChange (file) {
+            if (!fileExistsInModel(file)) {
+                fileCtrl.files.push(file);
+            }
+        }
+
+        function fileExistsInModel (file) {
+            for (var i = 0; i < fileCtrl.files.length; i++) {
+                if (file.name === fileCtrl.files[i].name &&
+                    file.lastModified === fileCtrl.files[i].lastModified) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function getFileIndex (file) {
+            for (var i = 0; i < fileCtrl.files.length; i++) {
+                if (file.name === fileCtrl.files[i].name &&
+                    file.lastModified === fileCtrl.files[i].lastModified) {
+                    return i;
+                }
+            }
+
+            return undefined;
+        }
+
+        function printFileSize (file) {
+            var bytes = file.size;
+
+            if (bytes < 100000) {
+                var kb = bytes / 1000;
+                return kb + ' Kb';
+            }
+
+            if (bytes >= 100000) {
+                var mb = bytes / 1000000;
+                return mb + ' Mb';
+            }
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('file', file);
