@@ -93,6 +93,37 @@ body {
   }
 }
 
+.modal-footer-button {
+  width: 100px;
+}
+
+.stylish-file-input {
+  display: none !important;
+}
+
+.push-down {
+  padding-top: 25px;
+}
+
+.push-up {
+  padding-bottom: 25px;
+}
+
+.round-edges {
+  border-radius: 5px !important;
+}
+
+.modal-default-body {
+  background: #c4e3f3;
+  min-height: 150px;
+  width: 90%;
+  float: none;
+  margin: 0 auto;
+  border-radius: 5px;
+  outline: dashed 2px black;
+  outline-offset: -8px;
+}
+
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;

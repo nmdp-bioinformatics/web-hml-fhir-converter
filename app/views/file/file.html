@@ -4,17 +4,49 @@
 </div>
 <div class="modal-body">
     <div class="row" data-ng-if="fileCtrl.mode === 1">
-        <div class="col-md-12">
-            <div class="centered-heading">
-                <h5>Upload a valid HML file to begin converting to HL7-Fhir.</h5>
-                <div class="input-group">
-                    <label class="input-group-btn">
-                    <span class="btn btn-primary upload-container">
-                       Upload&hellip; <input type="file" data-ng-model="file.data" file-select="data" file-loaded="fileCtrl.loaded()"
-                         file-error="fileCtrl.error($error)" file-progress="fileCtrl.progress($total, $loaded)"
-                         style="display: none;" multiple />
-                    </span>
-                    </label>
+        <div class="col-md-12 modal-default-body">
+            <div class="row">
+                <div class="centered-heading">
+                    <h5 class="push-down">Upload valid HML file(s) to begin converting to HL7-Fhir.</h5>
+                    <div class="input-group">
+                        <label class="input-group-btn push-down">
+                        <span class="btn btn-primary upload-container round-edges">
+                           Select Files&hellip;
+                            <input type="file" data-ng-model="fileCtrl.files" onchange="angular.element(this).scope().fileInputChange(this)"
+                                   id="fileUploader" class="stylish-file-input" multiple />
+                        </span>
+                        </label>
+                    </div>
+                    <br/>
+                    <div class="push-up" id="filedrag">Or drop files here.</div>
+                </div>
+                <div class="col-md-12 push-up" data-ng-show="fileCtrl.files.length > 0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <label>File Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>File Size</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>File Extension</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-repeat="file in fileCtrl.files">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <label>{{ file.fileName }}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>{{ file.fileSize }}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>{{ file.fileExtension }}</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
