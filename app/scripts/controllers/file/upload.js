@@ -4,12 +4,20 @@
 (function () {
     'use strict';
 
-    function upload ($scope, files) {
+    function upload ($scope, files, $uibModalInstance, uploadService) {
         /*jshint validthis: true */
         var uploadCtrl = this;
 
         uploadCtrl.files = addUploadedBytesToFiles(files);
         uploadCtrl.scope = $scope;
+
+        uploadCtrl.cancel = function () {
+            $uibModalInstance.cancel();
+        };
+
+        uploadCtrl.close = function () {
+            $uibModalInstance.close();
+        };
 
         function addUploadedBytesToFiles (files) {
             for (var i = 0; i < files.length; i++) {
@@ -17,10 +25,16 @@
                 files[i].percentageUploaded = 0;
             }
 
+            sendFilesForUpload(files);
+
             return files;
+        }
+
+        function sendFilesForUpload (files) {
+
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
-    upload.$inject = ['$scope', 'files'];
+    upload.$inject = ['$scope', 'files', '$uibModalInstance', 'uploadService'];
 }());
