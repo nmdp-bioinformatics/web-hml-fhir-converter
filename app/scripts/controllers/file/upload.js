@@ -8,6 +8,8 @@
         /*jshint validthis: true */
         var uploadCtrl = this;
 
+        uploadCtrl.files = files;
+        uploadCtrl.scope = $scope;
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
