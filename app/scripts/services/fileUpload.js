@@ -5,10 +5,22 @@
     'use strict';
 
     function uploadService ($http, $q) {
-        var service = {
-            uploadFileToServer: function (file) {
+        var baseUrl = '',
+            service = {
+                uploadFileToServer: function (file) {
+                    var defer = $q.defer(),
+                        url = baseUrl + '';
 
-            };
+                    $http({
+                        method: 'POST',
+                        url: url,
+                        data: file
+                    }).success(function (res) {
+                        defer.resolve(res);
+                    });
+
+                    return defer.promise;
+                }
         };
 
         return service;

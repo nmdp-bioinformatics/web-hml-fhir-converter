@@ -13,7 +13,9 @@ describe('Controller: upload', function () {
        scope = $rootScope.$new();
        uploadCtrl = $controller('upload', {
            $scope: scope,
-           files: []
+           files: [],
+           $uibModalInstance: {},
+           uploadService: {}
        });
 
        uploadCtrl.files = [{}];
