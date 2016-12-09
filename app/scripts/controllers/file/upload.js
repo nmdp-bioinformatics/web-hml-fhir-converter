@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function upload ($scope, files, $uibModalInstance, uploadService) {
+    function upload ($scope, files, $uibModalInstance, uploadService, xmlConverter) {
         /*jshint validthis: true */
         var uploadCtrl = this;
 
@@ -31,10 +31,14 @@
         }
 
         function sendFilesForUpload (files) {
+            var jsonHmlObjects = [];
 
+            for (var i = 0; i < files.length; i++) {
+                jsonHmlObjects.push(xmlConverter.parseXmlToJson('<h>4</h>'));
+            }
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
-    upload.$inject = ['$scope', 'files', '$uibModalInstance', 'uploadService'];
+    upload.$inject = ['$scope', 'files', '$uibModalInstance', 'uploadService', 'xmlConverter'];
 }());
