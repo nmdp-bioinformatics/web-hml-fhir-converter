@@ -13,6 +13,7 @@ angular.module('hmlFhirAngularClientApp.controllers', []);
 angular.module('hmlFhirAngularClientApp.services', []);
 angular.module('hmlFhirAngularClientApp.directives', []);
 angular.module('hmlFhirAngularClientApp.factories', []);
+angular.module('hmlFhirAngularClientApp.constants', []);
 
 angular.module('hmlFhirAngularClientApp', [
     'ngResource',

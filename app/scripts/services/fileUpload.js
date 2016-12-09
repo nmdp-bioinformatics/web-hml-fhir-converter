@@ -4,28 +4,27 @@
 (function () {
     'use strict';
 
-    function uploadService ($http, $q) {
-        var baseUrl = '',
-            service = {
-                uploadFileToServer: function (file) {
-                    var defer = $q.defer(),
-                        url = baseUrl + '';
+    function uploadService ($http, $q, app_config) {
+        var service = {
+            uploadFileToServer: function (file) {
+                var defer = $q.defer(),
+                    url = app_config + '';
 
-                    $http({
-                        method: 'POST',
-                        url: url,
-                        data: file
-                    }).success(function (res) {
-                        defer.resolve(res);
-                    });
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: file
+                }).success(function (res) {
+                    defer.resolve(res);
+                });
 
-                    return defer.promise;
-                }
+                return defer.promise;
+            }
         };
 
         return service;
     }
 
     angular.module('hmlFhirAngularClientApp.services').service('uploadService', uploadService);
-    uploadService.$inject = ['$http', '$q'];
+    uploadService.$inject = ['$http', '$q', 'app_config'];
 }());
