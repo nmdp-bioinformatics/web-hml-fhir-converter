@@ -25,6 +25,7 @@ angular.module('hmlFhirAngularClientApp', [
     'hmlFhirAngularClientApp.services',
     'hmlFhirAngularClientApp.directives',
     'hmlFhirAngularClientApp.factories',
+    'hmlFhirAngularClientApp.constants',
     'smart-table',
     'ngMaterial',
     'angularXml2json'

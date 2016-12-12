@@ -4,10 +4,10 @@
 (function () {
     'use strict';
 
-    var config = {
-        'miring.base.url': 'http://miring.b12x.org/',
-        'fhir.base.url': 'http://fhir.b12x.org/'
+    var appConfig = {
+        'miring_base_url': 'http://miring.b12x.org/',
+        'fhir_base_url': 'http://fhir.b12x.org/'
     };
 
-    angular.module('hmlFhirAngularClientApp.constants').constant('app_config', config);
+    angular.module('hmlFhirAngularClientApp.constants').constant('appConfig', appConfig);
 }());
