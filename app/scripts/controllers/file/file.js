@@ -5,6 +5,7 @@
     'use strict';
 
     function file ($scope, $uibModalInstance, title) {
+        /*jshint validthis: true */
         var fileCtrl = this;
 
         fileCtrl.scope = $scope;

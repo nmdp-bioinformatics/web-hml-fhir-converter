@@ -14,11 +14,11 @@
                 $http({
                     method: 'POST',
                     url: url,
-                    data: $httpParamSerializerJQLike(file.xml),
+                    data: $httpParamSerializerJQLike({ xml: file.xml }),
                     headers: headers
                 }).success(function (res) {
                     file.result = xmlConverter.parseXmlToJson(res);
-                    defer.resolve(file.result);
+                    defer.resolve(file);
                 });
 
                 return defer.promise;

@@ -19,13 +19,6 @@
                 }
 
                 return json;
-            },
-
-            validateXml: function (xml) {
-                var parser = new DOMParser(),
-                    oDomXml = parser.parseFromString(xml, 'text/xml');
-
-                return oDomXml;
             }
         };
 

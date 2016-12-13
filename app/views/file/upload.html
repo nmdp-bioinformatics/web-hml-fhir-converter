@@ -16,6 +16,18 @@
                                 <md-progress-linear md-mode="determinate" value="{{ file.percentageUploaded }}"></md-progress-linear>
                             </div>
                         </div>
+                        <div data-ng-show="file.result !== undefined">
+                            <div class="col-md-12 push-right-30pct">
+                                <i id="hmlCompliant" class="glyphicon" data-ng-class="{ 'glyphicon-ok-sign green': file.result['miring-report']['hml-compliant'] === 'true', 'glyphicon-remove-sign red': file.result['miring-report']['hml-compliant'] !== 'true' }" />
+                                <label for="hmlCompliant">{{ file.result['miring-report']['hml-compliant'] === 'true' ? 'HML Compliant' : 'Non-HML Compliant' }}</label>
+                            </div>
+                            <div class="col-md-12 push-right-30pct">
+                                <i id="validMiring" class="glyphicon" data-ng-class="{ 'glyphicon-ok-sign green': file.result['miring-report']['miring-compliant'] === 'true', 'glyphicon-exclamation-sign yellow': file.result['miring-report']['miring-compliant'] === 'warnings', 'glyphicon-remove-sign red': file.result['miring-report']['miring-compliant'] === 'false' }" />
+                                <label for="validMiring">{{ file.result['miring-report']['miring-compliant'] === 'true' || 'warnings' ? 'Miring Compliant' : 'Non-Miring Compliant' }}{{ file.result['miring-report']['miring-compliant'] === 'warnings' ? ' (Warnings)' : '' }}</label>
+                                <button type="button" class="btn btn-link" data-ng-show="file.result['miring-report']['miring-compliant'] !== 'true'"
+                                        data-ng-click="uploadCtrl.displayMiringWarnings(file.result['miring-report']['validation-warnings'], file)">Show Warnings</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

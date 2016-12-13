@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function upload ($scope, files, $uibModalInstance, uploadService, xmlConverter) {
+    function upload ($scope, files, $uibModal, $uibModalInstance, uploadService) {
         /*jshint validthis: true */
         var uploadCtrl = this;
 
@@ -19,6 +19,34 @@
             $uibModalInstance.close();
         };
 
+        uploadCtrl.displayMiringWarnings = function (warnings, file) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/guided/hml-validation-warnings.html',
+                controller: 'hmlValidationWarnings',
+                controllerAs: 'hmlValidationWarningsCtrl',
+                resolve: {
+                    warnings: function () {
+                        return warnings;
+                    },
+                    file: function () {
+                        return file;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (result) {
+                if (result) {
+                    for (var i = 0; i < uploadCtrl.files.length; i++) {
+                        if (uploadCtrl.files[i].name === result.name &&
+                            uploadCtrl.files[i].lastModified === resutl.lastModified) {
+                            uploadCtrl.files.splice(i, 1);
+                        }
+                    }
+                }
+            });
+        };
+
         function addUploadedBytesToFiles (files) {
             for (var i = 0; i < files.length; i++) {
                 files[i].uploadedBytes = 0;
@@ -31,30 +59,29 @@
         }
 
         function sendFilesForUpload (files) {
-            var parsedFiles = [],
-                reader = new FileReader();
-
-            reader.onload = function (f) {
-                var fileXml= f.target.result,
-                    json = xmlConverter.validateXml(fileXml);
-
-                json.xml = fileXml;
-                json.result = {};
-                parsedFiles.push(json);
-
-                if (parsedFiles.length === files.length) {
-                    for (var j = 0; j < parsedFiles.length; j++) {
-                        uploadService.uploadFileToServer(parsedFiles[j]);
-                    }
-                }
-            };
+            var parsedFiles = [];
 
             for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+
+                reader.fileObj = files[i];
+
+                reader.onload = function (f) {
+                    reader.fileObj.xml = f.target.result;
+                    parsedFiles.push(reader.fileObj);
+
+                    if (parsedFiles.length === files.length) {
+                        for (var j = 0; j < parsedFiles.length; j++) {
+                            uploadService.uploadFileToServer(parsedFiles[j]);
+                        }
+                    }
+                };
+
                 reader.readAsText(files[i]);
             }
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
-    upload.$inject = ['$scope', 'files', '$uibModalInstance', 'uploadService', 'xmlConverter'];
+    upload.$inject = ['$scope', 'files', '$uibModal', '$uibModalInstance', 'uploadService'];
 }());
