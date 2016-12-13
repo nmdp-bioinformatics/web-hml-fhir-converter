@@ -9,7 +9,7 @@
         var hmlValidationWarningsCtrl = this;
 
         hmlValidationWarningsCtrl.scope = $scope;
-        hmlValidationWarningsCtrl.warnings = warnings['miring-result']['validation-warnings'];
+        hmlValidationWarningsCtrl.warnings = warnings;
 
         hmlValidationWarningsCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -17,6 +17,18 @@
 
         hmlValidationWarningsCtrl.close = function () {
             $uibModalInstance.close();
+        };
+
+        hmlValidationWarningsCtrl.parseWarningDescription = function (desc) {
+            var regexExp = /\[(\d+, ?)+(\d+)?\]/,
+                regex = new RegExp(regexExp),
+                matches = desc.match(regex),
+                position = matches[0].replace('[', '').replace(']', ''),
+                line = position.split(',')[0],
+                col = position.split(',')[1],
+                text = desc.replace(matches[0] + ' ', '');
+
+            return 'Line: ' + line + ' Column: ' + col + ', ' + text;
         };
 
         hmlValidationWarningsCtrl.removeFile = function () {
