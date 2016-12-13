@@ -3,13 +3,30 @@
     <h3 class="modal-title">HML Validation Warnings</h3>
 </div>
 <div class="modal-body">
-    <div class="row" data-ng-repeat="warning in hmlValidationWarningsCtrl.warnings"
-         data-ng-class="{ 'green-text': warning['miring-result']._severity !== 'fatal' && warning['miring-result']._severity !== 'warning', 'yellow-text': warning['miring-result']._severity === 'warning', 'red-text': warning['miring-result']._severity === 'fatal'">
+    <div class="row" data-ng-repeat="warning in hmlValidationWarningsCtrl.warnings">
         <div class="col-md-12">
-            <label for="issue" class="control-label">Issue:</label>
-            <h5 id="issue">{{ hmlValidationWarningsCtrl.parseWarningDescription(warning['miring-result'].description) }}</h5>
-            <label for="solution" class="control-label">Solution:</label>
-            <h6 id="solution">{{ warning['miring-result'].solution }}</h6>
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="panel-title">Issue</div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>{{ hmlValidationWarningsCtrl.parseWarningDescription(warning['miring-result'].description) }}</h5>
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <div class="panel-title">
+                                        Solution
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <h6>{{ warning['miring-result'].solution }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
