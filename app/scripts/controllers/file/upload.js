@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function upload ($scope, files, $uibModal, $uibModalInstance, uploadService) {
+    function upload ($scope, files, $uibModal, $uibModalInstance, uploadService, toaster, $location) {
         /*jshint validthis: true */
         var uploadCtrl = this;
 
@@ -39,9 +39,20 @@
                 if (result) {
                     for (var i = 0; i < uploadCtrl.files.length; i++) {
                         if (uploadCtrl.files[i].name === result.name &&
-                            uploadCtrl.files[i].lastModified === resutl.lastModified) {
+                            uploadCtrl.files[i].lastModified === result.lastModified) {
                             uploadCtrl.files.splice(i, 1);
                         }
+                    }
+
+                    if (uploadCtrl.files.length === 0) {
+                        toaster.pop({
+                            type: 'info',
+                            body: 'You have no more files left to convert, returning to home.'
+                        });
+
+
+                        $uibModalInstance.close();
+                        $location.path('/');
                     }
                 }
             });
@@ -83,5 +94,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
-    upload.$inject = ['$scope', 'files', '$uibModal', '$uibModalInstance', 'uploadService'];
+    upload.$inject = ['$scope', 'files', '$uibModal', '$uibModalInstance', 'uploadService', 'toaster', '$location'];
 }());
