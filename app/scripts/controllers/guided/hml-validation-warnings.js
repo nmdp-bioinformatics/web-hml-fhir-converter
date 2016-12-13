@@ -9,7 +9,7 @@
         var hmlValidationWarningsCtrl = this;
 
         hmlValidationWarningsCtrl.scope = $scope;
-        hmlValidationWarningsCtrl.warnings = warnings;
+        hmlValidationWarningsCtrl.warnings = warnings['miring-result']['validation-warnings'];
 
         hmlValidationWarningsCtrl.cancel = function () {
             $uibModalInstance.dismiss();

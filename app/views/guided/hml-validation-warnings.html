@@ -3,9 +3,9 @@
     <h3 class="modal-title">HML Validation Warnings</h3>
 </div>
 <div class="modal-body">
-    <div class="row">
+    <div class="row" data-ng-repeat="warning in hmlValidationWarningsCtrl.warnings" data-ng-class="{ 'green-text': warning._severity">
         <div class="col-md-12">
-
+            <h5 data-ng-class=""
         </div>
     </div>
 </div>

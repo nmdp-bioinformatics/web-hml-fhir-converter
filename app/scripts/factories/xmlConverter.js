@@ -7,18 +7,18 @@
     function xmlConverter () {
         var factory = {
             parseXmlToJson: function (xml) {
-                var json = {};
-
                 try {
-                    var converter = new X2JS(),
-                        json = converter.xml_str2json(xml);
+                    var converter = new X2JS({
+                        arrayAccessFormPaths: [
+                            'miring-report.validation-warnings',
+                            'miring-report.samples'
+                        ]
+                    });
 
-                    return json;
+                    return converter.xml_str2json(xml);
                 } catch (exception) {
                     return 'Error validating HML xml: ' + exception;
                 }
-
-                return json;
             }
         };
 

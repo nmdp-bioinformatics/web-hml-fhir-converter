@@ -68,6 +68,11 @@ body {
   margin-right: 30%;
 }
 
+.green-text {
+  color: white;
+  background-color: green;
+}
+
 .green {
   color: green;
   border-color: green !important;
@@ -77,6 +82,11 @@ body {
   display: inline-block;
 }
 
+.red-text {
+  color: white;
+  background-color: red;
+}
+
 .red {
   color: red;
   border-color: red !important;
@@ -84,6 +94,11 @@ body {
   border-radius: 100%;
   margin: 0 !important;
   display: inline-block;
+}
+
+.yellow-text {
+  color: black;
+  background-color: yellow;
 }
 
 .yellow {
@@ -143,6 +158,7 @@ body {
   width: 100%;
   border: 2px solid #aad1f9;
   transition: opacity 0.1s linear;
+  margin-top: 6px;
 }
 
 .border {
@@ -191,6 +207,7 @@ body {
 .inline-text-button {
   margin-left: -10px;
   margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .modal-default-body {
