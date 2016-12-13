@@ -167,11 +167,13 @@ body {
 }
 
 .odd-row {
-  background-color: #cccccc !important;
+  background-color: darken(#b7cae5, 20%) !important;
+  border-radius: 5px;
 }
 
 .even-row {
-  background-color: #f0f0f0 !important;
+  background-color: lighten(#b7cae5, 20%) !important;
+  border-radius: 5px;
 }
 
 .upload-row {
@@ -186,8 +188,13 @@ body {
   vertial-align: middle;
 }
 
+.inline-text-button {
+  margin-left: -10px;
+  margin-bottom: 5px;
+}
+
 .modal-default-body {
-  background: #c4e3f3;
+  background: #b7cae5;
   min-height: 150px;
   width: 90%;
   float: none;
@@ -198,7 +205,7 @@ body {
 }
 
 .modal-status-body {
-  background: #c4e3f3;
+  background: #b7cae5;
   min-height: 150px;
   width: 90%;
   float: none;

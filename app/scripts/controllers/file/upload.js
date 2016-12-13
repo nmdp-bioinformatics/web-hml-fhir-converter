@@ -38,8 +38,7 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     for (var i = 0; i < uploadCtrl.files.length; i++) {
-                        if (uploadCtrl.files[i].name === result.name &&
-                            uploadCtrl.files[i].lastModified === result.lastModified) {
+                        if (fileEqual(uploadCtrl.files[i], result)) {
                             uploadCtrl.files.splice(i, 1);
                         }
                     }
@@ -83,13 +82,24 @@
 
                     if (parsedFiles.length === files.length) {
                         for (var j = 0; j < parsedFiles.length; j++) {
-                            uploadService.uploadFileToServer(parsedFiles[j]);
+                            uploadService.uploadFileToServer(parsedFiles[j]).then(function (file) {
+                                for (var k = 0; k < uploadCtrl.files.length; k++) {
+                                    if (fileEqual(uploadCtrl.files[k], file)) {
+                                        uploadCtrl.files[k].percentageUploaded = 33;
+                                    }
+                                }
+                            });
                         }
                     }
                 };
 
                 reader.readAsText(files[i]);
             }
+        }
+
+        function fileEqual (file1, file2) {
+            return file1.name === file2.name &&
+                file1.lastModified === file2.lastModified
         }
     }
 
