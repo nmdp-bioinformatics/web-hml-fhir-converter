@@ -7,7 +7,22 @@
     function xmlConverter (ngXml2json) {
         var factory = {
             parseXmlToJson: function (xml) {
-                return ngXml2json.parser(xml);
+                var json = {};
+
+                try {
+                    json = ngXml2json.parser(xml);
+                } catch (exception) {
+                    return 'Error validating HML xml: ' + exception;
+                }
+
+                return json;
+            },
+
+            validateXml: function (xml) {
+                var parser = new DOMParser(),
+                    oDomXml = parser.parseFromString(xml, 'text/xml');
+
+                return oDomXml;
             }
         };
 

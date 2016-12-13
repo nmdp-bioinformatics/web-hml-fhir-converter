@@ -19,7 +19,7 @@
                 }).success(function (res) {
                     defer.resolve(res);
                 }).error(function (err) {
-                    var test = err;
+                    return err;
                 });
 
                 return defer.promise;

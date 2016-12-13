@@ -38,6 +38,11 @@ angular.module('hmlFhirAngularClientApp', [
         controller: 'main',
         controllerAs: 'mainCtrl'
       })
+      .when('/guided', {
+        templateUrl: '/views/guided/hml.html',
+        controller: 'hml',
+        controllerAs: 'hmlCtrl'
+      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'about',

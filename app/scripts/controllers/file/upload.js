@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function upload ($scope, files, $uibModalInstance, uploadService) {
+    function upload ($scope, files, $uibModalInstance, uploadService, xmlConverter) {
         /*jshint validthis: true */
         var uploadCtrl = this;
 
@@ -31,16 +31,19 @@
         }
 
         function sendFilesForUpload (files) {
-            var xmlHml = [],
+            var parsedFiles = [],
                 reader = new FileReader();
 
             reader.onload = function (f) {
-                var fileXml= f.target.result;
-                xmlHml.push({ xml: fileXml });
+                var fileXml= f.target.result,
+                    json = xmlConverter.validateXml(fileXml);
+
+                json.xml = fileXml;
+                parsedFiles.push(json);
 
                 if (xmlHml.length === files.length) {
                     for (var j = 0; j < xmlHml.length; j++) {
-                        uploadService.uploadFileToServer(xmlHml[j]);
+                        uploadService.uploadFileToServer(parsedFiles[j].xml);
                     }
                 }
             };
@@ -52,5 +55,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
-    upload.$inject = ['$scope', 'files', '$uibModalInstance', 'uploadService'];
+    upload.$inject = ['$scope', 'files', '$uibModalInstance', 'uploadService', 'xmlConverter'];
 }());

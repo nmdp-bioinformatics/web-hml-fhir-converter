@@ -9,7 +9,7 @@
      * Controller of the hmlFhirAngularClientApp
      */
 
-    function main($scope, $uibModal) {
+    function main($scope, $uibModal, $location) {
         /*jshint validthis: true */
         var mainCtrl = this;
 
@@ -52,7 +52,7 @@
         };
 
         mainCtrl.launchGuidedUiConverter = function () {
-
+            $location.path('/guided');
         };
 
         mainCtrl.launchSettings = function () {
@@ -61,5 +61,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('main', main);
-    main.$inject = ['$scope', '$uibModal'];
+    main.$inject = ['$scope', '$uibModal', '$location'];
 }());
