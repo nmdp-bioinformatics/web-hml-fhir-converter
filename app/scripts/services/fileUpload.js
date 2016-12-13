@@ -4,9 +4,9 @@
 (function () {
     'use strict';
 
-    function uploadService ($http, $q, appConfig, httpHeaderTransform, $httpParamSerializerJQLike) {
+    function uploadService ($http, $q, appConfig, httpHeaderTransform, $httpParamSerializerJQLike, xmlConverter) {
         var service = {
-            uploadFileToServer: function (xml) {
+            uploadFileToServer: function (file) {
                 var defer = $q.defer(),
                     url = appConfig.miring_base_url + 'validator/ValidateMiring/',
                     headers = httpHeaderTransform.getHeaderForMiring();
@@ -14,12 +14,11 @@
                 $http({
                     method: 'POST',
                     url: url,
-                    data: $httpParamSerializerJQLike(xml),
+                    data: $httpParamSerializerJQLike(file.xml),
                     headers: headers
                 }).success(function (res) {
-                    defer.resolve(res);
-                }).error(function (err) {
-                    return err;
+                    file.result = xmlConverter.parseXmlToJson(res);
+                    defer.resolve(file.result);
                 });
 
                 return defer.promise;
@@ -30,5 +29,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.services').service('uploadService', uploadService);
-    uploadService.$inject = ['$http', '$q', 'appConfig', 'httpHeaderTransform', '$httpParamSerializerJQLike'];
+    uploadService.$inject = ['$http', '$q', 'appConfig', 'httpHeaderTransform', '$httpParamSerializerJQLike', 'xmlConverter'];
 }());

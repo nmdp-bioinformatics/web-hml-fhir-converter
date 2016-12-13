@@ -28,7 +28,6 @@ angular.module('hmlFhirAngularClientApp', [
     'hmlFhirAngularClientApp.constants',
     'smart-table',
     'ngMaterial',
-    'angularXml2json',
     'ngAnimate',
     'toaster'
   ])

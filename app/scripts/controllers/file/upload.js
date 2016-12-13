@@ -39,11 +39,12 @@
                     json = xmlConverter.validateXml(fileXml);
 
                 json.xml = fileXml;
+                json.result = {};
                 parsedFiles.push(json);
 
                 if (parsedFiles.length === files.length) {
                     for (var j = 0; j < parsedFiles.length; j++) {
-                        uploadService.uploadFileToServer({ xml: parsedFiles[j].xml });
+                        uploadService.uploadFileToServer(parsedFiles[j]);
                     }
                 }
             };

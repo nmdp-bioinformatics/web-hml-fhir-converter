@@ -4,13 +4,16 @@
 (function () {
     'use strict';
 
-    function xmlConverter (ngXml2json) {
+    function xmlConverter () {
         var factory = {
             parseXmlToJson: function (xml) {
                 var json = {};
 
                 try {
-                    json = ngXml2json.parser(xml);
+                    var converter = new X2JS(),
+                        json = converter.xml_str2json(xml);
+
+                    return json;
                 } catch (exception) {
                     return 'Error validating HML xml: ' + exception;
                 }
@@ -30,5 +33,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.factories').factory('xmlConverter', xmlConverter);
-    xmlConverter.$inject = ['ngXml2json'];
+    xmlConverter.$inject = [];
 }());
