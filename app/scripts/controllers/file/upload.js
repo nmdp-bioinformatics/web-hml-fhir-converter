@@ -47,12 +47,12 @@
                     if (uploadCtrl.files.length === 0) {
                         toaster.pop({
                             type: 'info',
-                            body: 'You have no more files left to convert, returning to home.'
+                            body: 'You have no more files left to convert, dismiss this notification to navigate home.',
+                            onHideCallback: function () {
+                                $uibModalInstance.close();
+                                $location.path('/');
+                            }
                         });
-
-
-                        $uibModalInstance.close();
-                        $location.path('/');
                     }
                 }
             });
