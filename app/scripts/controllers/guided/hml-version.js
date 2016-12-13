@@ -4,11 +4,13 @@
 (function () {
     'use strict';
 
-    function hmlVersion ($scope, $uibModalInstance) {
+    function hmlVersion ($scope, $uibModalInstance, appConfig, currentHmlVersion) {
         /*jshint validthis: true */
         var hmlVersionCtrl = this;
 
         hmlVersionCtrl.scope = $scope;
+        hmlVersionCtrl.versions = appConfig.hml.versions;
+        hmlVersionCtrl.defaultHmlVersion = currentHmlVersion;
 
         hmlVersionCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -19,10 +21,10 @@
         };
 
         hmlVersionCtrl.update = function () {
-
+            $uibModalInstance.close(hmlVersionCtrl.defaultHmlVersion);
         };
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlVersion', hmlVersion);
-    hmlVersion.$inject = ['$scope', '$uibModalInstance'];
+    hmlVersion.$inject = ['$scope', '$uibModalInstance', 'appConfig', 'currentHmlVersion'];
 }());

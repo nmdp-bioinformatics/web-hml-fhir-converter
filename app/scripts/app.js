@@ -28,7 +28,9 @@ angular.module('hmlFhirAngularClientApp', [
     'hmlFhirAngularClientApp.constants',
     'smart-table',
     'ngMaterial',
-    'angularXml2json'
+    'angularXml2json',
+    'ngAnimate',
+    'toaster'
   ])
 
   .config(function ($routeProvider) {

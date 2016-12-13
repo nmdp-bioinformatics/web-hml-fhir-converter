@@ -5,10 +5,17 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
-
+            <form>
+                <div class="form-group">
+                    <label for="hmlVersionSelector">Versions:</label>
+                    <select id="hmlVersionSelector" class="form-control input-sm" data-ng-options="version for version in hmlVersionCtrl.versions"
+                            data-ng-model="hmlVersionCtrl.defaultHmlVersion"></select>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 <div class="modal-footer">
+    <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlVersionCtrl.update()">Update</button>
     <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="hmlVersionCtrl.close()">Cancel</button>
 </div>

@@ -41,9 +41,9 @@
                 json.xml = fileXml;
                 parsedFiles.push(json);
 
-                if (xmlHml.length === files.length) {
-                    for (var j = 0; j < xmlHml.length; j++) {
-                        uploadService.uploadFileToServer(parsedFiles[j].xml);
+                if (parsedFiles.length === files.length) {
+                    for (var j = 0; j < parsedFiles.length; j++) {
+                        uploadService.uploadFileToServer({ xml: parsedFiles[j].xml });
                     }
                 }
             };
