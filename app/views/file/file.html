@@ -34,7 +34,7 @@
                             <tr data-ng-repeat="file in fileCtrl.files" data-ng-class="$even ? 'even-row' : 'odd-row'">
                                 <td><h5>{{ file.name }}</h5></td>
                                 <td><h5>{{ fileCtrl.parseFileSize(file) }}</h5></td>
-                                <td><h5>{{ file.type }}</h5></td>
+                                <td><h5>{{ ((file.type === '' || file.type === undefined) && file.name.indexOf('.hml')) ? 'application/hml' : file.type }}</h5></td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger file-list-remove-button" data-ng-click="fileCtrl.removeFileFromList(file)">
                                         <i class="glyphicon glyphicon-remove-circle"></i>
