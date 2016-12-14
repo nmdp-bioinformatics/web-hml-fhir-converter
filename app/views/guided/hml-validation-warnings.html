@@ -7,9 +7,13 @@
         <div class="col-md-12">
             <div class="panel panel-warning">
                 <div class="panel-heading">
-                    <div class="panel-title">Issue</div>
+                    <div class="panel-title">
+                        Issue
+                        <i class="pull-right glyphicon" data-ng-click="hmlValidationWarningsCtrl.toggleIssue(warning['miring-result'].xpath)"
+                           data-ng-class="{ 'glyphicon-chevron-down': hmlValidationWarningsCtrl.isMainPanelOpen(warning['miring-result'].xpath), 'glyphicon-chevron-right': !hmlValidationWarningsCtrl.isMainPanelOpen(warning['miring-result'].xpath) }"></i>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" data-ng-show="hmlValidationWarningsCtrl.isMainPanelOpen(warning['miring-result'].xpath)">
                     <div class="row">
                         <div class="col-md-12">
                             <h5>{{ hmlValidationWarningsCtrl.parseWarningDescription(warning['miring-result'].description) }}</h5>
@@ -17,9 +21,11 @@
                                 <div class="panel-heading">
                                     <div class="panel-title">
                                         Solution
+                                        <i class="pull-right glyphicon" data-ng-click="hmlValidationWarningsCtrl.toggleSolution(warning['miring-result'].xpath)"
+                                           data-ng-class="{ 'glyphicon-chevron-down': hmlValidationWarningsCtrl.isSubPanelOpen(warning['miring-result'].xpath), 'glyphicon-chevron-right': !hmlValidationWarningsCtrl.isSubPanelOpen(warning['miring-result'].xpath) }"></i>
                                     </div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body" data-ng-show="hmlValidationWarningsCtrl.isSubPanelOpen(warning['miring-result'].xpath)">
                                     <h6>{{ warning['miring-result'].solution }}</h6>
                                 </div>
                             </div>

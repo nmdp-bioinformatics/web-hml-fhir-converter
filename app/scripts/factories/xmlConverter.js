@@ -6,6 +6,7 @@
 
     function xmlConverter () {
         var factory = {
+            /* jshint ignore:start */
             parseXmlToJson: function (xml) {
                 try {
                     var converter = new X2JS({
@@ -20,6 +21,7 @@
                     return 'Error validating HML xml: ' + exception;
                 }
             }
+            /* jshint ignore:end */
         };
 
         return factory;

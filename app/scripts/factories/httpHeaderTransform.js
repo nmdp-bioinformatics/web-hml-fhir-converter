@@ -6,7 +6,7 @@
 
     function httpHeaderTransform () {
         var factory = {
-            getHeaderForMiring: function (xml) {
+            getHeaderForMiring: function () {
                 return {
                     'Content-Type': 'applicaton/x-www-form-urlencoded'
                 };

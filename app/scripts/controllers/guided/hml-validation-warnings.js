@@ -10,6 +10,53 @@
 
         hmlValidationWarningsCtrl.scope = $scope;
         hmlValidationWarningsCtrl.warnings = warnings;
+        hmlValidationWarningsCtrl.accordions = [];
+
+        for (var i = 0; i < hmlValidationWarningsCtrl.warnings.length; i++) {
+            var state = {
+                id: hmlValidationWarningsCtrl.warnings[i]['miring-result'].xpath,
+                mainPanelOpen: false,
+                subPanelOpen: false
+            };
+
+            hmlValidationWarningsCtrl.accordions.push(state);
+        }
+
+        hmlValidationWarningsCtrl.isMainPanelOpen = function (id) {
+            for (var j = 0; j < hmlValidationWarningsCtrl.accordions.length; j++) {
+                if (hmlValidationWarningsCtrl.accordions[j].id === id) {
+                    return hmlValidationWarningsCtrl.accordions[j].mainPanelOpen;
+                }
+            }
+
+            return false;
+        };
+
+        hmlValidationWarningsCtrl.isSubPanelOpen = function (id) {
+            for (var j = 0; j < hmlValidationWarningsCtrl.accordions.length; j++) {
+                if (hmlValidationWarningsCtrl.accordions[j].id === id) {
+                    return hmlValidationWarningsCtrl.accordions[j].subPanelOpen;
+                }
+            }
+
+            return false;
+        };
+
+        hmlValidationWarningsCtrl.toggleIssue = function (id) {
+            for (var j = 0; j < hmlValidationWarningsCtrl.accordions.length; j++) {
+                if (hmlValidationWarningsCtrl.accordions[j].id === id) {
+                    hmlValidationWarningsCtrl.accordions[j].mainPanelOpen = !hmlValidationWarningsCtrl.accordions[j].mainPanelOpen;
+                }
+            }
+        };
+
+        hmlValidationWarningsCtrl.toggleSolution = function (id) {
+            for (var j = 0; j < hmlValidationWarningsCtrl.accordions.length; j++) {
+                if (hmlValidationWarningsCtrl.accordions[j].id === id) {
+                    hmlValidationWarningsCtrl.accordions[j].subPanelOpen = !hmlValidationWarningsCtrl.accordions[j].subPanelOpen;
+                }
+            }
+        };
 
         hmlValidationWarningsCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -42,7 +89,7 @@
                         return 'Remove file from conversion';
                     },
                     message: function () {
-                        return 'If the displayed warnings are cause for concern. Please select \'Remove File\' below.' +
+                        return 'If the displayed warnings are cause for concern. Please select \'Confirm\' below.' +
                             ' This will cause the file to be removed from the uploaded conversion list.';
                     }
                 }

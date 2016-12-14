@@ -29,7 +29,8 @@ angular.module('hmlFhirAngularClientApp', [
     'smart-table',
     'ngMaterial',
     'ngAnimate',
-    'toaster'
+    'toaster',
+    'cb.x2js'
   ])
 
   .config(function ($routeProvider) {

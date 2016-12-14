@@ -34,7 +34,8 @@ module.exports = function(config) {
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-material/angular-material.js',
       'bower_components/AngularJS-Toaster/toaster.js',
-      'bower_components/abdmob/x2js/xml2json.min.js',
+      'bower_components/x2js/xml2json.min.js',
+      'bower_components/angular-x2js/dist/x2js.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
