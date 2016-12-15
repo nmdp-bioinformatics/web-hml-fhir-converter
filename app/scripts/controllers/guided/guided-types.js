@@ -8,7 +8,7 @@
        /* jshintt validthis: true */
        var guidedTypesCtrl = this;
 
-       gudiedTypesCtrl.scope = $scope;
+       guidedTypesCtrl.scope = $scope;
 
        guidedTypesCtrl.launchHml = function () {
            $location.path('/guided/hml');

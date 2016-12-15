@@ -129,12 +129,25 @@ body {
   width: 100px;
 }
 
+.panel-button {
+  width: 100px;
+  float: right;
+}
+
+.panel-button:last-of-type {
+  margin-right: 10px;
+}
+
 .stylish-file-input {
   display: none !important;
 }
 
 .push-down {
   padding-top: 25px;
+}
+
+.bottom-margin {
+  margin-bottom: 25px;
 }
 
 .progress-container {

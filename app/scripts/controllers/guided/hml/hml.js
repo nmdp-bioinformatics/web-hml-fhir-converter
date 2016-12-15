@@ -4,12 +4,14 @@
 (function () {
     'use strict';
 
-    function hml ($scope, appConfig, $uibModal, toaster) {
+    function hml ($scope, appConfig, $uibModal, toaster, $location) {
         /*jshint validthis: true */
         var hmlCtrl = this;
 
         hmlCtrl.scope = $scope;
         hmlCtrl.hmlVersion = appConfig.hml.version;
+        hmlCtrl.hml = createNewHmlObject();
+        hmlCtrl.formSubmitted = false;
 
         hmlCtrl.changeHmlVersion = function () {
             var modalInstance = $uibModal.open({
@@ -37,8 +39,34 @@
                 }
             });
         };
+
+        hmlCtrl.createHml = function (form) {
+            hmlCtrl.formSubmitted = true;
+
+            if (!form.$invalid) {
+
+            }
+        };
+
+        hmlCtrl.cancelHml = function () {
+            $location.path('/');
+        };
+
+        function createNewHmlObject () {
+            return {
+                version: hmlCtrl.hmlVersion,
+                project: {
+                    name: undefined,
+                },
+                reportingCenter: {},
+                hmlId: {},
+                typingTestNames: [],
+                samples: [],
+                properties: []
+            }
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hml', hml);
-    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster'];
+    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location'];
 }());
