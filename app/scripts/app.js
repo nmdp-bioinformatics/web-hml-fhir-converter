@@ -26,7 +26,6 @@ angular.module('hmlFhirAngularClientApp', [
     'hmlFhirAngularClientApp.directives',
     'hmlFhirAngularClientApp.factories',
     'hmlFhirAngularClientApp.constants',
-    'smart-table',
     'ngMaterial',
     'ngAnimate',
     'toaster',
@@ -41,9 +40,24 @@ angular.module('hmlFhirAngularClientApp', [
         controllerAs: 'mainCtrl'
       })
       .when('/guided', {
-        templateUrl: '/views/guided/hml.html',
+        templateUrl: '/views/guided/guided-types.html',
+        controller: 'guidedTypes',
+        controllerAs: 'guidedTypesCtrl'
+      })
+      .when('/guided/hml', {
+        templateUrl: '/views/guided/hml/hml.html',
         controller: 'hml',
         controllerAs: 'hmlCtrl'
+      })
+      .when('/guided/fhir', {
+        templateUrl: '/views/guided/fhir/fhir.html',
+        controller: 'fhir',
+        controllerAs: 'fhirCtrl'
+      })
+      .when('/guided/miring', {
+        templateUrl: '/views/guided/miring/miring.html',
+        controller: 'miring',
+        controllerAs: 'miringCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',

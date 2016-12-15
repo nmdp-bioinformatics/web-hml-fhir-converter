@@ -22,7 +22,7 @@
         uploadCtrl.displayMiringWarnings = function (warnings, file) {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/guided/hml-validation-warnings.html',
+                templateUrl: 'views/file/hml-validation-warnings.html',
                 controller: 'hmlValidationWarnings',
                 controllerAs: 'hmlValidationWarningsCtrl',
                 resolve: {

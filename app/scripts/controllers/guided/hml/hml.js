@@ -14,7 +14,7 @@
         hmlCtrl.changeHmlVersion = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/guided/hml-version.html',
+                templateUrl: 'views/guided/hml/hml-version.html',
                 controller: 'hmlVersion',
                 controllerAs: 'hmlVersionCtrl',
                 resolve: {
