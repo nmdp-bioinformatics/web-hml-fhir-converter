@@ -1,32 +1,166 @@
 <div class="row">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h4>HML</h4>
+            <h4 class="panel-title" data-ng-class="{ 'centered-heading': hmlCtrl.inputSequence > 1 }">{{ hmlCtrl.panelTitle === undefined ? 'HML' : hmlCtrl.panelTitle }}</h4>
         </div>
         <div class="panel-body">
-            <div class="row centered-heading">
-                <i id="glyphy" class="glyphicon glyphicon-asterisk" /><label for="glyphy">Current HML Version Selected: {{ hmlCtrl.hmlVersion }}</label>
+            <div data-ng-show="hmlCtrl.inputSequence === 1">
+                <div class="row centered-heading">
+                    <i id="glyphy" class="glyphicon glyphicon-asterisk" /><label for="glyphy">Current HML Version Selected: {{ hmlCtrl.hmlVersion }}</label>
+                </div>
+                <div class="row centered-heading">
+                    <button type="button" class="btn btn-link" data-ng-click="hmlCtrl.changeHmlVersion()">Select different version</button>
+                </div>
+                <div class="form">
+                    <form name="hmlForm">
+                        <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
+                            <label class="control-label">Project Name:</label>
+                            <input name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.hml.project.name" placeholder="Project Name" required />
+                            <div class="help-block" data-ng-show="hmlForm.projectName.$error.required && hmlCtrl.formSubmitted">
+                                <small>Project Name Is Required</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="row centered-heading">
-                <button type="button" class="btn btn-link" data-ng-click="hmlCtrl.changeHmlVersion()">Select different version</button>
-            </div>
-            <div class="form">
-                <form name="hmlForm">
-                    <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
-                        <label class="control-label">Project Name:</label>
-                        <input name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.hml.project.name" placeholder="Project Name" required />
-                        <div class="help-block" data-ng-show="hmlForm.projectName.$error.required && hmlCtrl.formSubmitted">
-                            <small>Project Name Is Required</small>
+            <div data-ng-show="hmlCtrl.inputSequence === 2">
+                <div class="row centered-heading">
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Reporting Center</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="scrollable-panel-body">
+                                    <div data-ng-if="hmlCtrl.hml.reportingCenter.id !== undefined">
+                                        <label for="reportingCenterName" class="control-label">Center Name:</label>
+                                        <p id="reportingCenterName">{{ hmlCtrl.hml.reportingCenter.name }}</p>
+                                    </div>
+                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.reportingCenter.id === undefined">
+                                        <label class="vertical-center-text">None Selected</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-12 centered-heading">
+                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addReportingCenter()">
+                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">HML ID</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="scrollable-panel-body">
+
+                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.hmlId.id === undefined">
+                                        <label class="vertical-center-text">None Selected</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-12 centered-heading">
+                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addHmlId()">
+                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Typing Test Names</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="scrollable-panel-body">
+
+                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.typingTestNames.length === 0">
+                                        <label class="vertical-center-text">None Selected</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-12 centered-heading">
+                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addTestingTypeNames()">
+                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row centered-heading">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Samples</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="scrollable-panel-body">
+
+                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.samples.length === 0">
+                                        <label class="vertical-center-text">None Selected</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-12 centered-heading">
+                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addSamples()">
+                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Properties</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="scrollable-panel-body">
+
+                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.properties.length === 0">
+                                        <label class="vertical-center-text">None Selected</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-12 centered-heading">
+                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addProperties()">
+                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
             </div>
         </div>
         <div class="panel-footer">
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-danger panel-button" data-ng-click="hmlCtrl.cancelHml()">Cancel</button>
-                    <button type="button" class="btn btn-info panel-button" data-ng-click="hmlCtrl.createHml(hmlForm)">Create</button>
+                    <button data-ng-show="hmlCtrl.inputSequence === 1" type="button" class="btn btn-info panel-button" data-ng-click="hmlCtrl.createHml(hmlForm)">Create</button>
+                    <button data-ng-show="hmlCtrl.inputSequence === 2" type="button" class="btn btn-success panel-button" data-ng-click="hmlCtrl.save()">Save</button>
                 </div>
             </div>
         </div>

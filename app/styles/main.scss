@@ -134,8 +134,8 @@ body {
   float: right;
 }
 
-.panel-button:last-of-type {
-  margin-right: 10px;
+.panel-button:first-of-type {
+  margin-left: 10px;
 }
 
 .stylish-file-input {
@@ -150,6 +150,10 @@ body {
   margin-bottom: 25px;
 }
 
+.inner-panel-footer-button {
+  width: 75%;
+}
+
 .progress-container {
   display: block;
   position: relative;
@@ -157,6 +161,12 @@ body {
   border: 2px solid #aad1f9;
   transition: opacity 0.1s linear;
   margin-top: 6px;
+}
+
+.scrollable-panel-body {
+  max-height: 135px;
+  min-height: 135px;
+  overflow-y: scroll;
 }
 
 .border {
@@ -194,6 +204,20 @@ body {
 
 .upload-row-container {
   padding: 25px;
+}
+
+.btn-outline-success {
+  background: white;
+  color: #5cb85c;
+  outline-color: #5cb85c;
+}
+
+.button-glyphicon {
+  margin-right: 5px;
+}
+
+.vertical-center-text {
+  margin-top: 30%;
 }
 
 .vertical-center {

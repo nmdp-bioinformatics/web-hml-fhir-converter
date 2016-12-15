@@ -12,6 +12,8 @@
         hmlCtrl.hmlVersion = appConfig.hml.version;
         hmlCtrl.hml = createNewHmlObject();
         hmlCtrl.formSubmitted = false;
+        hmlCtrl.panelTitle = undefined;
+        hmlCtrl.inputSequence = 1;
 
         hmlCtrl.changeHmlVersion = function () {
             var modalInstance = $uibModal.open({
@@ -44,7 +46,9 @@
             hmlCtrl.formSubmitted = true;
 
             if (!form.$invalid) {
-
+                hmlCtrl.formSubmitted = false;
+                hmlCtrl.panelTitle = 'Project Name: ' + hmlCtrl.hml.project.name + ', HML Version: ' + hmlCtrl.hml.version;
+                hmlCtrl.inputSequence = 2;
             }
         };
 
@@ -58,8 +62,13 @@
                 project: {
                     name: undefined,
                 },
-                reportingCenter: {},
-                hmlId: {},
+                reportingCenter: {
+                    id: undefined,
+                    name: undefined
+                },
+                hmlId: {
+                    id: undefined
+                },
                 typingTestNames: [],
                 samples: [],
                 properties: []
