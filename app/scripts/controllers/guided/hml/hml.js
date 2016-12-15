@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hml ($scope, appConfig, $uibModal, toaster, $location) {
+    function hml ($scope, appConfig, $uibModal, toaster, $location, $q) {
         /*jshint validthis: true */
         var hmlCtrl = this;
 
@@ -56,6 +56,36 @@
             $location.path('/');
         };
 
+        hmlCtrl.addReportingCenter = function () {
+            openModal().then(function (result) {
+
+            });
+        };
+
+        hmlCtrl.addHmlId = function () {
+            openModal().then(function (result) {
+
+            });
+        };
+
+        hmlCtrl.addTestingTypeNames = function () {
+            openModal().then(function (result) {
+
+            });
+        };
+
+        hmlCtrl.addSamples = function () {
+            openModal().then(function (result) {
+
+            });
+        };
+
+        hmlCtrl.addProperties = function () {
+            openModal('Add Properties', 'views/guided/hml/properties/properties.html').then(function (result) {
+                hmlCtrl.hml.properties.push(result);
+            });
+        };
+
         function createNewHmlObject () {
             return {
                 version: hmlCtrl.hmlVersion,
@@ -74,8 +104,32 @@
                 properties: []
             }
         }
+
+        function openModal (title, bodyTemplateUrl) {
+            var defer = $q.defer(),
+                modalInstance = $uibModal.open({
+                    animation: true,
+                    controller: 'hmlModal',
+                    controllerAs: 'hmlModalCtrl',
+                    templateUrl: 'views/guided/hml/hml-modal.html',
+                    resolve: {
+                        title: function () {
+                            return title;
+                        },
+                        bodyTemplateUrl: function () {
+                            return bodyTemplateUrl;
+                        }
+                    }
+                });
+
+            modalInstance.result.then(function (result) {
+                defer.resolve(result);
+            });
+
+            return defer.promise;
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hml', hml);
-    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location'];
+    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', '$q'];
 }());

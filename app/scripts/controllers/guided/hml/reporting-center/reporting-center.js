@@ -4,21 +4,13 @@
 (function () {
     'use strict';
 
-    function reportingCenter ($scope, $uibModalInstance) {
+    function reportingCenter ($scope) {
         /* jshint validthis: true */
         var reportingCenterCtrl = this;
 
         reportingCenterCtrl.scope = $scope;
-
-        reportingCenterCtrl.cancel = function () {
-            $uibModalInstance.dismiss();
-        };
-
-        reportingCenterCtrl.close = function () {
-            $uibModalInstance.close();
-        };
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenter', reportingCenter);
-    reportingCenter.$inject = ['$scope', '$uibModalInstance'];
+    reportingCenter.$inject = ['$scope'];
 }());

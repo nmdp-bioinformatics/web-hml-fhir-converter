@@ -4,21 +4,13 @@
 (function () {
     'use strict';
 
-    function properties ($scope, $uibModalInstance) {
+    function properties ($scope) {
         /* jshint validthis: true */
         var propertiesCtrl = this;
 
         propertiesCtrl.scope = $scope;
-
-        propertiesCtrl.cancel = function () {
-            $uibModalInstance.dismiss();
-        };
-
-        propertiesCtrl.close = function () {
-            $uibModalInstance.close();
-        };
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('properties', properties);
-    properties.$inject = ['$scope', '$uibModalInstance'];
+    properties.$inject = ['$scope'];
 }());
