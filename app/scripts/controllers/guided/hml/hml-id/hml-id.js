@@ -9,6 +9,7 @@
         var hmlIdCtrl = this;
 
         hmlIdCtrl.scope = $scope;
+        hmlIdCtrl.hml = hmlIdCtrl.scope.hmlModalCtrl.hml;
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlId', hmlId);

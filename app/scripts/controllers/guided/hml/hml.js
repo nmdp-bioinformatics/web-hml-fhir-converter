@@ -107,7 +107,9 @@
                     name: undefined
                 },
                 hmlId: {
-                    id: undefined
+                    id: undefined,
+                    rootName: undefined,
+                    extension: undefined
                 },
                 typingTestNames: [],
                 samples: [],
@@ -128,6 +130,9 @@
                         },
                         bodyTemplateUrl: function () {
                             return bodyTemplateUrl;
+                        },
+                        hmlObject: function () {
+                            return hmlCtrl.hml;
                         }
                     }
                 });
