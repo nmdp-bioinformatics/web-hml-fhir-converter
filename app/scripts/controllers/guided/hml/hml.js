@@ -57,32 +57,42 @@
         };
 
         hmlCtrl.addReportingCenter = function () {
-            openModal().then(function (result) {
-
+            openModal('Add Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html').then(function (result) {
+                if (result) {
+                    hmlCtrl.hml.reportingCenter = result;
+                }
             });
         };
 
         hmlCtrl.addHmlId = function () {
-            openModal().then(function (result) {
-
+            openModal('Add HML ID', 'views/guided/hml/hml-id/hml-id.html').then(function (result) {
+                if (result) {
+                    hmlCtrl.hml.hmlId = result;
+                }
             });
         };
 
-        hmlCtrl.addTestingTypeNames = function () {
-            openModal().then(function (result) {
-
+        hmlCtrl.addTypingTestNames = function () {
+            openModal('Add Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html').then(function (result) {
+                if (result) {
+                    hmlCtrl.hml.typingTestNames.push(result);
+                }
             });
         };
 
         hmlCtrl.addSamples = function () {
-            openModal().then(function (result) {
-
+            openModal('Add Samples', 'views/guided/hml/samples/samples.html').then(function (result) {
+                if (result) {
+                    hmlCtrl.hml.samples.push(result);
+                }
             });
         };
 
         hmlCtrl.addProperties = function () {
             openModal('Add Properties', 'views/guided/hml/properties/properties.html').then(function (result) {
-                hmlCtrl.hml.properties.push(result);
+                if (result) {
+                    hmlCtrl.hml.properties.push(result);
+                }
             });
         };
 
