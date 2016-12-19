@@ -88,7 +88,7 @@
             var titlePrefix = edit ? 'Edit' : 'Add';
             openModal(titlePrefix + ' Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', edit).then(function (result) {
                 if (result) {
-                    hmlCtrl.hml.typingTestNames.push(result);
+                    hmlCtrl.hml.typingTestNames = result;
                 }
             });
         };
