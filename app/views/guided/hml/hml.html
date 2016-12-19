@@ -32,9 +32,17 @@
                             </div>
                             <div class="panel-body">
                                 <div class="scrollable-panel-body">
-                                    <div data-ng-if="hmlCtrl.hml.reportingCenter.id !== undefined">
-                                        <label for="reportingCenterName" class="control-label">Center Name:</label>
-                                        <p id="reportingCenterName">{{ hmlCtrl.hml.reportingCenter.name }}</p>
+                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.reportingCenter.id !== undefined">
+                                        <div class="row">
+                                            <div class="col-md-12 push-down">
+                                                <label for="reportingCenterName" class="control-label">Center Name:</label>
+                                                <p id="reportingCenterName">{{ hmlCtrl.hml.reportingCenter.name }}</p>
+                                                <div data-ng-show="hmlCtrl.hml.reportingCenter.context !== undefined">
+                                                    <label for="reportingCenterContext" class="control-label">Context:</label>
+                                                    <p id="reportingCenterContext">{{ hmlCtrl.hml.reportingCenter.context }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="centered-heading" data-ng-if="hmlCtrl.hml.reportingCenter.id === undefined">
                                         <label class="vertical-center-text">None Selected</label>
@@ -44,8 +52,11 @@
                             <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-md-12 centered-heading">
-                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addReportingCenter()">
+                                        <button data-ng-show="!hmlCtrl.hml.reportingCenter.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addReportingCenter(false)">
                                             <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                                        </button>
+                                        <button data-ng-show="hmlCtrl.hml.reportingCenter.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addReportingCenter(true)">
+                                            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
                                         </button>
                                     </div>
                                 </div>

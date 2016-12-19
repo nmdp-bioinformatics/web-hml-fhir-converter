@@ -57,7 +57,8 @@
         };
 
         hmlCtrl.addReportingCenter = function (edit) {
-            openModal('Add Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
+            var titlePrefix = edit ? 'Edit' : 'Add';
+            openModal(titlePrefix + ' Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.reportingCenter = result;
                 }
@@ -65,7 +66,8 @@
         };
 
         hmlCtrl.addHmlId = function (edit) {
-            openModal('Add HML ID', 'views/guided/hml/hml-id/hml-id.html', edit).then(function (result) {
+            var titlePrefix = edit ? 'Edit' : 'Add';
+            openModal(titlePrefix + ' HML ID', 'views/guided/hml/hml-id/hml-id.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.hmlId = result;
                 }
@@ -73,7 +75,8 @@
         };
 
         hmlCtrl.addTypingTestNames = function (edit) {
-            openModal('Add Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', edit).then(function (result) {
+            var titlePrefix = edit ? 'Edit' : 'Add';
+            openModal(titlePrefix + ' Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.typingTestNames.push(result);
                 }
@@ -81,7 +84,8 @@
         };
 
         hmlCtrl.addSamples = function (edit) {
-            openModal('Add Samples', 'views/guided/hml/samples/samples.html', edit).then(function (result) {
+            var titlePrefix = edit ? 'Edit' : 'Add';
+            openModal(titlePrefix + ' Samples', 'views/guided/hml/samples/samples.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.samples.push(result);
                 }
@@ -89,7 +93,8 @@
         };
 
         hmlCtrl.addProperties = function (edit) {
-            openModal('Add Properties', 'views/guided/hml/properties/properties.html', edit).then(function (result) {
+            var titlePrefix = edit ? 'Edit' : 'Add';
+            openModal(titlePrefix + ' Properties', 'views/guided/hml/properties/properties.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.properties.push(result);
                 }
@@ -104,6 +109,7 @@
                 },
                 reportingCenter: {
                     id: undefined,
+                    context: undefined,
                     name: undefined
                 },
                 hmlId: {

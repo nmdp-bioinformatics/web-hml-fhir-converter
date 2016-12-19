@@ -1,5 +1,30 @@
 <div class="row">
     <div class="col-md-12">
-        REPORTING CENTER TEMPLATE
+        <div calss="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">{{ reportingCenterCtrl.edit ? 'Edit' : 'Add' }} Reporting Center Information</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form">
+                            <form name="reportingCenterCtrl.reportingCenterForm">
+                                <div class="form-group" data-ng-class="{ 'has-error': reportingCenterCtrl.reportingCenterForm.reportingCenterId.$invalid && reportingCenterCtrl.formSubmitted }">
+                                    <label class="control-label">Reporting Center ID:</label>
+                                    <input name="reportingCenterId" type="text" class="form-control input-sm" data-ng-model="reportingCenterCtrl.reportingCenter.name" placeholder="Reporting Center ID" required />
+                                    <div class="help-block" data-ng-show="reportingCenterCtrl.reportingCenterForm.reportingCenterId.$error.required && reportingCenterCtrl.formSubmitted">
+                                        <small>Reporting Center ID Is Required</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Reporting Center Context:</label>
+                                    <input name="reportingCenterContext" type="text" class="form-control input-sm" data-ng-model="reportingCenterCtrl.reportingCenter.context" placeholder="Reporting Center Context" />
+                                </div>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

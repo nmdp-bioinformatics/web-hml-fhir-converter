@@ -11,6 +11,7 @@
 
         hmlIdCtrl.scope = $scope;
         hmlIdCtrl.formSubmitted = false;
+        hmlIdCtrl.edit = parentCtrl.edit;
         hmlIdCtrl.hmlId = {
             id: guidGenerator.generateRandomGuid(),
             rootName: undefined,
@@ -18,7 +19,7 @@
             init: true
         };
 
-        if (parentCtrl.edit) {
+        if (hmlIdCtrl.edit) {
             hmlIdCtrl.hmlId = parentCtrl.hml.hmlId;
         }
 
