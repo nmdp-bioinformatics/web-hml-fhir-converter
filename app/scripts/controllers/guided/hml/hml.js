@@ -56,8 +56,8 @@
             $location.path('/');
         };
 
-        hmlCtrl.addReportingCenter = function () {
-            openModal('Add Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html').then(function (result) {
+        hmlCtrl.addReportingCenter = function (edit) {
+            openModal('Add Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.reportingCenter = result;
                 }
@@ -72,24 +72,24 @@
             });
         };
 
-        hmlCtrl.addTypingTestNames = function () {
-            openModal('Add Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html').then(function (result) {
+        hmlCtrl.addTypingTestNames = function (edit) {
+            openModal('Add Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.typingTestNames.push(result);
                 }
             });
         };
 
-        hmlCtrl.addSamples = function () {
-            openModal('Add Samples', 'views/guided/hml/samples/samples.html').then(function (result) {
+        hmlCtrl.addSamples = function (edit) {
+            openModal('Add Samples', 'views/guided/hml/samples/samples.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.samples.push(result);
                 }
             });
         };
 
-        hmlCtrl.addProperties = function () {
-            openModal('Add Properties', 'views/guided/hml/properties/properties.html').then(function (result) {
+        hmlCtrl.addProperties = function (edit) {
+            openModal('Add Properties', 'views/guided/hml/properties/properties.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.properties.push(result);
                 }
