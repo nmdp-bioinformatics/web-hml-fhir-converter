@@ -61,6 +61,11 @@
             openModal(titlePrefix + ' Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.reportingCenter = result;
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully ' + titlePrefix.toLowerCase() + 'ed Reporting Center.'
+                    });
                 }
             });
         };
@@ -70,6 +75,11 @@
             openModal(titlePrefix + ' HML ID', 'views/guided/hml/hml-id/hml-id.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.hmlId = result;
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully ' + titlePrefix.toLowerCase() + 'ed HML ID.'
+                    });
                 }
             });
         };
