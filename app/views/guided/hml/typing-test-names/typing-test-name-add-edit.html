@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <button type="modal" class="close" aria-hidden="true" data-ng-click="typingTestNameAddEditCtrl.cancel()">&times;</button>
+    <h3 class="modal-title">Add Typing Test Name</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Add Typing Test Information</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form">
+                                <form name="typingTestNameAddEditCtrl.typingTestNameAddEditForm">
+                                    <div class="form-group" data-ng-class="{ 'has-error: typingTestNameAddEditCtrl.typingTestNameAddEditForm.typingTestName.$invalid && typingTestNameAddEditCtrl.formSubmitted }">
+                                        <label for="typingTestName" class="control-label">Typing Test Name:</label>
+                                        <input id="typingTestName" name="typingTestName" type="text" class="form-control input-sm" data-ng-model="typingTestNameAddEditCtrl.typingTestName.name" placeholder="Typing Test Name" required />
+                                        <div data-ng-show="typingTestNameAddEditCtrl.typingTestNameAddEditForm.typingTestName.$error.required && typingTestNameAddEditCtrl.formSubmitted">
+                                            <small>Typing Test Name Is Required</small>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.add()">Add</button>
+            <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.close()">Close</button>
+        </div>
+    </div>
+</div>
