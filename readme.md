@@ -11,7 +11,7 @@ Ruby is required to install compass. Please see build & devopment section for de
 
 ## Build & development (Build / Run Environment)
 
-Install NPM by following the link above, downloaded node.js and following installation instructions.
+Install NPM by following the link above, download node.js and following installation instructions.
 
 Run 'gem install compass' to install compass via Ruby.
 
