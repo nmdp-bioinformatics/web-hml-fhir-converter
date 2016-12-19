@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlModal ($scope, $uibModalInstance, title, bodyTemplateUrl, hmlObject, templateController) {
+    function hmlModal ($scope, $uibModalInstance, title, bodyTemplateUrl, hmlObject, edit, templateController) {
         /* jshint validthis: true */
         var hmlModalCtrl = this,
             controllerData = templateController.getControllerNameByTemplateUrl(bodyTemplateUrl);
@@ -12,8 +12,15 @@
         hmlModalCtrl.scope = $scope;
         hmlModalCtrl.title = title;
         hmlModalCtrl.hml = hmlObject;
+        hmlModalCtrl.edit = edit;
         hmlModalCtrl.bodyTemplateUrl = bodyTemplateUrl;
         hmlModalCtrl.controllerDeclaration = controllerData;
+
+        $scope.$on('guided:hml:node:updated', function (event, result) {
+            if (result) {
+                $uibModalInstance.close(result);
+            }
+        });
 
         hmlModalCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -29,5 +36,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlModal', hmlModal);
-    hmlModal.$inject = ['$scope', '$uibModalInstance', 'title', 'bodyTemplateUrl', 'hmlObject', 'templateController']
+    hmlModal.$inject = ['$scope', '$uibModalInstance', 'title', 'bodyTemplateUrl', 'hmlObject', 'edit', 'templateController']
 }());

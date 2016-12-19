@@ -64,8 +64,8 @@
             });
         };
 
-        hmlCtrl.addHmlId = function () {
-            openModal('Add HML ID', 'views/guided/hml/hml-id/hml-id.html').then(function (result) {
+        hmlCtrl.addHmlId = function (edit) {
+            openModal('Add HML ID', 'views/guided/hml/hml-id/hml-id.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.hmlId = result;
                 }
@@ -117,7 +117,7 @@
             }
         }
 
-        function openModal (title, bodyTemplateUrl) {
+        function openModal (title, bodyTemplateUrl, edit) {
             var defer = $q.defer(),
                 modalInstance = $uibModal.open({
                     animation: true,
@@ -133,6 +133,9 @@
                         },
                         hmlObject: function () {
                             return hmlCtrl.hml;
+                        },
+                        edit: function () {
+                            return edit;
                         }
                     }
                 });

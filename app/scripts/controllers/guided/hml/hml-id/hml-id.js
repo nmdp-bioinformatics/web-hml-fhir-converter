@@ -4,27 +4,34 @@
 (function () {
     'use strict';
 
-    function hmlId ($scope) {
+    function hmlId ($scope, guidGenerator) {
         /* jshint validthis: true */
-        var hmlIdCtrl = this;
+        var hmlIdCtrl = this,
+            parentCtrl = $scope.hmlModalCtrl;
 
         hmlIdCtrl.scope = $scope;
         hmlIdCtrl.formSubmitted = false;
         hmlIdCtrl.hmlId = {
+            id: guidGenerator.generateRandomGuid(),
             rootName: undefined,
-            extension: undefined
+            extension: undefined,
+            init: true
         };
+
+        if (parentCtrl.edit) {
+            hmlIdCtrl.hmlId = parentCtrl.hml.hmlId;
+        }
 
         $scope.$on('guided:hml:node:update', function () {
             hmlIdCtrl.formSubmitted = true;
 
             if (!hmlIdCtrl.hmlIdForm.$invalid) {
-                hmlIdCtrl.scope.hmlModalCtrl.hml.hmlId = hmlIdCtrl.hmlId;
                 hmlIdCtrl.formSubmitted = false;
+                $scope.$emit('guided:hml:node:updated', hmlIdCtrl.hmlId);
             }
         });
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlId', hmlId);
-    hmlId.$inject = ['$scope'];
+    hmlId.$inject = ['$scope', 'guidGenerator'];
 }());
