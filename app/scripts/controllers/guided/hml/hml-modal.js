@@ -13,7 +13,7 @@
         hmlModalCtrl.title = title;
         hmlModalCtrl.hml = hmlObject;
         hmlModalCtrl.bodyTemplateUrl = bodyTemplateUrl;
-        hmlModalCtrl.controllerDeclaration = controllerData.controller + ' as ' + controllerData.controllerAs;
+        hmlModalCtrl.controllerDeclaration = controllerData;
 
         hmlModalCtrl.cancel = function () {
             $uibModalInstance.dismiss();

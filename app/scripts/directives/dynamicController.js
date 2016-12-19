@@ -4,26 +4,19 @@
 (function () {
     'use strict';
 
-    function dynamicController () {
+    function dynamicController ($compile) {
         return {
-            restrict: 'EA',
-            scope: {
-                controller: '=',
-                controlleras: '=',
-                templateurl: '='
-            },
-            templateUrl: function (scope) {
-                return scope.attributes.templateurl;
-            },
-            controller: function (scope) {
-                return scope.attributes.controller;
-            },
-            controllerAs: function (scope) {
-                return scope.attributes.controlleras;
+            restrict: 'E',
+            link: function (scope, element, attrs) {
+                var template = '<div data-ng-include="\'' + attrs.templateurl + '\'" data-ng-controller="' +
+                        attrs.controller + ' as ' + attrs.controlleras + '"></div>',
+                    cTemplate = $compile(template)(scope);
+
+                    element.append(cTemplate);
             }
         };
     }
 
     angular.module('hmlFhirAngularClientApp.directives').directive('dynamicController', dynamicController);
-    dynamicController.$inject = ['$compile', '$parse'];
+    dynamicController.$inject = ['$compile'];
 }());
