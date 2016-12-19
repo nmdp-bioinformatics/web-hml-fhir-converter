@@ -9,7 +9,7 @@ Running this application locally requires Node package manager, this can be obta
 
 Ruby is required to install compass. Please see build & devopment section for details.
 
-## Build & development
+## Build & development (Build / Run Environment)
 
 Install NPM by following the link above, downloaded node.js and following installation instructions.
 
@@ -18,6 +18,8 @@ Run 'gem install compass' to install compass via Ruby.
 Run 'npm install -g bower' to install bower.
 
 Run 'npm install -g grunt grunt-cli' to install grunt.
+
+## Build & development (Application)
 
 cd to the root of this directory.
 
