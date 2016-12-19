@@ -10,13 +10,14 @@
 
         typingTestNameAddEditCtrl.scope = $scope;
         typingTestNameAddEditCtrl.formSubmitted = false;
+        typingTestNameAddEditCtrl.edit = edit;
         typingTestNameAddEditCtrl.typingTestName = {
             id: typingTestId,
             name: undefined,
             init: true
         };
 
-        if (edit) {
+        if (typingTestNameAddEditCtrl.edit) {
             typingTestNameAddEditCtrl.typingTestName = typingTestName;
         }
 

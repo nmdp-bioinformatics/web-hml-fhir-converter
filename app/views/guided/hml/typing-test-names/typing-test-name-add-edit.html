@@ -1,13 +1,13 @@
 <div class="modal-header">
     <button type="modal" class="close" aria-hidden="true" data-ng-click="typingTestNameAddEditCtrl.cancel()">&times;</button>
-    <h3 class="modal-title">Add Typing Test Name</h3>
+    <h3 class="modal-title">{{ typingTestNameAddEditCtrl.edit ? 'Edit' : 'Add' }} Typing Test Name</h3>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Add Typing Test Information</h4>
+                    <h4 class="panel-title">{{ typingTestNameAddEditCtrl.edit ? 'Edit' : 'Add' }} Typing Test Information</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -33,7 +33,7 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.add(typingTestNameAddEditCtrl.typingTestNameAddEditForm)">Add</button>
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.add(typingTestNameAddEditCtrl.typingTestNameAddEditForm)">{{ typingTestNameAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
             <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.close()">Close</button>
         </div>
     </div>
