@@ -24,7 +24,7 @@
         };
 
         hmlModalCtrl.update = function () {
-
+            $scope.$broadcast('guided:hml:node:update');
         };
     }
 
