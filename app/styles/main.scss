@@ -185,6 +185,15 @@ body {
   border-radius: 5px !important;
 }
 
+.typing-test-list {
+  float: right;
+  margin-bottom: 12px;
+}
+
+.typing-test-list:first-of-type {
+  margin-left: 15px;
+}
+
 .file-list-remove-button {
   margin-left: 15px;
   margin-top: 5px;

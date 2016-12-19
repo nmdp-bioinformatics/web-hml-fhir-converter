@@ -26,8 +26,8 @@
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/typing-test-names/typing-test-name-add-edit.html',
-                controller: 'typingTestNamesCreate',
-                controllerAs: 'typingTestNamesCreateCtrl',
+                controller: 'typingTestNameAddEdit',
+                controllerAs: 'typingTestNameAddEditCtrl',
                 resolve: {
                     typingTestId: function () {
                         return typingTestName.id;
@@ -48,9 +48,35 @@
             });
         };
 
+        typingTestNamesCtrl.addTypingTestNameEntry = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/guided/hml/typing-test-names/typing-test-name-add-edit.html',
+                controller: 'typingTestNameAddEdit',
+                controllerAs: 'typingTestNameAddEditCtrl',
+                resolve: {
+                    typingTestId: function () {
+                        return guidGenerator.generateRandomGuid();
+                    },
+                    edit: function () {
+                        return false;
+                    },
+                    typingTestName: function () {
+                        return undefined;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (typingTestName) {
+                if (typingTestName) {
+                    typingTestNamesCtrl.typingTestNames.push(typingTestName);
+                }
+            });
+        };
+
         typingTestNamesCtrl.removeTypingTestName = function (typingTestName) {
             var index = getTypingTestNameIndex(typingTestName);
-            typingTestNamesCtrl.typingTestNames.slice(index, 1);
+            typingTestNamesCtrl.typingTestNames.splice(index, 1);
         };
 
         function getTypingTestNameIndex (typingTestName) {

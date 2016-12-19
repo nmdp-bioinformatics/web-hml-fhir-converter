@@ -10,15 +10,15 @@
                         <div class="form">
                             <form name="reportingCenterCtrl.reportingCenterForm">
                                 <div class="form-group" data-ng-class="{ 'has-error': reportingCenterCtrl.reportingCenterForm.reportingCenterId.$invalid && reportingCenterCtrl.formSubmitted }">
-                                    <label class="control-label">Reporting Center ID:</label>
-                                    <input name="reportingCenterId" type="text" class="form-control input-sm" data-ng-model="reportingCenterCtrl.reportingCenter.name" placeholder="Reporting Center ID" required />
+                                    <label for="reportingCenterId" class="control-label">Reporting Center ID:</label>
+                                    <input id="reportingCenterId" name="reportingCenterId" type="text" class="form-control input-sm" data-ng-model="reportingCenterCtrl.reportingCenter.name" placeholder="Reporting Center ID" required />
                                     <div class="help-block" data-ng-show="reportingCenterCtrl.reportingCenterForm.reportingCenterId.$error.required && reportingCenterCtrl.formSubmitted">
                                         <small>Reporting Center ID Is Required</small>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Reporting Center Context:</label>
-                                    <input name="reportingCenterContext" type="text" class="form-control input-sm" data-ng-model="reportingCenterCtrl.reportingCenter.context" placeholder="Reporting Center Context" />
+                                    <label for="reportingCenterContext" class="control-label">Reporting Center Context:</label>
+                                    <input id="reportingCenterContext" name="reportingCenterContext" type="text" class="form-control input-sm" data-ng-model="reportingCenterCtrl.reportingCenter.context" placeholder="Reporting Center Context" />
                                 </div>
                              </form>
                         </div>

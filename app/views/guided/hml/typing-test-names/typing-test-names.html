@@ -1,5 +1,30 @@
 <div class="row">
     <div class="col-md-12">
-        TYPING TEST NAMES TEMPLATE
+        <button type="button" class="btn btn-success" data-ng-click="typingTestNamesCtrl.addTypingTestNameEntry()">
+            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+        </button>
+    </div>
+</div>
+<div class="row push-down">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">{{ typingTestNamesCtrl.edit ? 'Edit' : 'Add' }} Typing Test Name Information</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary" data-ng-repeat="typingTestName in typingTestNamesCtrl.typingTestNames">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">{{ typingTestName.name }}
+                                    <i class="glyphicon glyphicon-pencil typing-test-list" data-ng-click="typingTestNamesCtrl.editTypingTestNameEntry(typingTestName)" />
+                                    <i class="glyphicon glyphicon-remove typing-test-list" data-ng-click="typingTestNamesCtrl.removeTypingTestName(typingTestName)" />
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

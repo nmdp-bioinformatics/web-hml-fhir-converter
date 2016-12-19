@@ -29,7 +29,7 @@
         };
 
         typingTestNameAddEditCtrl.add = function (form) {
-            typingTestNamesCreateCtrl.formSubmitted = true;
+            typingTestNameAddEditCtrl.formSubmitted = true;
 
             if (!form.$invalid) {
                 typingTestNameAddEditCtrl.formSubmitted = false;
