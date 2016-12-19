@@ -16,12 +16,12 @@
                     dirtyControllerName = htmlFileName.split('.')[0],
                     htmlControllerName = '';
 
-                for (var i = 0; i < dirtyControllerName.length; i++) {
-                    if (htmlFileName[i] === '-') {
-                        htmlControllerName += dirtyControllerName[i + 1].toUpperCase();
-                        i++;
+                for (var j = 0; j < dirtyControllerName.length; j++) {
+                    if (htmlFileName[j] === '-') {
+                        htmlControllerName += dirtyControllerName[j + 1].toUpperCase();
+                        j++;
                     } else {
-                        htmlControllerName += dirtyControllerName[i];
+                        htmlControllerName += dirtyControllerName[j];
                     }
                 }
 
