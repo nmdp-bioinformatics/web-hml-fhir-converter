@@ -27,7 +27,7 @@ Run 'npm install' to install applicaiton node packages.
 
 Run 'bower install' to install application bower libraries.
 
-** NOTE: There is a bug in one of the node package files (web-HmlFhirAngularClient/node_modules/grunt-contrib-cssmin/tasks/cssmin.js).  A solution has been commited to this file and included in this release.  Should you recieve an error while building this package with grunt, please validate the change to line 41 (web-HmlFhirAngularClient/node_modules/grunt-contrib-cssmin/tasks/cssmin.js) shows the same as this link: https://github.com/abrown3-nmdp/web-HmlFhirAngularClient/commit/4b7ff5b249e1d57dc071c43164d53f6a2200c600.  This is caused by npm overwriting the committed file on 'npm install'.
+** NOTE: There is a bug in one of the node package files (web-HmlFhirAngularClient/node_modules/grunt-contrib-cssmin/tasks/cssmin.js).  A solution has been commited to this file and included in this release.  Should you recieve an error while building this package with grunt, please validate the change to line 41 (web-HmlFhirAngularClient/node_modules/grunt-contrib-cssmin/tasks/cssmin.js) shows the same as this link: https://github.com/abrown3-nmdp/web-HmlFhirAngularClient/blob/master/node_modules/grunt-contrib-cssmin/tasks/cssmin.js.  This is caused by npm overwriting the committed file on 'npm install'.
 
 Run `grunt` for building and `grunt serve` for preview.
 
