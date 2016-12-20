@@ -89,6 +89,11 @@
             openModal(titlePrefix + ' Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', edit).then(function (result) {
                 if (result) {
                     hmlCtrl.hml.typingTestNames = result;
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully ' + titlePrefix.toLowerCase() + 'ed Typing Test Name(s).'
+                    });
                 }
             });
         };
