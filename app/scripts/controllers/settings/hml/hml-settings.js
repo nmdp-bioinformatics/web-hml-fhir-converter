@@ -19,7 +19,9 @@
         };
 
         hmlSettingsCtrl.launchTypingTestNames = function () {
-            openModal('Typing Test Name Settings', 'views/settings/hml/')
+            openModal('Typing Test Name Settings', 'views/settings/hml/typing-test-names/terminology/typing-test-names-terminology.html').then(function (result) {
+
+            });
         };
 
         hmlSettingsCtrl.launchSamples = function () {

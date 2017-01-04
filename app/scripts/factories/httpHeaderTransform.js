@@ -10,6 +10,12 @@
                 return {
                     'Content-Type': 'applicaton/x-www-form-urlencoded'
                 };
+            },
+
+            getHeaderForResourceServer: function () {
+                return {
+                    'Content-Type': 'applicaton/json'
+                };
             }
         };
 

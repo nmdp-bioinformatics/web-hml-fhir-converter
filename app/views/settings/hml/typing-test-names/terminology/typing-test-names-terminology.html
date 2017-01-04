@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h5 class="panel-title">Typing Test Name Terminology</h5>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul>
+                            <li data-ng-repeat="test in typingTestNamesTerminologyCtrl.typingTestNames">
+                                <div class="col-md-2"><label>Typing Test Name:</label></div>
+                                <div class="col-md-3"><p>{{ test.name }}</p></div>
+                                &nbsp;&nbsp;
+                                <div class="col-md-2"><label>Description:</label></div>
+                                <div class="col-md-5"><p>{{ test.description }}</p></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

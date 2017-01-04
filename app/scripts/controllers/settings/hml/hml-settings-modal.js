@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlSettingsModal ($scope, $uibModalInstance, hmlObject, bodyTemplateUrl, templateController) {
+    function hmlSettingsModal ($scope, $uibModalInstance, bodyTemplateUrl, templateController, title) {
         /* jshint validthis: true */
         var hmlSettingsModalCtrl = this,
             controllerData = templateController.getControllerNameByTemplateUrl(bodyTemplateUrl);
@@ -17,7 +17,6 @@
 
         hmlSettingsModalCtrl.scope = $scope;
         hmlSettingsModalCtrl.title = title;
-        hmlSettingsModalCtrl.hml = hmlObject;
         hmlSettingsModalCtrl.bodyTemplateUrl = bodyTemplateUrl;
         hmlSettingsModalCtrl.controllerDeclaration = controllerData;
 
@@ -35,5 +34,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlSettingsModal', hmlSettingsModal);
-    hmlSettingsModal.$inject = ['$scope', '$uibModalInstance', 'hmlObject', 'bodyTemplateUrl', 'templateController'];
+    hmlSettingsModal.$inject = ['$scope', '$uibModalInstance', 'bodyTemplateUrl', 'templateController', 'title'];
 }());

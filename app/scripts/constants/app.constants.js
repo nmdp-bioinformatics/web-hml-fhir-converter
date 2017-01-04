@@ -5,9 +5,9 @@
     'use strict';
 
     var appConfig = {
-        //'miring_base_url': 'http://miring.b12x.org/',
         'miring_base_url': 'http://localhost:8080/MiringValidator/',
         'fhir_base_url': 'http://fhir.b12x.org/',
+        'resource_server_base_url': 'http://localhost:8090/v1/',
         'hml': {
             'version': '1.0.1',
             'versions': [
