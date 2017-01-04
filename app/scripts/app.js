@@ -35,34 +35,54 @@ angular.module('hmlFhirAngularClientApp', [
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'main',
-        controllerAs: 'mainCtrl'
+          templateUrl: 'views/main.html',
+          controller: 'main',
+          controllerAs: 'mainCtrl'
       })
       .when('/guided', {
-        templateUrl: '/views/guided/guided-types.html',
-        controller: 'guidedTypes',
-        controllerAs: 'guidedTypesCtrl'
+          templateUrl: '/views/guided/guided-types.html',
+          controller: 'guidedTypes',
+          controllerAs: 'guidedTypesCtrl'
+      })
+      .when('/settings', {
+          templateUrl: '/views/settings/settings.html',
+          controller: 'settings',
+          controllerAs: 'settingsCtrl'
+      })
+      .when('/settings/hml', {
+          templateUrl: '/views/settings/hml/hml-settings.html',
+          controller: 'hmlSettings',
+          controllerAs: 'hmlSettingsCtrl'
+      })
+      .when('/settings/fhir', {
+          templateUrl: '/views/settings/fhir/fhir-settings.html',
+          controller: 'fhirSettings',
+          controllerAs: 'fhirSettingsCtrl'
+      })
+      .when('/settings/miring', {
+          templateUrl: '/views/settings/miring/miring-settings.html',
+          controller: 'miringSettings',
+          controllerAs: 'miringSettingsCtrl'
       })
       .when('/guided/hml', {
-        templateUrl: '/views/guided/hml/hml.html',
-        controller: 'hml',
-        controllerAs: 'hmlCtrl'
+          templateUrl: '/views/guided/hml/hml.html',
+          controller: 'hml',
+          controllerAs: 'hmlCtrl'
       })
       .when('/guided/fhir', {
-        templateUrl: '/views/guided/fhir/fhir.html',
-        controller: 'fhir',
-        controllerAs: 'fhirCtrl'
+          templateUrl: '/views/guided/fhir/fhir.html',
+          controller: 'fhir',
+          controllerAs: 'fhirCtrl'
       })
       .when('/guided/miring', {
-        templateUrl: '/views/guided/miring/miring.html',
-        controller: 'miring',
-        controllerAs: 'miringCtrl'
+          templateUrl: '/views/guided/miring/miring.html',
+          controller: 'miring',
+          controllerAs: 'miringCtrl'
       })
       .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'about',
-        controllerAs: 'aboutCtrl'
+          templateUrl: 'views/about.html',
+          controller: 'about',
+          controllerAs: 'aboutCtrl'
       })
       .otherwise({ redirectTo: '/' });
   });

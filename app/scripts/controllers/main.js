@@ -56,7 +56,7 @@
         };
 
         mainCtrl.launchSettings = function () {
-
+            $location.path('/settings');
         };
     }
 
