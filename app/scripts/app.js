@@ -29,7 +29,8 @@ angular.module('hmlFhirAngularClientApp', [
     'ngMaterial',
     'ngAnimate',
     'toaster',
-    'cb.x2js'
+    'cb.x2js',
+    'ui.grid'
   ])
 
   .config(function ($routeProvider) {

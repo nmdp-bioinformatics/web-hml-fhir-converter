@@ -7,17 +7,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <ul>
-                            <li data-ng-repeat="test in typingTestNamesTerminologyCtrl.typingTestNames">
-                                <div class="row">
-                                    <div class="col-md-2"><label>Typing Test Name:</label></div>
-                                    <div class="col-md-3"><p>{{ test.name }}</p></div>
-                                    &nbsp;&nbsp;
-                                    <div class="col-md-2"><label>Description:</label></div>
-                                    <div class="col-md-5"><p>{{ test.description }}</p></div>
-                                </div>
-                            </li>
-                        </ul>
+                        <div ui-grid="{ data: typingTestNamesTerminologyCtrl.typingTestNames }" class="modal-grid"></div>
                     </div>
                 </div>
             </div>
