@@ -20,7 +20,7 @@
             appScopeProvider: typingTestNamesTerminologyCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
-                { name: 'name', field: 'name', displayName: 'Name:', enableCellEdit: true },
+                { name: 'name', field: 'name', displayName: 'Name:' },
                 { name: 'description', field: 'description', displayName: 'Description:' },
                 { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:' },
                 { name: 'active', field: 'active', displayName: 'Modify', cellTemplate: activeColumnTemplate }
