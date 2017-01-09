@@ -7,14 +7,8 @@
     function typingTestNamesTerminology($scope, typingTestNameService) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyCtrl = this,
-            activeColumnTemplate =
-                '<div class="ui-grid-cell-contents">' +
-                    '<div class="row">' +
-                        '<div class="col-md-12">' +
-                            '<input type="checkbox" data-ng-click="typingTestNamesTerminologyCtrl.activateItem(this)" />'
-                        '</div>' +
-                    '</div>' +
-                '</div>';
+            activeColumnTemplate = '<button type="button" class="btn btn-link" data-ng-click="grid.appScope.editItem(row.entity)">Edit</button>' +
+                                   '&nbsp;' + '<input type="checkbox" data-ng-model="row.entity.active" />&nbsp;<small>Active</small>';
 
         typingTestNamesTerminologyCtrl.scope = $scope;
         typingTestNamesTerminologyCtrl.maxQuery = 10;
@@ -23,13 +17,22 @@
             enableSorting: true,
             showGridFooter: true,
             enableCellEditOnFocus: true,
+            appScopeProvider: typingTestNamesTerminologyCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
                 { name: 'name', field: 'name', displayName: 'Name:', enableCellEdit: true },
                 { name: 'description', field: 'description', displayName: 'Description:' },
                 { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:' },
-                { name: 'active', field: 'active', displayName: '', maxWidth: 30, enableColumnMenu: false }
+                { name: 'active', field: 'active', displayName: 'Modify', cellTemplate: activeColumnTemplate }
             ]
+        };
+
+        typingTestNamesTerminologyCtrl.activateItem = function (typingTestName) {
+
+        };
+
+        typingTestNamesTerminologyCtrl.editItem = function (typingTestName) {
+
         };
 
         typingTestNameService.getTypingTestNameTerminology(typingTestNamesTerminologyCtrl.maxQuery).then(function (typingTestNames) {
