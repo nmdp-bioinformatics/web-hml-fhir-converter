@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNamesTerminology($scope, typingTestNameService) {
+    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyCtrl = this,
             activeColumnTemplate = '<button type="button" class="btn btn-link" data-ng-click="grid.appScope.editItem(row.entity)">Edit</button>' +
@@ -27,12 +27,27 @@
             ]
         };
 
-        typingTestNamesTerminologyCtrl.activateItem = function (typingTestName) {
-
-        };
-
         typingTestNamesTerminologyCtrl.editItem = function (typingTestName) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                controller: 'typingTestNamesTerminologyAddEditModal',
+                controllerAs: 'typingTestNamesTerminologyAddEditModalCtrl',
+                templateUrl: 'views/settings/hml/typing-test-names/terminology/typing-test-names-terminology-add-edit-modal.html',
+                resolve: {
+                    title: function () {
+                        return 'Add / Edit Typing Test Name Item';
+                    },
+                    typingTestName: function () {
+                        return typingTestName;
+                    }
+                }
+            });
 
+            modalInstance.result.then(function (result) {
+                if (result) {
+                    // reoload page
+                }
+            });
         };
 
         typingTestNameService.getTypingTestNameTerminology(typingTestNamesTerminologyCtrl.maxQuery).then(function (typingTestNames) {
@@ -41,5 +56,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminology', typingTestNamesTerminology);
-    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService'];
+    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal'];
 }());

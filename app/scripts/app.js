@@ -30,7 +30,8 @@ angular.module('hmlFhirAngularClientApp', [
     'ngAnimate',
     'toaster',
     'cb.x2js',
-    'ui.grid'
+    'ui.grid',
+    'angular-momentjs'
   ])
 
   .config(function ($routeProvider) {

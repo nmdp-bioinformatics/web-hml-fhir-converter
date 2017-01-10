@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNameService($http, $q, httpHeaderTransform, $httpParamSerializerJQLike, appConfig) {
+    function typingTestNameService($http, $q, httpHeaderTransform, $httpParamSerializerJQLike, appConfig, dateConverter) {
         var service = {
             getTypingTestNameTerminology: function (maxReturn) {
                 var defer = $q.defer(),
@@ -16,7 +16,8 @@
                     url: url,
                     headers: headers
                 }).success(function (res) {
-                   defer.resolve(res);
+                    var parsedObj = dateConverter.parseDate(res, 'dateCreated');
+                    defer.resolve(parsedObj);
                 });
 
                 return defer.promise;
@@ -27,5 +28,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.services').service('typingTestNameService', typingTestNameService);
-    typingTestNameService.$inject = ['$http', '$q', 'httpHeaderTransform', '$httpParamSerializerJQLike', 'appConfig'];
+    typingTestNameService.$inject = ['$http', '$q', 'httpHeaderTransform', '$httpParamSerializerJQLike', 'appConfig', 'dateConverter'];
 }());

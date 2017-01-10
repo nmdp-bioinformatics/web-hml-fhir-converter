@@ -4,12 +4,14 @@
 (function () {
     'use strict';
 
-    function typingTestNamesTerminologyAddEditModal ($scope, $uibModalInstance, typingTestName) {
+    function typingTestNamesTerminologyAddEditModal ($scope, $uibModalInstance, typingTestName, title) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyAddEditModalCtrl = this;
 
         typingTestNamesTerminologyAddEditModalCtrl.scope = $scope;
         typingTestNamesTerminologyAddEditModalCtrl.typingTestName = typingTestName;
+        typingTestNamesTerminologyAddEditModalCtrl.title = title;
+        typingTestNamesTerminologyAddEditModalCtrl.formSubmitted = false;
 
         typingTestNamesTerminologyAddEditModalCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -20,10 +22,12 @@
         };
 
         typingTestNamesTerminologyAddEditModalCtrl.update = function () {
+            typingTestNamesTerminologyAddEditModalCtrl.formSubmitted = true;
+
             $uibModalInstance.close(typingTestNamesTerminologyAddEditModalCtrl.typingTestName);
         };
     }
 
-    angular.module('').controller('typingTestNamesTerminologyAddEditModal', typingTestNamesTerminologyAddEditModal);
-    typingTestNamesTerminologyAddEditModal.$inject = ['$scope', '$uibModalInstance', 'typingTestName'];
+    angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminologyAddEditModal', typingTestNamesTerminologyAddEditModal);
+    typingTestNamesTerminologyAddEditModal.$inject = ['$scope', '$uibModalInstance', 'typingTestName', 'title'];
 }());
