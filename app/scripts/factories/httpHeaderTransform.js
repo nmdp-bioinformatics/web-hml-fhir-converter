@@ -16,6 +16,12 @@
                 return {
                     'Content-Type': 'applicaton/json'
                 };
+            },
+
+            postHeaderForResourceSever: function () {
+                return {
+                    'Content-Type': 'applicaton/json; charset=utf-8'
+                };
             }
         };
 

@@ -26,7 +26,7 @@
             addSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hml/typingTestName',
-                    headers = httpHeaderTransform.getHeaderForResourceServer();
+                    headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
                     method: 'POST',
