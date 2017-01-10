@@ -21,6 +21,24 @@
                 });
 
                 return defer.promise;
+            },
+
+            addSingleTypingTestNameTerminology: function (typingTestName) {
+                var defer = $q.defer(),
+                    url = appConfig.resource_server_base_url + 'hml/typingTestName',
+                    headers = httpHeaderTransform.getHeaderForResourceServer();
+
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: typingTestName,
+                    headers: headers
+                }).success(function (res) {
+                    var parsedObj = dateConverter.parseDate(res, 'dateCreated');
+                    defer.resolve(parsedObj);
+                });
+
+                return defer.promise;
             }
         };
 

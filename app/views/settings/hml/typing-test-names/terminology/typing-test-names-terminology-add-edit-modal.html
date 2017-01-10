@@ -36,7 +36,7 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNamesTerminologyAddEditModalCtrl.update()">Update</button>
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNamesTerminologyAddEditModalCtrl.save()">{{ !typingTestNamesTerminologyAddEditModalCtrl.edit ? 'Add' : 'Edit'}}</button>
             <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="typingTestNamesTerminologyAddEditModalCtrl.close()">Close</button>
         </div>
     </div>

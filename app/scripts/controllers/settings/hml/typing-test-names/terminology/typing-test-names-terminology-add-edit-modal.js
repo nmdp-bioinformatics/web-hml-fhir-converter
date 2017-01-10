@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNamesTerminologyAddEditModal ($scope, $uibModalInstance, typingTestName, title) {
+    function typingTestNamesTerminologyAddEditModal ($scope, $uibModalInstance, typingTestName, title, edit, typingTestNameService) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyAddEditModalCtrl = this;
 
@@ -12,6 +12,7 @@
         typingTestNamesTerminologyAddEditModalCtrl.typingTestName = typingTestName;
         typingTestNamesTerminologyAddEditModalCtrl.title = title;
         typingTestNamesTerminologyAddEditModalCtrl.formSubmitted = false;
+        typingTestNamesTerminologyAddEditModalCtrl.edit = edit;
 
         typingTestNamesTerminologyAddEditModalCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -21,13 +22,23 @@
             $uibModalInstance.close();
         };
 
-        typingTestNamesTerminologyAddEditModalCtrl.update = function () {
+        typingTestNamesTerminologyAddEditModalCtrl.save = function () {
             typingTestNamesTerminologyAddEditModalCtrl.formSubmitted = true;
 
-            $uibModalInstance.close(typingTestNamesTerminologyAddEditModalCtrl.typingTestName);
+            if (!typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.$invalid) {
+                if (typingTestNamesTerminologyAddEditModalCtrl.edit) {
+
+                } else {
+                    typingTestNameService.addSingleTypingTestNameTerminology(typingTestNamesTerminologyAddEditModalCtrl.typingTestName).then(function (result) {
+                       if (result) {
+                           $uibModalInstance.close(typingTestNamesTerminologyAddEditModalCtrl.typingTestName);
+                       }
+                    });
+                }
+            }
         };
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminologyAddEditModal', typingTestNamesTerminologyAddEditModal);
-    typingTestNamesTerminologyAddEditModal.$inject = ['$scope', '$uibModalInstance', 'typingTestName', 'title'];
+    typingTestNamesTerminologyAddEditModal.$inject = ['$scope', '$uibModalInstance', 'typingTestName', 'title', 'edit', 'typingTestNameService'];
 }());
