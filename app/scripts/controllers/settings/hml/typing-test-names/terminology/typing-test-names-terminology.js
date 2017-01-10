@@ -85,11 +85,11 @@
 
         function generateTypingTestName() {
             return {
-                name: undefined,
-                description: undefined,
+                name: null,
+                description: null,
                 active: true,
-                dateCreated: undefined,
-                id: undefined
+                dateCreated: null,
+                id: null
             };
         }
     }
