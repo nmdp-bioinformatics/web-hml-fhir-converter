@@ -31,7 +31,7 @@
                 $http({
                     method: 'POST',
                     url: url,
-                    data: JSON.stringify(typingTestName),
+                    data: typingTestName,
                     headers: headers
                 }).success(function (res) {
                     var parsedObj = dateConverter.parseDate(res, 'dateCreated');

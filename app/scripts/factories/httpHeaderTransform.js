@@ -8,19 +8,19 @@
         var factory = {
             getHeaderForMiring: function () {
                 return {
-                    'Content-Type': 'applicaton/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 };
             },
 
             getHeaderForResourceServer: function () {
                 return {
-                    'Content-Type': 'applicaton/json'
+                    'Content-Type': 'application/json'
                 };
             },
 
             postHeaderForResourceSever: function () {
                 return {
-                    'Content-Type': 'applicaton/json',
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 };
             }
