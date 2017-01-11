@@ -20,7 +20,8 @@
 
             postHeaderForResourceSever: function () {
                 return {
-                    'Content-Type': 'applicaton/json; charset=utf-8'
+                    'Content-Type': 'applicaton/json',
+                    'Accept': 'application/json'
                 };
             }
         };
