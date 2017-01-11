@@ -39,6 +39,23 @@
                 });
 
                 return defer.promise;
+            },
+
+            removeSingleTypingTestNameTerminology: function (typingTestName) {
+                var defer = $q.defer(),
+                    url = appConfig.resource_server_base_url + 'hml/typingTestName/delete',
+                    headers = httpHeaderTransform.postHeaderForResourceSever();
+
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: typingTestName,
+                    headers: headers
+                }).success(function (res) {
+                   defer.resolve(res);
+                });
+
+                return defer.promise;
             }
         };
 
