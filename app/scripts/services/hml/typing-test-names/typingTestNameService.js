@@ -8,7 +8,7 @@
         var service = {
             getTypingTestNameTerminology: function (maxReturn) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'typingTestName/getMulti/' + maxReturn || 10,
+                    url = appConfig.resource_server_base_url + 'typingTestName/getMulti' + maxReturn || 10,
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({

@@ -65,7 +65,7 @@
                     title: function () {
                         return 'Add Typing Test Name Item';
                     },
-                    typingTestName: function () {
+                    reportingCenter: function () {
                         return generateReportingCenter();
                     },
                     edit: function () {
@@ -91,7 +91,7 @@
                     title: function () {
                         return 'Edit Reporting Center Item';
                     },
-                    typingTestName: function () {
+                    reportingCenter: function () {
                         return reportingCenter;
                     },
                     edit: function () {
