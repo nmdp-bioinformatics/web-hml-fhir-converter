@@ -8,7 +8,7 @@
         var service = {
             getTypingTestNameTerminology: function (maxReturn) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'hml/typingTestNames/' + maxReturn || 10,
+                    url = appConfig.resource_server_base_url + 'typingTestName/getMulti/' + maxReturn || 10,
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({
@@ -24,7 +24,7 @@
 
             addSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'hml/typingTestName',
+                    url = appConfig.resource_server_base_url + 'typingTestName/create',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
@@ -41,7 +41,7 @@
 
             removeSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'hml/typingTestName/delete',
+                    url = appConfig.resource_server_base_url + 'typingTestName/delete',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
@@ -58,7 +58,7 @@
 
             updateSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'hml/typingTestName/update',
+                    url = appConfig.resource_server_base_url + 'typingTestName/update',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
