@@ -124,7 +124,7 @@
         }
 
         function getReportingCenters() {
-            reportingCenterService.getReportingCenters(reportingCenterTerminologyCtrl.maxQuery).then(function (reportingCenters) {
+            reportingCenterService.getReportingCenterTerminology(reportingCenterTerminologyCtrl.maxQuery).then(function (reportingCenters) {
                 reportingCenterTerminologyCtrl.gridOptions.data = reportingCenters;
             });
         }

@@ -11,7 +11,9 @@
         hmlSettingsCtrl.scope = $scope;
 
         hmlSettingsCtrl.launchReportingCenter = function () {
+            openModal('Reporting Center Settings', 'views/settings/hml/reporting-center/terminology/reporting-center-terminology.html').then(function (result) {
 
+            });
         };
 
         hmlSettingsCtrl.launchHmlId = function () {
