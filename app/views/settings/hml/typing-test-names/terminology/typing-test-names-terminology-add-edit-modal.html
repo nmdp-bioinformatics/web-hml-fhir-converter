@@ -12,16 +12,16 @@
                 <div class="panel-body">
                     <div class="form">
                         <form name="typingTestNamesTerminologyAddEditModalCtrl.terminologyForm">
-                            <div class="form-group" data-ng-class="{ 'has-error': typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.name.$invalid && typingTestNamesTerminologyAddEditModalCtrl.formSubmitted }">
-                                <label for="name" class="control-label">Name:</label>
-                                <input id="name" name="name" type="text" class="form-control input-sm" data-ng-model="typingTestNamesTerminologyAddEditModalCtrl.typingTestName.name" placeholder="Name" />
-                                <div class="help-block" data-ng-show="typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.name.$error && typingTestNamesTerminologyAddEditModalCtrl.formSubmitted">
+                            <div class="form-group" data-ng-class="{ 'has-error': typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.testName.$invalid && typingTestNamesTerminologyAddEditModalCtrl.formSubmitted }">
+                                <label for="testName" class="control-label">Name:</label>
+                                <input id="testName" name="testName" type="text" class="form-control input-sm" data-ng-model="typingTestNamesTerminologyAddEditModalCtrl.typingTestName.name" placeholder="Name" required />
+                                <div class="help-block" data-ng-show="typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.testName.$error && typingTestNamesTerminologyAddEditModalCtrl.formSubmitted">
                                     <small>Name Is Required</small>
                                 </div>
                             </div>
                             <div class="form-group" data-ng-class="{ 'has-error': typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.description.$invalid && typingTestNamesTerminologyAddEditModalCtrl.formSubmitted }">
                                 <label for="description" class="control-label">Description:</label>
-                                <input id="description" description="description" type="text" class="form-control input-sm" data-ng-model="typingTestNamesTerminologyAddEditModalCtrl.typingTestName.description" placeholder="Description" />
+                                <input id="description" name="description" type="text" class="form-control input-sm" data-ng-model="typingTestNamesTerminologyAddEditModalCtrl.typingTestName.description" placeholder="Description" required />
                                 <div class="help-block" data-ng-show="typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.description.$error && typingTestNamesTerminologyAddEditModalCtrl.formSubmitted">
                                     <small>Description Is Required</small>
                                 </div>

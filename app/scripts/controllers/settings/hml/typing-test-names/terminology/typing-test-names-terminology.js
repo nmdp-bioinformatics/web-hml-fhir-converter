@@ -4,9 +4,10 @@
 (function () {
     'use strict';
 
-    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal) {
+    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal, $filter) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyCtrl = this,
+            dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
             activeColumnTemplate = '<button type="button" class="btn btn-link" data-ng-click="grid.appScope.editItem(row.entity)">Edit</button>' +
                 '<input type="checkbox" data-ng-model="row.entity.active" />&nbsp;<small>Active</small>',
             deleteColumnTemplate = '<button type="button" class="btn btn-link red-link" data-ng-click="grid.appScope.deleteItem(row.entity)">Delete</button>';
@@ -21,10 +22,10 @@
             appScopeProvider: typingTestNamesTerminologyCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
-                { name: 'name', field: 'name', displayName: 'Name:' },
-                { name: 'description', field: 'description', displayName: 'Description:' },
-                { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:' },
-                { name: 'active', field: 'active', displayName: 'Modify', enableColumnMenu: false, cellTemplate: activeColumnTemplate },
+                { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'description', field: 'description', displayName: 'Description:', cellTooltip: function (row) { return row.entity.description ;}, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:', cellTemplate: dateColumnTemplate, cellTooltip: function (row) { return parseDate(row.entity.dateCreated); }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'active', field: 'active', displayName: 'Modify', enableColumnMenu: false, cellTemplate: activeColumnTemplate, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Delete', maxWidth: 60, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
@@ -50,7 +51,7 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     typingTestNameService.removeSingleTypingTestNameTerminology(typingTestName).then(function (res) {
-
+                        getTypingTestNames();
                     });
                 }
             })
@@ -120,6 +121,10 @@
             };
         }
 
+        function parseDate(date) {
+            return $filter('date')(date, 'medium');
+        }
+
         function getTypingTestNames() {
             typingTestNameService.getTypingTestNameTerminology(typingTestNamesTerminologyCtrl.maxQuery).then(function (typingTestNames) {
                 typingTestNamesTerminologyCtrl.gridOptions.data = typingTestNames;
@@ -128,5 +133,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminology', typingTestNamesTerminology);
-    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal'];
+    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal', '$filter'];
 }());

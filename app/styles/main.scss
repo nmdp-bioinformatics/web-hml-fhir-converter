@@ -185,6 +185,10 @@ body {
   margin: 1.2em;
 }
 
+.light-border {
+  margin: 0.5em;
+}
+
 .border-up {
   margin-bottom: 0.8em;
 }
@@ -209,6 +213,13 @@ body {
 .file-list-remove-button {
   margin-left: 15px;
   margin-top: 5px;
+}
+
+.ui-grid-grid-footer {
+  float: left;
+  width: 100%;
+  padding-left: 15px;
+  padding-top: 4px;
 }
 
 .odd-row {

@@ -27,11 +27,17 @@
 
             if (!typingTestNamesTerminologyAddEditModalCtrl.terminologyForm.$invalid) {
                 if (typingTestNamesTerminologyAddEditModalCtrl.edit) {
-
+                    typingTestNameService.updateSingleTypingTestNameTerminology(typingTestNamesTerminologyAddEditModalCtrl.typingTestName).then(function (result) {
+                        if (result) {
+                            typingTestNamesTerminologyAddEditModalCtrl.formSubmitted = false;
+                            $uibModalInstance.close(result);
+                        }
+                    });
                 } else {
                     typingTestNameService.addSingleTypingTestNameTerminology(typingTestNamesTerminologyAddEditModalCtrl.typingTestName).then(function (result) {
                        if (result) {
-                           $uibModalInstance.close(typingTestNamesTerminologyAddEditModalCtrl.typingTestName);
+                           typingTestNamesTerminologyAddEditModalCtrl.formSubmitted = false;
+                           $uibModalInstance.close(result);
                        }
                     });
                 }

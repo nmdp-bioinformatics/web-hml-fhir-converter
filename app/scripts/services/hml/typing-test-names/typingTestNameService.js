@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNameService($http, $q, httpHeaderTransform, $httpParamSerializerJQLike, appConfig, dateConverter) {
+    function typingTestNameService($http, $q, httpHeaderTransform, appConfig) {
         var service = {
             getTypingTestNameTerminology: function (maxReturn) {
                 var defer = $q.defer(),
@@ -16,8 +16,7 @@
                     url: url,
                     headers: headers
                 }).success(function (res) {
-                    var parsedObj = dateConverter.parseDate(res, 'dateCreated');
-                    defer.resolve(parsedObj);
+                    defer.resolve(res);
                 });
 
                 return defer.promise;
@@ -34,8 +33,7 @@
                     data: typingTestName,
                     headers: headers
                 }).success(function (res) {
-                    var parsedObj = dateConverter.parseDate(res, 'dateCreated');
-                    defer.resolve(parsedObj);
+                    defer.resolve(res);
                 });
 
                 return defer.promise;
@@ -56,6 +54,23 @@
                 });
 
                 return defer.promise;
+            },
+
+            updateSingleTypingTestNameTerminology: function (typingTestName) {
+                var defer = $q.defer(),
+                    url = appConfig.resource_server_base_url + 'hml/typingTestName/update',
+                    headers = httpHeaderTransform.postHeaderForResourceSever();
+
+                $http({
+                    method: 'PUT',
+                    url: url,
+                    data: typingTestName,
+                    headers: headers
+                }).success(function (res) {
+                    defer.resolve(res);
+                });
+
+                return defer.promise;
             }
         };
 
@@ -63,5 +78,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.services').service('typingTestNameService', typingTestNameService);
-    typingTestNameService.$inject = ['$http', '$q', 'httpHeaderTransform', '$httpParamSerializerJQLike', 'appConfig', 'dateConverter'];
+    typingTestNameService.$inject = ['$http', '$q', 'httpHeaderTransform', 'appConfig'];
 }());
