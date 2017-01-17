@@ -77,6 +77,6 @@
         return service;
     }
 
-    anuglar.module('hmlFhirAngularClientApp.services').service('collectionMethodService', collectionMethodService);
+    angular.module('hmlFhirAngularClientApp.services').service('collectionMethodService', collectionMethodService);
     collectionMethodService.$inject = ['$http', '$q', 'httpHeaderTransform', 'appConfig'];
 }());
