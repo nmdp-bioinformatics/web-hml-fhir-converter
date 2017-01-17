@@ -6,9 +6,12 @@
 
     function collectionMethodService($http, $q, httpHeaderTransform, appConfig) {
         var service = {
-            getCollectionMethodTerminology: function (maxReturn) {
+            getCollectionMethodTerminology: function (maxReturn, pageNumber) {
+                maxReturn = maxReturn !== null && maxReturn > 0 ? maxReturn.toString() : '10';
+                pageNumber = pageNumber !== null && pageNumber > -1 ? pageNumber.toString() : '0';
+
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'collectionMethod/getMulti/' + maxReturn || 10,
+                    url = appConfig.resource_server_base_url + 'collectionMethod/' + maxReturn + '/' + pageNumber,
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({
@@ -24,13 +27,13 @@
 
             addSingleCollectionMethodTerminology: function (collectionMethod) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'collectionMethod/create',
+                    url = appConfig.resource_server_base_url + 'collectionMethod',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
                     method: 'POST',
                     url: url,
-                    data: collectionMethod,
+                    data: [ collectionMethod ],
                     headers: headers
                 }).success(function (res) {
                     defer.resolve(res);
@@ -41,11 +44,11 @@
 
             removeCollectionMethodTerminology: function (collectionMethod) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'collectionMethod/delete',
+                    url = appConfig.resource_server_base_url + 'collectionMethod',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
-                    method: 'POST',
+                    method: 'DELETE',
                     url: url,
                     data: collectionMethod,
                     headers: headers
@@ -58,7 +61,7 @@
 
             updateCollectionMethodTerminology: function (collectionMethod) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'collectionMethod/update',
+                    url = appConfig.resource_server_base_url + 'collectionMethod',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({

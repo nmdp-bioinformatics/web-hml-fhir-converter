@@ -6,9 +6,12 @@
 
     function typingTestNameService($http, $q, httpHeaderTransform, appConfig) {
         var service = {
-            getTypingTestNameTerminology: function (maxReturn) {
+            getTypingTestNameTerminology: function (maxReturn, pageNumber) {
+                maxReturn = maxReturn !== null && maxReturn > 0 ? maxReturn.toString() : '10';
+                pageNumber = pageNumber !== null && pageNumber > -1 ? pageNumber.toString() : '0';
+
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'typingTestName/getMulti/' + maxReturn || 10,
+                    url = appConfig.resource_server_base_url + 'typingTestName/' + maxReturn + '/' + pageNumber,
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({
@@ -24,13 +27,13 @@
 
             addSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'typingTestName/create',
+                    url = appConfig.resource_server_base_url + 'typingTestName',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
                     method: 'POST',
                     url: url,
-                    data: typingTestName,
+                    data: [ typingTestName ],
                     headers: headers
                 }).success(function (res) {
                     defer.resolve(res);
@@ -41,11 +44,11 @@
 
             removeSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'typingTestName/delete',
+                    url = appConfig.resource_server_base_url + 'typingTestName',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
-                    method: 'POST',
+                    method: 'DELETE',
                     url: url,
                     data: typingTestName,
                     headers: headers
@@ -58,7 +61,7 @@
 
             updateSingleTypingTestNameTerminology: function (typingTestName) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'typingTestName/update',
+                    url = appConfig.resource_server_base_url + 'typingTestName',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({

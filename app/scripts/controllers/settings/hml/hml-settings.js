@@ -34,6 +34,50 @@
 
         };
 
+        hmlSettingsCtrl.openTerminology = function (nodeName) {
+            var modalConfig = {
+                title: '',
+                viewPath: '',
+                controller: ''
+            };
+
+            switch (nodeName) {
+                case 'settings':
+                    modalConfig.title = 'Collection Methods Terminology Settings';
+                    modalConfig.viewPath = 'views/settings/hml/samples/sample-terminology-modal.html';
+                    modalConfig.controller = 'sampleTerminologyModal'
+                    break;
+                default:
+                    return;
+            }
+
+            openModalSpecific(modalConfig.title, modalConfig.viewPath, modalConfig.controller).then(function (result) {
+
+            });
+        };
+
+        function openModalSpecific(title, viewUrl, controller) {
+            var defer = $q.defer(),
+                modalInstance = $uibModal.open({
+                    animation: true,
+                    size: 'lg',
+                    controller: controller,
+                    controllerAs: controller + 'Ctrl',
+                    templateUrl: viewUrl,
+                    resolve: {
+                        title: function() {
+                            return title;
+                        }
+                    }
+                });
+
+            modalInstance.result.then(function (result) {
+                defer.resolve(result);
+            });
+
+            return defer.promise;
+        }
+
         function openModal (title, bodyTemplateUrl) {
             var defer = $q.defer(),
                 modalInstance = $uibModal.open({

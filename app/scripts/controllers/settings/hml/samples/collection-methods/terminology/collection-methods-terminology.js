@@ -14,6 +14,7 @@
 
         collectionMethodsTerminologyCtrl.scope = $scope;
         collectionMethodsTerminologyCtrl.maxQuery = 10;
+        collectionMethodsTerminologyCtrl.pageNumber = 0;
         collectionMethodsTerminologyCtrl.gridOptions = {
             data: [],
             enableSorting: true,
@@ -22,7 +23,8 @@
             appScopeProvider: collectionMethodsTerminologyCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
-                { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'description', field: 'description', displayName: 'Description', cellTooltip: function (row) { return row.entity.description; }, headerTooltip: function(col) { return col.displayName; } },
                 { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:', cellTemplate: dateColumnTemplate, cellTooltip: function (row) { return parseDate(row.entity.dateCreated); }, headerTooltip: function(col) { return col.displayName; } },
                 { name: 'active', field: 'active', displayName: 'Modify', enableColumnMenu: false, cellTemplate: activeColumnTemplate, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Delete', maxWidth: 60, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
@@ -58,9 +60,9 @@
         collectionMethodsTerminologyCtrl.addItem = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
-                controller: 'collectionMethodsTerminologyAddEditModalCtrl',
-                controllerAs: 'collectionMethodsTerminologyAddEditModalCtrlCtrl',
-                templateUrl: 'views/settings/hml/samples/collection-methods/terminology/collection-methods-terminology-add-edit-modal.html',
+                controller: 'collectionMethodsTerminologyAddEditModal',
+                controllerAs: 'collectionMethodsTerminologyAddEditModalCtrl',
+                templateUrl: 'views/settings/hml/samples/terminology/collection-methods-terminology-add-edit-modal.html',
                 resolve: {
                     title: function () {
                         return 'Add Typing Test Name Item';
@@ -84,9 +86,9 @@
         collectionMethodsTerminologyCtrl.editItem = function (collectionMethod) {
             var modalInstance = $uibModal.open({
                 animation: true,
-                controller: 'collectionMethodsTerminologyAddEditModalCtrl',
-                controllerAs: 'collectionMethodsTerminologyAddEditModalCtrlCtrl',
-                templateUrl: 'views/settings/hml/samples/collection-methods/terminology/collection-methods-terminology-add-edit-modal.html',
+                controller: 'collectionMethodsTerminologyAddEditModal',
+                controllerAs: 'collectionMethodsTerminologyAddEditModalCtrl',
+                templateUrl: 'views/settings/hml/samples/terminology/collection-methods-terminology-add-edit-modal.html',
                 resolve: {
                     title: function () {
                         return 'Edit Reporting Center Item';
@@ -124,7 +126,7 @@
         }
 
         function getCollectionMethods() {
-            collectionMethodService.getCollectionMethodTerminology(collectionMethodsTerminologyCtrl.maxQuery).then(function (collectionMethods) {
+            collectionMethodService.getCollectionMethodTerminology(collectionMethodsTerminologyCtrl.maxQuery, collectionMethodsTerminologyCtrl.pageNumber).then(function (collectionMethods) {
                 collectionMethodsTerminologyCtrl.gridOptions.data = collectionMethods;
             });
         }

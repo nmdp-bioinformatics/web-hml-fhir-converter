@@ -6,9 +6,12 @@
 
     function reportingCenterService($http, $q, httpHeaderTransform, appConfig) {
         var service = {
-            getReportingCenterTerminology: function (maxReturn) {
+            getReportingCenterTerminology: function (maxReturn, pageNumber) {
+                maxReturn = maxReturn !== null && maxReturn > 0 ? maxReturn.toString() : '10';
+                pageNumber = pageNumber !== null && pageNumber > -1 ? pageNumber.toString() : '0';
+
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'reportingCenter/getMulti/' + maxReturn || 10,
+                    url = appConfig.resource_server_base_url + 'reportingCenter/' + maxReturn + '/' + pageNumber,
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({
@@ -24,13 +27,13 @@
 
             addSingleReportingCenterTerminology: function (reportingCenter) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'reportingCenter/create',
+                    url = appConfig.resource_server_base_url + 'reportingCenter',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
                     method: 'POST',
                     url: url,
-                    data: reportingCenter,
+                    data: [ reportingCenter ],
                     headers: headers
                 }).success(function (res) {
                     defer.resolve(res);
@@ -41,11 +44,11 @@
 
             removeSingleReportingCenterTerminology: function (reportingCenter) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'reportingCenter/delete',
+                    url = appConfig.resource_server_base_url + 'reportingCenter',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
-                    method: 'POST',
+                    method: 'DELETE',
                     url: url,
                     data: reportingCenter,
                     headers: headers
@@ -58,7 +61,7 @@
 
             updateSingleReportingCenterTerminology: function (reportingCenter) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'reportingCenter/update',
+                    url = appConfig.resource_server_base_url + 'reportingCenter',
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({
