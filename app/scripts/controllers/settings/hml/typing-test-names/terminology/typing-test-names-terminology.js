@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal, $filter) {
+    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal, $filter, toaster) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyCtrl = this,
             dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
@@ -52,6 +52,13 @@
                 if (result) {
                     typingTestNameService.removeSingleTypingTestNameTerminology(typingTestName).then(function (res) {
                         getTypingTestNames();
+
+                        if (res) {
+                            toaster.pop({
+                                type: 'info',
+                                body: 'Successfully deleted Typing Test Name entry.'
+                            });
+                        }
                     });
                 }
             })
@@ -79,6 +86,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     getTypingTestNames();
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully added Typing Test Name entry.'
+                    });
                 }
             });
         };
@@ -105,6 +117,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     getTypingTestNames();
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully edited Typing Test Name entry.'
+                    });
                 }
             });
         };
@@ -133,5 +150,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminology', typingTestNamesTerminology);
-    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal', '$filter'];
+    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal', '$filter', 'toaster'];
 }());

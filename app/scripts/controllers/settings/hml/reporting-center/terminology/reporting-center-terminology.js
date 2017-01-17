@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function reportingCenterTerminology($scope, reportingCenterService, $uibModal, $filter) {
+    function reportingCenterTerminology($scope, reportingCenterService, $uibModal, $filter, toaster) {
         /* jshint validthis: true */
         var reportingCenterTerminologyCtrl = this,
             dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
@@ -50,6 +50,13 @@
                 if (result) {
                     reportingCenterService.removeSingleReportingCenterTerminology(reportingCenter).then(function (res) {
                         getReportingCenters();
+
+                        if (res) {
+                            toaster.pop({
+                                type: 'info',
+                                body: 'Successfully deleted Reporting Center entry.'
+                            });
+                        }
                     });
                 }
             })
@@ -77,6 +84,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     getReportingCenters();
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully added Reporting Center entry.'
+                    });
                 }
             });
         };
@@ -103,6 +115,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     getReportingCenters();
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully edited Reporting Center entry.'
+                    });
                 }
             });
         };
@@ -131,5 +148,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenterTerminology', reportingCenterTerminology);
-    reportingCenterTerminology.$inject = ['$scope', 'reportingCenterService', '$uibModal', '$filter'];
+    reportingCenterTerminology.$inject = ['$scope', 'reportingCenterService', '$uibModal', '$filter', 'toaster'];
 }());

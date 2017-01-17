@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function collectionMethodsTerminology($scope, collectionMethodService, $uibModal, $filter) {
+    function collectionMethodsTerminology($scope, collectionMethodService, $uibModal, $filter, toaster) {
         /* jshint validthis: true */
         var collectionMethodsTerminologyCtrl = this,
             dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
@@ -52,6 +52,13 @@
                 if (result) {
                     collectionMethodService.removeCollectionMethodTerminology(collectionMethod).then(function (res) {
                         getCollectionMethods();
+
+                        if (res) {
+                            toaster.pop({
+                                type: 'info',
+                                body: 'Successfully deleted Collection Method entry.'
+                            });
+                        }
                     });
                 }
             })
@@ -79,6 +86,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     getCollectionMethods();
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully added Collection Method entry.'
+                    });
                 }
             });
         };
@@ -105,6 +117,11 @@
             modalInstance.result.then(function (result) {
                 if (result) {
                     getCollectionMethods();
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully edited Collection Method entry.'
+                    });
                 }
             });
         };
@@ -133,5 +150,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethodsTerminology', collectionMethodsTerminology);
-    collectionMethodsTerminology.$inject = ['$scope', 'collectionMethodService', '$uibModal', '$filter'];
+    collectionMethodsTerminology.$inject = ['$scope', 'collectionMethodService', '$uibModal', '$filter', 'toaster'];
 }());
