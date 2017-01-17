@@ -11,9 +11,7 @@
         hmlSettingsCtrl.scope = $scope;
 
         hmlSettingsCtrl.launchReportingCenter = function () {
-            openModal('Reporting Center Settings', 'views/settings/hml/reporting-center/terminology/reporting-center-terminology.html').then(function (result) {
 
-            });
         };
 
         hmlSettingsCtrl.launchHmlId = function () {
@@ -21,9 +19,7 @@
         };
 
         hmlSettingsCtrl.launchTypingTestNames = function () {
-            openModal('Typing Test Name Settings', 'views/settings/hml/typing-test-names/terminology/typing-test-names-terminology.html').then(function (result) {
 
-            });
         };
 
         hmlSettingsCtrl.launchSamples = function () {
@@ -42,10 +38,30 @@
             };
 
             switch (nodeName) {
-                case 'settings':
+                case 'samples':
                     modalConfig.title = 'Collection Methods Terminology Settings';
                     modalConfig.viewPath = 'views/settings/hml/samples/sample-terminology-modal.html';
                     modalConfig.controller = 'sampleTerminologyModal'
+                    break;
+                case 'typingTestNames':
+                    modalConfig.title = 'Typing Test Names Terminology Settings';
+                    modalConfig.viewPath = 'views/settings/hml/typing-test-names/typing-test-names-terminology-modal.html';
+                    modalConfig.controller = 'typingTestNamesTerminologyModal'
+                    break;
+                case 'reportingCenters':
+                    modalConfig.title = 'Reporting Center Terminology Settings';
+                    modalConfig.viewPath = 'views/settings/hml/reporting-center/reporting-center-terminology-modal.html';
+                    modalConfig.controller = 'reportingCenterTerminologyModal'
+                    break;
+                case 'properties':
+                    modalConfig.title = 'Properties Terminology Settings';
+                    modalConfig.viewPath = 'views/settings/hml/properties/properties-terminology-modal.html';
+                    modalConfig.controller = 'propertiesTerminologyModal'
+                    break;
+                case 'hmlId':
+                    modalConfig.title = 'HML ID Terminology Settings';
+                    modalConfig.viewPath = 'views/settings/hml/hml-id/hml-id-terminology-modal.html';
+                    modalConfig.controller = 'hmlIdTerminologyModal'
                     break;
                 default:
                     return;
