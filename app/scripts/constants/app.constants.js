@@ -18,7 +18,14 @@
                 '1.0.1',
                 '1.0.2'
             ]
-        }
+        },
+        'resultsPerPage': [
+            { number: 5, text: '5' },
+            { number: 10, text: '10' },
+            { number: 25, text: '25' },
+            { number: 50, text: '50' },
+            { number: 100, text: '100' }
+        ]
     };
 
     angular.module('hmlFhirAngularClientApp.constants').constant('appConfig', appConfig);

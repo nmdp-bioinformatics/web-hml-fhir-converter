@@ -13,12 +13,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form">
-                                <form name="typingTestNameAddEditCtrl.typingTestNameAddEditForm">
-                                    <div class="form-group" data-ng-class="{ 'has-error': typingTestNameAddEditCtrl.typingTestNameAddEditForm.typingTestName.$invalid && typingTestNameAddEditCtrl.formSubmitted }">
-                                        <label for="typingTestName" class="control-label">Typing Test Name:</label>
-                                        <input id="typingTestName" name="typingTestName" type="text" class="form-control input-sm" data-ng-model="typingTestNameAddEditCtrl.typingTestName.name" placeholder="Typing Test Name" required />
-                                        <div class="help-block" data-ng-show="typingTestNameAddEditCtrl.typingTestNameAddEditForm.typingTestName.$error.required && typingTestNameAddEditCtrl.formSubmitted">
-                                            <small>Typing Test Name Is Required</small>
+                                <form name="typingTestNameAddEditCtrl.inputForm">
+                                    <div class="form-group">
+                                        <label for="maxQuery" class="control-label">Maximum Query Results:</label>
+                                        <select id="maxQuery" data-ng-options="numResults.text for numResults in typingTestNameAddEditCtrl.resultsPerPage track by numResults.number"
+                                                data-ng-model="typingTestNameAddEditCtrl.maxQuery" class="form-control input-sm" data-ng-change="typingTestNameAddEditCtrl.changeMaxResults()" />
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': typingTestNameAddEditCtrl.inputForm.typingTestName.$invalid && typingTestNameAddEditCtrl.formSubmitted }">
+                                        <label for="typingTestName" class="control-label">Typing Test name:</label>
+                                        <input id="typingTestName" name="typingTestName" type="text" class="form-control input-sm" data-ng-model="typingTestNameAddEditCtrl.selectedTypingTest" placeholder="Typing Test Name"
+                                               uib-typeahead="typingTest.name for typingTest in typingTestNameAddEditCtrl.getTypingTestNames($viewValue)"
+                                               data-ng-select="typingTestNameAddEditCtrl.selectTypingTest($item)" required />
+                                        <div class="help-block" data-ng-show="typingTestNameAddEditCtrl.inputForm.typingTestName.$error.required && typingTestNameAddEditCtrl.formSubmitted">
+                                            <small>Please select a typing test name</small>
                                         </div>
                                     </div>
                                 </form>
@@ -33,7 +40,7 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.add(typingTestNameAddEditCtrl.typingTestNameAddEditForm)">{{ typingTestNameAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.add(typingTestNameAddEditCtrl.inputForm)">{{ typingTestNameAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
             <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="typingTestNameAddEditCtrl.close()">Close</button>
         </div>
     </div>

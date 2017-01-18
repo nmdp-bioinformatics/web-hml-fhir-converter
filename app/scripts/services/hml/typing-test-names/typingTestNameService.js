@@ -74,6 +74,23 @@
                 });
 
                 return defer.promise;
+            },
+
+            getTypeaheadOptions: function (maxResults, query) {
+                var defer = $q.defer(),
+                    url = appConfig.resource_server_base_url + 'typingTestName/' + maxResults,
+                    headers = httpHeaderTransform.postHeaderForResourceSever();
+
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: query,
+                    headers: headers
+                }).success(function (res) {
+                    defer.resolve(res);
+                })
+
+                return defer.promise;
             }
         };
 
