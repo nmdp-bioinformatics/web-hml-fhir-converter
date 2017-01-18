@@ -23,7 +23,7 @@
                                         <label for="typingTestName" class="control-label">Typing Test name:</label>
                                         <input id="typingTestName" name="typingTestName" type="text" class="form-control input-sm" data-ng-model="typingTestNameAddEditCtrl.selectedTypingTest" placeholder="Typing Test Name"
                                                uib-typeahead="typingTest.name for typingTest in typingTestNameAddEditCtrl.getTypingTestNames($viewValue)"
-                                               data-ng-select="typingTestNameAddEditCtrl.selectTypingTest($item)" required />
+                                               typeahead-on-select="typingTestNameAddEditCtrl.selectTypingTest($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="typingTestNameAddEditCtrl.inputForm.typingTestName.$error.required && typingTestNameAddEditCtrl.formSubmitted">
                                             <small>Please select a typing test name</small>
                                         </div>
