@@ -25,7 +25,9 @@
             { number: 25, text: '25' },
             { number: 50, text: '50' },
             { number: 100, text: '100' }
-        ]
+        ],
+        'autoAddOnNoResults' : true,
+        'autoAddOnNoResultsTimer': 7500
     };
 
     angular.module('hmlFhirAngularClientApp.constants').constant('appConfig', appConfig);

@@ -4,17 +4,19 @@
 (function () {
     'use strict';
 
-    function typingTestNameAddEdit ($scope, $uibModalInstance, typingTestId, edit, typingTestName, $filter, typingTestNameService, appConfig) {
+    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, $q, toaster) {
         /* jshint validthis: true */
         var typingTestNameAddEditCtrl = this;
 
         typingTestNameAddEditCtrl.scope = $scope;
         typingTestNameAddEditCtrl.formSubmitted = false;
         typingTestNameAddEditCtrl.edit = edit;
-        typingTestNameAddEditCtrl.selectedTypingTest = null;
+        typingTestNameAddEditCtrl.selectedTypingTestName = null;
+        typingTestNameAddEditCtrl.selectedTypingTest = null
         typingTestNameAddEditCtrl.maxQuery = { number: 10, text: '10' };
         typingTestNameAddEditCtrl.pageNumber = 0;
         typingTestNameAddEditCtrl.resultsPerPage = appConfig.resultsPerPage;
+        typingTestNameAddEditCtrl.autoAdd = appConfig.autoAddOnNoResults;
 
         if (typingTestNameAddEditCtrl.edit) {
             typingTestNameAddEditCtrl.selectedTypingTest = typingTestName;
@@ -48,8 +50,18 @@
         typingTestNameAddEditCtrl.getTypingTestNames = function (viewValue) {
             return typingTestNameService.getTypeaheadOptions(typingTestNameAddEditCtrl.maxQuery.number,
                 createTypeaheadQuery(viewValue)).then(function (response) {
-                return response;
+                    if (response.length > 0) {
+                        return response;
+                    }
+
+                    if (typingTestNameAddEditCtrl.autoAdd) {
+                        setTimeout(timeNoResults, appConfig.autoAddOnNoResultsTimer);
+                    }
             });
+        };
+
+        typingTestNameAddEditCtrl.typingTestChange = function () {
+            typingTestNameAddEditCtrl.selectedTypingTest = null;
         };
 
         function createTypeaheadQuery(viewValue) {
@@ -59,8 +71,60 @@
                 ]
             };
         }
+
+        function createTypeAheadItemEntry() {
+            var defer = $q.defer(),
+                modalInstance = $uibModal.open({
+                    animation: true,
+                    controller: 'typingTestNamesTerminologyAddEditModal',
+                    controllerAs: 'typingTestNamesTerminologyAddEditModalCtrl',
+                    templateUrl: 'views/settings/hml/typing-test-names/terminology/typing-test-names-terminology-add-edit-modal.html',
+                    resolve: {
+                        title: function () {
+                            return 'Add Typing Test Name Item';
+                        },
+                        typingTestName: function () {
+                            return generateTypingTestName();
+                        },
+                        edit: function () {
+                            return false;
+                        }
+                    }
+                });
+
+            modalInstance.result.then(function (result) {
+                if (result) {
+                    defer.resolve(result);
+
+                    toaster.pop({
+                        type: 'info',
+                        body: 'Successfully added Typing Test Name entry.'
+                    });
+                }
+            });
+
+            return defer.promise;
+        }
+
+        function generateTypingTestName() {
+            return {
+                name: null,
+                description: null,
+                active: true,
+                dateCreated: null,
+                id: null
+            };
+        }
+
+        function timeNoResults() {
+            if (typingTestNameAddEditCtrl.selectedTypingTest === null) {
+                createTypeAheadItemEntry().then(function (res) {
+
+                });
+            }
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNameAddEdit', typingTestNameAddEdit);
-    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', 'typingTestId', 'edit', 'typingTestName', '$filter', 'typingTestNameService', 'appConfig'];
+    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', '$q', 'toaster'];
 }());
