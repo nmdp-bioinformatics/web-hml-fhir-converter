@@ -47,10 +47,6 @@
             typingTestNameAddEditCtrl.selectedTypingTest = item;
         };
 
-        typingTestNameAddEditCtrl.changeMaxResults = function () {
-            getTypingTestNames();
-        };
-
         typingTestNameAddEditCtrl.getTypingTestNames = function (viewValue) {
             return typingTestNameService.getTypeaheadOptions(typingTestNameAddEditCtrl.maxQuery.number,
                 createTypeaheadQuery(viewValue)).then(function (response) {

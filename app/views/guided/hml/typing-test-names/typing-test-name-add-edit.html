@@ -18,7 +18,7 @@
                                     <div class="form-group">
                                         <label for="maxQuery" class="control-label">Maximum Query Results:</label>
                                         <select id="maxQuery" data-ng-options="numResults.text for numResults in typingTestNameAddEditCtrl.resultsPerPage track by numResults.number"
-                                                data-ng-model="typingTestNameAddEditCtrl.maxQuery" class="form-control input-sm" data-ng-change="typingTestNameAddEditCtrl.changeMaxResults()" />
+                                                data-ng-model="typingTestNameAddEditCtrl.maxQuery" class="form-control input-sm" />
                                     </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': typingTestNameAddEditCtrl.inputForm.typingTestName.$invalid && typingTestNameAddEditCtrl.formSubmitted }">
                                         <label for="typingTestName" class="control-label">Typing Test name:</label>
