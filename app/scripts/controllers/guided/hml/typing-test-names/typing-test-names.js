@@ -4,49 +4,38 @@
 (function () {
     'use strict';
 
-    function typingTestNames ($scope, guidGenerator, $uibModal) {
+    function typingTestNames ($scope, $uibModal) {
         /* jshint validthis: true */
         var typingTestNamesCtrl = this,
-            parentCtrl = $scope.hmlModalCtrl;
+            parentCtrl = $scope.hmlModalCtrl,
+            deleteColumnTemplate = '<div class="ui-grid-cell-contents centered-heading">' +
+                                       '<button type="button" class="btn btn-danger btn-xs" data-ng-click="grid.appScope.removeTypingTestName(row.entity)">' +
+                                           '<i class="glyphicon glyphicon-minus" />'
+                                       '</button>' +
+                                   '</div>';
 
         typingTestNamesCtrl.scope = $scope;
         typingTestNamesCtrl.edit = parentCtrl.edit;
-        typingTestNamesCtrl.typingTestNames = [];
+        typingTestNamesCtrl.gridOptions = {
+            data: [],
+            enableSorting: true,
+            showGridFooter: true,
+            appScopeProvider: typingTestNamesCtrl,
+            columnDefs: [
+                { name: 'id', field: 'id', visible: false },
+                { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'description', field: 'description', displayName: 'Description:', cellTooltip: function (row) { return row.entity.description ;}, headerTooltip: function(col) { return col.displayName; } },,
+                { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
+            ]
+        };
 
         if (typingTestNamesCtrl.edit) {
-            typingTestNamesCtrl.typingTestNames = parentCtrl.hml.typingTestNames;
+            typingTestNamesCtrl.gridOptions.data = parentCtrl.hml.typingTestNames;
         }
 
         $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', typingTestNamesCtrl.typingTestNames);
+            $scope.$emit('guided:hml:node:updated', typingTestNamesCtrl.gridOptions.data);
         });
-
-
-        typingTestNamesCtrl.editTypingTestNameEntry = function (typingTestName) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'views/guided/hml/typing-test-names/typing-test-name-add-edit.html',
-                controller: 'typingTestNameAddEdit',
-                controllerAs: 'typingTestNameAddEditCtrl',
-                resolve: {
-                    typingTestId: function () {
-                        return typingTestName.id;
-                    },
-                    edit: function () {
-                        return true;
-                    },
-                    typingTestName: function () {
-                        return typingTestName;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (typingTestName) {
-                if (typingTestName) {
-                    updateTypingTestName(typingTestName);
-                }
-            });
-        };
 
         typingTestNamesCtrl.addTypingTestNameEntry = function () {
             var modalInstance = $uibModal.open({
@@ -55,9 +44,6 @@
                 controller: 'typingTestNameAddEdit',
                 controllerAs: 'typingTestNameAddEditCtrl',
                 resolve: {
-                    typingTestId: function () {
-                        return guidGenerator.generateRandomGuid();
-                    },
                     edit: function () {
                         return false;
                     },
@@ -69,36 +55,34 @@
 
             modalInstance.result.then(function (typingTestName) {
                 if (typingTestName) {
-                    typingTestNamesCtrl.typingTestNames.push(typingTestName);
+                    if (typingTestName.constructor === Array) {
+                        for (var i = 0; i < typingTestName.length; i++) {
+                            typingTestNamesCtrl.gridOptions.data.push(typingTestName[i]);
+                        }
+
+                        return;
+                    }
+
+                    typingTestNamesCtrl.gridOptions.data.push(typingTestName);
                 }
             });
         };
 
         typingTestNamesCtrl.removeTypingTestName = function (typingTestName) {
-            var index = getTypingTestNameIndex(typingTestName);
-            typingTestNamesCtrl.typingTestNames.splice(index, 1);
+            typingTestNamesCtrl.gridOptions.data.splice(getTypingTestNameIndex(typingTestName), 1);
         };
 
         function getTypingTestNameIndex (typingTestName) {
-            for (var i = 0; i < typingTestNamesCtrl.typingTestNames.length; i++) {
-                if (typingTestNamesCtrl.typingTestNames[i].id === typingTestName.id) {
+            for (var i = 0; i < typingTestNamesCtrl.gridOptions.data.length; i++) {
+                if (typingTestNamesCtrl.gridOptions.data[i].id === typingTestName.id) {
                     return i;
                 }
             }
 
             return undefined;
         }
-
-        function updateTypingTestName (typingTestName) {
-            for (var i = 0; i < typingTestNamesCtrl.typingTestNames.length; i++) {
-                if (typingTestNamesCtrl.typingTestNames[i].id === typingTestName.id) {
-                    typingTestNamesCtrl.typingTestNames[i] = typingTestName;
-                    return;
-                }
-            }
-        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNames', typingTestNames);
-    typingTestNames.$inject = ['$scope', 'guidGenerator', '$uibModal'];
+    typingTestNames.$inject = ['$scope', '$uibModal'];
 }());

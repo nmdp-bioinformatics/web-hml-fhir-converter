@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, $q, toaster) {
+    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, toaster) {
         /* jshint validthis: true */
         var typingTestNameAddEditCtrl = this;
 
@@ -17,6 +17,10 @@
         typingTestNameAddEditCtrl.pageNumber = 0;
         typingTestNameAddEditCtrl.resultsPerPage = appConfig.resultsPerPage;
         typingTestNameAddEditCtrl.autoAdd = appConfig.autoAddOnNoResults;
+
+        $scope.$on('typingTestNameAddEditCtrl.addedExternal.success', function (event, result) {
+            $uibModalInstance.close(result);
+        });
 
         if (typingTestNameAddEditCtrl.edit) {
             typingTestNameAddEditCtrl.selectedTypingTest = typingTestName;
@@ -73,8 +77,7 @@
         }
 
         function createTypeAheadItemEntry() {
-            var defer = $q.defer(),
-                modalInstance = $uibModal.open({
+            var modalInstance = $uibModal.open({
                     animation: true,
                     controller: 'typingTestNamesTerminologyAddEditModal',
                     controllerAs: 'typingTestNamesTerminologyAddEditModalCtrl',
@@ -94,16 +97,14 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
-                    defer.resolve(result);
-
                     toaster.pop({
                         type: 'info',
                         body: 'Successfully added Typing Test Name entry.'
                     });
+
+                    $scope.$emit('typingTestNameAddEditCtrl.addedExternal.success', result);
                 }
             });
-
-            return defer.promise;
         }
 
         function generateTypingTestName() {
@@ -115,16 +116,23 @@
                 id: null
             };
         }
-
         function timeNoResults() {
             if (typingTestNameAddEditCtrl.selectedTypingTest === null) {
-                createTypeAheadItemEntry().then(function (res) {
 
+                toaster.pop({
+                    type: 'info',
+                    title: 'Add / Edit Typing Test Name',
+                    body: 'Not finding the data you need? Close this notification to be taken to add/edit page.',
+                    toasterId: 1,
+                    timeout: 0,
+                    onHideCallback: function () {
+                        createTypeAheadItemEntry();
+                    }
                 });
             }
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNameAddEdit', typingTestNameAddEdit);
-    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', '$q', 'toaster'];
+    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', 'toaster'];
 }());
