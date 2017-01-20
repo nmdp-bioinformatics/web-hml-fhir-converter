@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, toaster) {
+    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, toaster, selectedTypingTestNames, typeaheadQueryBuilder) {
         /* jshint validthis: true */
         var typingTestNameAddEditCtrl = this;
 
@@ -49,7 +49,8 @@
 
         typingTestNameAddEditCtrl.getTypingTestNames = function (viewValue) {
             return typingTestNameService.getTypeaheadOptions(typingTestNameAddEditCtrl.maxQuery.number,
-                createTypeaheadQuery(viewValue)).then(function (response) {
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('name', viewValue, false,
+                    selectedTypingTestNames, 'id')).then(function (response) {
                     if (response.length > 0) {
                         return response;
                     }
@@ -63,14 +64,6 @@
         typingTestNameAddEditCtrl.typingTestChange = function () {
             typingTestNameAddEditCtrl.selectedTypingTest = null;
         };
-
-        function createTypeaheadQuery(viewValue) {
-            return {
-                criteria: [
-                    { propertyName: 'name', queryValue: viewValue, useLike: true }
-                ]
-            };
-        }
 
         function createTypeAheadItemEntry() {
             var modalInstance = $uibModal.open({
@@ -130,5 +123,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNameAddEdit', typingTestNameAddEdit);
-    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', 'toaster'];
+    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', 'toaster', 'selectedTypingTestNames', 'typeaheadQueryBuilder'];
 }());

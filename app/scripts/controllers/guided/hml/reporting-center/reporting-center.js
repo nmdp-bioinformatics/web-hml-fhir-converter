@@ -29,7 +29,7 @@
         };
 
         if (reportingCenterCtrl.edit) {
-            reportingCenterCtrl.gridOptions.data = parentCtrl.hml.typingTestNames;
+            reportingCenterCtrl.gridOptions.data = parentCtrl.hml.reportingCenters;
         }
 
         $scope.$on('guided:hml:node:update', function () {
@@ -48,6 +48,16 @@
                     },
                     reportingCenter: function () {
                         return undefined;
+                    },
+                    selectedReportingCenters: function () {
+                        var reportingCenters = reportingCenterCtrl.gridOptions.data,
+                            idArray = [];
+
+                        for (var i = 0; i < reportingCenters.length; i++) {
+                            idArray.push(reportingCenters[i].id)
+                        }
+
+                        return idArray;
                     }
                 }
             });

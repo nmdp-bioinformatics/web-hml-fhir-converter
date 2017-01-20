@@ -60,7 +60,7 @@
             var titlePrefix = edit ? 'Edit' : 'Add';
             openModal(titlePrefix + ' Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
                 if (result) {
-                    hmlCtrl.hml.reportingCenter = result;
+                    hmlCtrl.hml.reportingCenters = result;
 
                     toaster.pop({
                         type: 'info',
@@ -122,11 +122,7 @@
                 project: {
                     name: undefined,
                 },
-                reportingCenter: {
-                    id: undefined,
-                    context: undefined,
-                    name: undefined
-                },
+                reportingCenters: [],
                 hmlId: {
                     id: undefined,
                     rootName: undefined,

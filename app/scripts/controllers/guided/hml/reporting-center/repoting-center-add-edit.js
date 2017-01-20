@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function reportingCenterAddEdit ($scope, $uibModalInstance, $uibModal, edit, reportingCenter, reportingCenterService, appConfig, toaster) {
+    function reportingCenterAddEdit ($scope, $uibModalInstance, $uibModal, edit, reportingCenter, selectedReportingCenters, reportingCenterService, appConfig, toaster, typeaheadQueryBuilder) {
         /* jshint validthis: true */
         var reportingCenterAddEditCtrl = this;
 
@@ -49,7 +49,8 @@
 
         reportingCenterAddEditCtrl.getReportingCenters = function (viewValue) {
             return reportingCenterService.getTypeaheadOptions(reportingCenterAddEditCtrl.maxQuery.number,
-                createTypeaheadQuery(viewValue)).then(function (response) {
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('context', viewValue, false,
+                    selectedReportingCenters, 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
                 }
@@ -63,14 +64,6 @@
         reportingCenterAddEditCtrl.reportingCenterChange = function () {
             reportingCenterAddEditCtrl.selectedReportingCenter = null;
         };
-
-        function createTypeaheadQuery(viewValue) {
-            return {
-                criteria: [
-                    { propertyName: 'context', queryValue: viewValue, useLike: true }
-                ]
-            };
-        }
 
         function createTypeAheadItemEntry() {
             var modalInstance = $uibModal.open({
@@ -111,6 +104,7 @@
                 id: null
             };
         }
+
         function timeNoResults() {
             if (reportingCenterAddEditCtrl.selectedTypingTest === null) {
 
@@ -129,5 +123,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenterAddEdit', reportingCenterAddEdit);
-    reportingCenterAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'reportingCenter', 'reportingCenterService', 'appConfig', 'toaster'];
+    reportingCenterAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'reportingCenter', 'selectedReportingCenters', 'reportingCenterService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
 }());

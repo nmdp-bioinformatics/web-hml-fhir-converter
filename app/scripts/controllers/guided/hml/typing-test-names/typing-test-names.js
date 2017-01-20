@@ -49,6 +49,16 @@
                     },
                     typingTestName: function () {
                         return undefined;
+                    },
+                    selectedTypingTestNames: function () {
+                        var typingTestNames = typingTestNamesCtrl.gridOptions.data,
+                            idArray = [];
+
+                        for (var i = 0; i < typingTestNames.length; i++) {
+                            idArray.push(typingTestNames[i].id);
+                        }
+
+                        return idArray;
                     }
                 }
             });
