@@ -43,11 +43,11 @@
             }
         };
 
-        samplesAddEditCtrl.selectSamples = function (item) {
+        samplesAddEditCtrl.selectSample = function (item) {
             samplesAddEditCtrl.selectedSample = item;
         };
 
-        samplesAddEditCtrl.getSampless = function (viewValue) {
+        samplesAddEditCtrl.getSamples = function (viewValue) {
             return sampleService.getTypeaheadOptions(samplesAddEditCtrl.maxQuery.number,
                 typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('name', viewValue, false,
                     selectedSamples, 'id')).then(function (response) {

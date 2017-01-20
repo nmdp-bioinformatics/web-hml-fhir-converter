@@ -24,7 +24,7 @@
                                         <label for="hmlId" class="control-label">Hml ID:</label>
                                         <input id="hmlId" name="hmlId" type="text" class="form-control input-sm" data-ng-model="hmlIdAddEditCtrl.selectedReportingCenterName" placeholder="Reporting Center"
                                                uib-typeahead="hmlId.context for hmlId in hmlIdAddEditCtrl.getHmlIds($viewValue)" data-ng-change="hmlIdAddEditCtrl.hmlIdChange()"
-                                               typeahead-on-select="hmlIdAddEditCtrl.selectReportingCenter($item)" autocomplete="off" required />
+                                               typeahead-on-select="hmlIdAddEditCtrl.selectHmlId($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="hmlIdAddEditCtrl.inputForm.hmlId.$error.required && hmlIdAddEditCtrl.formSubmitted">
                                             <small>Please select an Hml ID</small>
                                         </div>

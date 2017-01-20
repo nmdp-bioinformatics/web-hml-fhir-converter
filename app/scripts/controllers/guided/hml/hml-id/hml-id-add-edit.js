@@ -43,13 +43,13 @@
             }
         };
 
-        hmlIdAddEditCtrl.selectHmlIds = function (item) {
+        hmlIdAddEditCtrl.selectHmlId = function (item) {
             hmlIdAddEditCtrl.selectedHmlId = item;
         };
 
-        hmlIdAddEditCtrl.getHmlIdss = function (viewValue) {
+        hmlIdAddEditCtrl.getHmlIds = function (viewValue) {
             return hmlIdService.getTypeaheadOptions(hmlIdAddEditCtrl.maxQuery.number,
-                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('name', viewValue, false,
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('rootName', viewValue, false,
                     selectedHmlIds, 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;

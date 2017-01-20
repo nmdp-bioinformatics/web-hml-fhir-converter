@@ -22,8 +22,8 @@
                                     </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': samplesAddEditCtrl.inputForm.sample.$invalid && samplesAddEditCtrl.formSubmitted }">
                                         <label for="sample" class="control-label">Sample:</label>
-                                        <input id="sample" name="sample" type="text" class="form-control input-sm" data-ng-model="samplesAddEditCtrl.selectedSample" placeholder="Sample"
-                                               uib-typeahead="sample.context for samples in samplesAddEditCtrl.getSamples($viewValue)" data-ng-change="samplesAddEditCtrl.sampleChange()"
+                                        <input id="sample" name="sample" type="text" class="form-control input-sm" data-ng-model="samplesAddEditCtrl.selectedSampleName" placeholder="Sample"
+                                               uib-typeahead="sample.context for sample in samplesAddEditCtrl.getSamples($viewValue)" data-ng-change="samplesAddEditCtrl.sampleChange()"
                                                typeahead-on-select="samplesAddEditCtrl.selectSample($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="samplesAddEditCtrl.inputForm.sample.$error.required && samplesAddEditCtrl.formSubmitted">
                                             <small>Please select a sample</small>

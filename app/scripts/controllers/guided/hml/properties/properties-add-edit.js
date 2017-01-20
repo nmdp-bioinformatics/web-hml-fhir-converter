@@ -43,11 +43,11 @@
             }
         };
 
-        propertiesAddEditCtrl.selectProperties = function (item) {
+        propertiesAddEditCtrl.selectProperty = function (item) {
             propertiesAddEditCtrl.selectedProperty = item;
         };
 
-        propertiesAddEditCtrl.getPropertiess = function (viewValue) {
+        propertiesAddEditCtrl.getProperties = function (viewValue) {
             return propertyService.getTypeaheadOptions(propertiesAddEditCtrl.maxQuery.number,
                 typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('name', viewValue, false,
                     selectedProperties, 'id')).then(function (response) {

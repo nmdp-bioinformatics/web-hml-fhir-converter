@@ -22,9 +22,9 @@
                                     </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': propertiesAddEditCtrl.inputForm.properties.$invalid && propertiesAddEditCtrl.formSubmitted }">
                                         <label for="properties" class="control-label">Property:</label>
-                                        <input id="properties" name="properties" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.selectedReportingCenterName" placeholder="Reporting Center"
-                                               uib-typeahead="properties.context for properties in propertiesAddEditCtrl.getReportingCenters($viewValue)" data-ng-change="propertiesAddEditCtrl.propertiesChange()"
-                                               typeahead-on-select="propertiesAddEditCtrl.selectReportingCenter($item)" autocomplete="off" required />
+                                        <input id="properties" name="properties" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.selectedPropertyName" placeholder="Properties"
+                                               uib-typeahead="property.context for property in propertiesAddEditCtrl.getProperties($viewValue)" data-ng-change="propertiesAddEditCtrl.propertyChange()"
+                                               typeahead-on-select="propertiesAddEditCtrl.selectProperty($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="propertiesAddEditCtrl.inputForm.properties.$error.required && propertiesAddEditCtrl.formSubmitted">
                                             <small>Please select a Property</small>
                                         </div>
