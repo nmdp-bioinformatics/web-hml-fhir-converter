@@ -120,13 +120,18 @@
             return {
                 version: hmlCtrl.hmlVersion,
                 project: {
+                    id: undefined,
                     name: undefined,
+                    active: undefined,
+                    dateCreated: undefined
                 },
                 reportingCenters: [],
                 hmlId: {
                     id: undefined,
                     rootName: undefined,
-                    extension: undefined
+                    extension: undefined,
+                    active: undefined,
+                    dateCreated: undefined
                 },
                 typingTestNames: [],
                 samples: [],
