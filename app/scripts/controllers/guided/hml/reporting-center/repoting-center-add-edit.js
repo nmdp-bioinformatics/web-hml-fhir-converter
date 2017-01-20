@@ -18,7 +18,7 @@
         reportingCenterAddEditCtrl.resultsPerPage = appConfig.resultsPerPage;
         reportingCenterAddEditCtrl.autoAdd = appConfig.autoAddOnNoResults;
 
-        $scope.$on('reporingCenterAddEditCtrl.addedExternal.success', function (event, result) {
+        $scope.$on('reportingCenterAddEditCtrl.addedExternal.success', function (event, result) {
             $uibModalInstance.close(result);
         });
 
@@ -88,10 +88,10 @@
                 if (result) {
                     toaster.pop({
                         type: 'info',
-                        body: 'Successfully added Typing Test Name entry.'
+                        body: 'Successfully added Reporting Center entry.'
                     });
 
-                    $scope.$emit('reporingCenterAddEditCtrl.addedExternal.success', result);
+                    $scope.$emit('reportingCenterAddEditCtrl.addedExternal.success', result);
                 }
             });
         }
@@ -106,7 +106,7 @@
         }
 
         function timeNoResults() {
-            if (reportingCenterAddEditCtrl.selectedTypingTest === null) {
+            if (reportingCenterAddEditCtrl.selectedReportingCenter === null) {
 
                 toaster.pop({
                     type: 'info',

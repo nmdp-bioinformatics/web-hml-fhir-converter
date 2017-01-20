@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="modal-header">
+    <button type="modal" class="close" aria-hidden="true" data-ng-click="propertiesAddEditCtrl.cancel()">&times;</button>
+    <h3 class="modal-title">{{ propertiesAddEditCtrl.edit ? 'Edit' : 'Add' }} Property</h3>
+</div>
+<div class="modal-body">
+    <toaster-container toaster-options="{ 'close-button': true, 'limit': 1, 'tap-to-dismiss': true, 'toaster-id': 1 }"></toaster-container>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{ propertiesAddEditCtrl.edit ? 'Edit' : 'Add' }} Property Information</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form">
+                                <form name="propertiesAddEditCtrl.inputForm">
+                                    <div class="form-group">
+                                        <label for="maxQuery" class="control-label">Maximum Query Results:</label>
+                                        <select id="maxQuery" data-ng-options="numResults.text for numResults in propertiesAddEditCtrl.resultsPerPage track by numResults.number"
+                                                data-ng-model="propertiesAddEditCtrl.maxQuery" class="form-control input-sm" />
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': propertiesAddEditCtrl.inputForm.properties.$invalid && propertiesAddEditCtrl.formSubmitted }">
+                                        <label for="properties" class="control-label">Property:</label>
+                                        <input id="properties" name="properties" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.selectedReportingCenterName" placeholder="Reporting Center"
+                                               uib-typeahead="properties.context for properties in propertiesAddEditCtrl.getReportingCenters($viewValue)" data-ng-change="propertiesAddEditCtrl.propertiesChange()"
+                                               typeahead-on-select="propertiesAddEditCtrl.selectReportingCenter($item)" autocomplete="off" required />
+                                        <div class="help-block" data-ng-show="propertiesAddEditCtrl.inputForm.properties.$error.required && propertiesAddEditCtrl.formSubmitted">
+                                            <small>Please select a Property</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" data-ng-model="propertiesAddEditCtrl.autoAdd" />
+                                        <small>Automatically route to add / edit form on no results</small>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="propertiesAddEditCtrl.add(propertiesAddEditCtrl.inputForm)">{{ propertiesAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="propertiesAddEditCtrl.close()">Close</button>
+        </div>
+    </div>
+</div>
