@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function reportingCenterAddEdit ($scope, $uibModalInstance, $uibModal, edit, reportingCenter, selectedReportingCenters, reportingCenterService, appConfig, toaster, typeaheadQueryBuilder) {
+    function reportingCenterAddEdit ($scope, $uibModalInstance, $uibModal, edit, reportingCenter, selectedReportingCenters, reportingCenterService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory) {
         /* jshint validthis: true */
         var reportingCenterAddEditCtrl = this;
 
@@ -76,7 +76,7 @@
                         return 'Add Reporting Center Item';
                     },
                     reportingCenter: function () {
-                        return generateReportingCenter();
+                        return objectModelFactory.getReportingCenterModel();
                     },
                     edit: function () {
                         return false;
@@ -94,15 +94,6 @@
                     $scope.$emit('reportingCenterAddEditCtrl.addedExternal.success', result);
                 }
             });
-        }
-
-        function generateReportingCenter() {
-            return {
-                context: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
         }
 
         function timeNoResults() {
@@ -123,5 +114,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenterAddEdit', reportingCenterAddEdit);
-    reportingCenterAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'reportingCenter', 'selectedReportingCenters', 'reportingCenterService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
+    reportingCenterAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'reportingCenter', 'selectedReportingCenters', 'reportingCenterService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory'];
 }());

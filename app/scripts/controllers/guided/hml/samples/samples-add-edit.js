@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function samplesAddEdit ($scope, $uibModalInstance, $uibModal, edit, sample, selectedSamples, sampleService, appConfig, toaster, typeaheadQueryBuilder) {
+    function samplesAddEdit ($scope, $uibModalInstance, $uibModal, edit, sample, selectedSamples, sampleService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory) {
         /* jshint validthis: true */
         var samplesAddEditCtrl = this;
 
@@ -76,7 +76,7 @@
                         return 'Add Sample Item';
                     },
                     samples: function () {
-                        return generateSamples();
+                        return objectModelFactory.getSampleModel();
                     },
                     edit: function () {
                         return false;
@@ -94,15 +94,6 @@
                     $scope.$emit('samplesAddEditCtrl.addedExternal.success', result);
                 }
             });
-        }
-
-        function generateSamples() {
-            return {
-                context: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
         }
 
         function timeNoResults() {
@@ -123,5 +114,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samplesAddEdit', samplesAddEdit);
-    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'sample', 'selectedSamples', 'sampleService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
+    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'sample', 'selectedSamples', 'sampleService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory'];
 }());

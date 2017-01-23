@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlIdAddEdit ($scope, $uibModalInstance, $uibModal, edit, hmlId, selectedHmlIds, hmlIdService, appConfig, toaster, typeaheadQueryBuilder) {
+    function hmlIdAddEdit ($scope, $uibModalInstance, $uibModal, edit, hmlId, selectedHmlIds, hmlIdService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory) {
         /* jshint validthis: true */
         var hmlIdAddEditCtrl = this;
 
@@ -76,7 +76,7 @@
                         return 'Add Hml ID Item';
                     },
                     hmlIds: function () {
-                        return generateHmlIds();
+                        return objectModelFactory.getHmlIdModel();
                     },
                     edit: function () {
                         return false;
@@ -94,15 +94,6 @@
                     $scope.$emit('hmlIdAddEditCtrl.addedExternal.success', result);
                 }
             });
-        }
-
-        function generateHmlIds() {
-            return {
-                context: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
         }
 
         function timeNoResults() {
@@ -123,5 +114,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlIdAddEdit', hmlIdAddEdit);
-    hmlIdAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'hmlId', 'selectedHmlIds', 'hmlIdService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
+    hmlIdAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'hmlId', 'selectedHmlIds', 'hmlIdService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory'];
 }());

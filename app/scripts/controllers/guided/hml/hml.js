@@ -4,13 +4,13 @@
 (function () {
     'use strict';
 
-    function hml ($scope, appConfig, $uibModal, toaster, $location, $q) {
+    function hml ($scope, appConfig, $uibModal, toaster, $location, $q, hmlModel) {
         /*jshint validthis: true */
         var hmlCtrl = this;
 
         hmlCtrl.scope = $scope;
         hmlCtrl.hmlVersion = appConfig.hml.version;
-        hmlCtrl.hml = createNewHmlObject();
+        hmlCtrl.hml = hmlModel;
         hmlCtrl.formSubmitted = false;
         hmlCtrl.panelTitle = undefined;
         hmlCtrl.inputSequence = 1;
@@ -116,29 +116,6 @@
             });
         };
 
-        function createNewHmlObject () {
-            return {
-                version: hmlCtrl.hmlVersion,
-                project: {
-                    id: undefined,
-                    name: undefined,
-                    active: undefined,
-                    dateCreated: undefined
-                },
-                reportingCenters: [],
-                hmlId: {
-                    id: undefined,
-                    rootName: undefined,
-                    extension: undefined,
-                    active: undefined,
-                    dateCreated: undefined
-                },
-                typingTestNames: [],
-                samples: [],
-                properties: []
-            }
-        }
-
         function openModal (title, bodyTemplateUrl, edit) {
             var defer = $q.defer(),
                 modalInstance = $uibModal.open({
@@ -171,5 +148,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hml', hml);
-    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', '$q'];
+    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', '$q', 'hmlModel'];
 }());

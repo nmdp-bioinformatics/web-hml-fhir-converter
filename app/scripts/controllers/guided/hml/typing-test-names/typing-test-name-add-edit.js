@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, toaster, selectedTypingTestNames, typeaheadQueryBuilder) {
+    function typingTestNameAddEdit ($scope, $uibModalInstance, $uibModal, edit, typingTestName, typingTestNameService, appConfig, toaster, selectedTypingTestNames, typeaheadQueryBuilder, objectModelFactory) {
         /* jshint validthis: true */
         var typingTestNameAddEditCtrl = this;
 
@@ -76,7 +76,7 @@
                             return 'Add Typing Test Name Item';
                         },
                         typingTestName: function () {
-                            return generateTypingTestName();
+                            return objectModelFactory.getTypingTestNameModel();
                         },
                         edit: function () {
                             return false;
@@ -96,15 +96,6 @@
             });
         }
 
-        function generateTypingTestName() {
-            return {
-                name: null,
-                description: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
-        }
         function timeNoResults() {
             if (typingTestNameAddEditCtrl.selectedTypingTest === null) {
 
@@ -123,5 +114,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNameAddEdit', typingTestNameAddEdit);
-    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', 'toaster', 'selectedTypingTestNames', 'typeaheadQueryBuilder'];
+    typingTestNameAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'typingTestName', 'typingTestNameService', 'appConfig', 'toaster', 'selectedTypingTestNames', 'typeaheadQueryBuilder', 'objectModelFactory'];
 }());

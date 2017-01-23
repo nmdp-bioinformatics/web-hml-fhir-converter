@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal, $filter, toaster) {
+    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal, $filter, toaster, objectModelFactory) {
         /* jshint validthis: true */
         var typingTestNamesTerminologyCtrl = this,
             dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
@@ -75,7 +75,7 @@
                         return 'Add Typing Test Name Item';
                     },
                     typingTestName: function () {
-                        return generateTypingTestName();
+                        return objectModelFactory.getTypingTestNameModel();
                     },
                     edit: function () {
                         return false;
@@ -128,16 +128,6 @@
 
         getTypingTestNames();
 
-        function generateTypingTestName() {
-            return {
-                name: null,
-                description: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
-        }
-
         function parseDate(date) {
             return $filter('date')(date, 'medium');
         }
@@ -150,5 +140,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminology', typingTestNamesTerminology);
-    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal', '$filter', 'toaster'];
+    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal', '$filter', 'toaster', 'objectModelFactory'];
 }());

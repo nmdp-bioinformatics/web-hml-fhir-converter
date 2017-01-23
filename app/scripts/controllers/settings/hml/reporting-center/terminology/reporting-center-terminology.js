@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function reportingCenterTerminology($scope, reportingCenterService, $uibModal, $filter, toaster) {
+    function reportingCenterTerminology($scope, reportingCenterService, $uibModal, $filter, toaster, objectModelFactory) {
         /* jshint validthis: true */
         var reportingCenterTerminologyCtrl = this,
             dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
@@ -73,7 +73,7 @@
                         return 'Add Typing Test Name Item';
                     },
                     reportingCenter: function () {
-                        return generateReportingCenter();
+                        return objectModelFactory.getReportingCenterModel();
                     },
                     edit: function () {
                         return false;
@@ -126,16 +126,6 @@
 
         getReportingCenters();
 
-        function generateReportingCenter() {
-            return {
-                name: null,
-                description: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
-        }
-
         function parseDate(date) {
             return $filter('date')(date, 'medium');
         }
@@ -148,5 +138,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenterTerminology', reportingCenterTerminology);
-    reportingCenterTerminology.$inject = ['$scope', 'reportingCenterService', '$uibModal', '$filter', 'toaster'];
+    reportingCenterTerminology.$inject = ['$scope', 'reportingCenterService', '$uibModal', '$filter', 'toaster', 'objectModelFactory'];
 }());

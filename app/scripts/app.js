@@ -15,7 +15,7 @@ angular.module('hmlFhirAngularClientApp.directives', []);
 angular.module('hmlFhirAngularClientApp.factories', []);
 angular.module('hmlFhirAngularClientApp.constants', []);
 
-angular.module('hmlFhirAngularClientApp', [
+var app = angular.module('hmlFhirAngularClientApp', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
@@ -32,9 +32,9 @@ angular.module('hmlFhirAngularClientApp', [
     'cb.x2js',
     'ui.grid',
     'angular-momentjs'
-  ])
+  ]);
 
-  .config(function ($routeProvider) {
+  app.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
           templateUrl: 'views/main.html',
@@ -69,7 +69,12 @@ angular.module('hmlFhirAngularClientApp', [
       .when('/guided/hml', {
           templateUrl: '/views/guided/hml/hml.html',
           controller: 'hml',
-          controllerAs: 'hmlCtrl'
+          controllerAs: 'hmlCtrl',
+          resolve: {
+              hmlModel: function (objectModelFactory) {
+                  return objectModelFactory.getHmlModel();
+              }
+          }
       })
       .when('/guided/fhir', {
           templateUrl: '/views/guided/fhir/fhir.html',

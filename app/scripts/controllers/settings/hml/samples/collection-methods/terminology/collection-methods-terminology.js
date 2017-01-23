@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function collectionMethodsTerminology($scope, collectionMethodService, $uibModal, $filter, toaster) {
+    function collectionMethodsTerminology($scope, collectionMethodService, $uibModal, $filter, toaster, objectModelFactory) {
         /* jshint validthis: true */
         var collectionMethodsTerminologyCtrl = this,
             dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
@@ -75,7 +75,7 @@
                         return 'Add Typing Test Name Item';
                     },
                     collectionMethod: function () {
-                        return generateCollectionMethod();
+                        return objectModelFactory.getCollectionMethodModel();
                     },
                     edit: function () {
                         return false;
@@ -128,16 +128,6 @@
 
         getCollectionMethods();
 
-        function generateCollectionMethod() {
-            return {
-                name: null,
-                description: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
-        }
-
         function parseDate(date) {
             return $filter('date')(date, 'medium');
         }
@@ -150,5 +140,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethodsTerminology', collectionMethodsTerminology);
-    collectionMethodsTerminology.$inject = ['$scope', 'collectionMethodService', '$uibModal', '$filter', 'toaster'];
+    collectionMethodsTerminology.$inject = ['$scope', 'collectionMethodService', '$uibModal', '$filter', 'toaster', 'objectModelFactory'];
 }());

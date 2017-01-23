@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function propertiesAddEdit ($scope, $uibModalInstance, $uibModal, edit, property, selectedProperties, propertyService, appConfig, toaster, typeaheadQueryBuilder) {
+    function propertiesAddEdit ($scope, $uibModalInstance, $uibModal, edit, property, selectedProperties, propertyService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory) {
         /* jshint validthis: true */
         var propertiesAddEditCtrl = this;
 
@@ -76,7 +76,7 @@
                         return 'Add Hml ID Item';
                     },
                     properties: function () {
-                        return generateProperty();
+                        return objectModelFactory.getPropertyModel();
                     },
                     edit: function () {
                         return false;
@@ -94,15 +94,6 @@
                     $scope.$emit('propertiesAddEditCtrl.addedExternal.success', result);
                 }
             });
-        }
-
-        function generateProperty() {
-            return {
-                context: null,
-                active: true,
-                dateCreated: null,
-                id: null
-            };
         }
 
         function timeNoResults() {
@@ -123,5 +114,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('propertiesAddEdit', propertiesAddEdit);
-    propertiesAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'property', 'selectedProperties', 'propertyService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
+    propertiesAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'property', 'selectedProperties', 'propertyService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory'];
 }());
