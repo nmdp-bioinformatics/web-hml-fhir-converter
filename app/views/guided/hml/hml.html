@@ -12,12 +12,23 @@
             </div>
             <div class="form">
                 <form name="hmlForm">
-                    <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
+                    <div class="form-group" data-ng-show="!hmlCtrl.advancedSearchEnabled" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
                         <label class="control-label">Project Name:</label>
-                        <!--<input name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.hml.project.name" placeholder="Project Name" required />-->
                         <input id="projectName" name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.selectedHmlProjectName" placeholder="Project Name"
                                uib-typeahead="hml.project.name for hml in hmlCtrl.getHmls($viewValue)" data-ng-change="hmlCtrl.hmlChange()"
-                               typeahead-on-select="hmlCtrl.selectHml($item)" autocomplete="off" required />
+                               typeahead-on-select="hmlCtrl.selectHml($item)" typeahead-no-results="projectNameNoResults" autocomplete="off" required />
+                        <span data-ng-show="projectNameNoResults && hmlForm.projectName.$viewValue.length > 0" uib-dropdown uib-dropdown-toggle>
+                            <div class="uib-dropdown-menu">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6>*Querying HML database for project name containing: '{{ hmlForm.projectName.$viewValue }}' returns no results.
+                                            Please use advanced search to search by other criteria, or click
+                                            <a data-ng-click="hmlCtrl.createHml()">here</a> to create a new HML project.
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
                         <div class="help-block" data-ng-show="hmlForm.projectName.$error.required && hmlCtrl.formSubmitted">
                             <small>Project Name Is Required</small>
                         </div>
@@ -29,7 +40,7 @@
                     <div data-ng-if="hmlCtrl.advancedSearchEnabled">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h5 class="panel-title">Advanced Search Fields</h5>
+                                <h5 class="panel-title">HML Advanced Search Fields</h5>
                             </div>
                             <div class="panel-body">
                                 <div class="form">
@@ -50,7 +61,8 @@
                                         </div>
                                         <div class="form-group" data-ng-class="{ 'has-error': hmlForm.version.$invalid && hmlCtrl.formSubmitted }">
                                             <label for="version" class="control-label">Version:</label>
-                                            <input name="version" id="version" class="form-control input-sm" data-ng-model="hmlCtrl.hml.version" placeholder="HML Version" />
+                                            <select id="version" name="version" class="form-control input-sm" data-ng-options="version as version.name for version in hmlCtrl.versions track by version.id"
+                                                    data-ng-model="hmlCtrl.hml.version"></select>
                                             <div class="help-block" data-ng-show="hmlForm.version.$error && hmlCtrl.formSubmitted">
                                                 <small>Input contains invalid text.</small>
                                             </div>
@@ -77,8 +89,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-danger panel-button" data-ng-click="hmlCtrl.cancelHml()">Cancel</button>
-                    <button data-ng-show="hmlCtrl.inputSequence === 1" type="button" class="btn btn-info panel-button" data-ng-click="hmlCtrl.createHml(hmlForm)">Create</button>
-                    <button data-ng-show="hmlCtrl.inputSequence === 2" type="button" class="btn btn-success panel-button" data-ng-click="hmlCtrl.save()">Save</button>
+                    <button type="button" class="btn btn-info panel-button" data-ng-click="hmlCtrl.createHml(hmlForm)">Create</button>
                 </div>
             </div>
         </div>

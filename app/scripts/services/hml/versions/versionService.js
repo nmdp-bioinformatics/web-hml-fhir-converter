@@ -25,6 +25,22 @@
                 return defer.promise;
             },
 
+            getAllVersions: function () {
+                var defer = $q.defer(),
+                    url = appConfig.resource_server_base_url + 'version/all',
+                    headers = httpHeaderTransform.getHeaderForResourceServer();
+
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: headers
+                }).success(function (res) {
+                    defer.resolve(res);
+                });
+
+                return defer.promise;
+            },
+
             addSingleVersionTerminology: function (version) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'version',
@@ -93,9 +109,9 @@
                 return defer.promise;
             },
 
-            getVersionById: function (id) {
+            getDefaultVersion: function () {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'version/' + id,
+                    url = appConfig.resource_server_base_url + 'version/default',
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({
@@ -108,24 +124,6 @@
 
                 return defer.promise;
             },
-
-            getVersionByName: function (name) {
-                var defer = $q.defer(),
-                    properties = ['name'],
-                    url = appConfig.resource_server_base_url + 'version/properties/' + properties,
-                    headers = httpHeaderTransform.getHeaderForResourceServer();
-
-                $http({
-                    method: 'POST',
-                    url: url,
-                    data: { name: name },
-                    headers: headers
-                }).success(function (res) {
-                    defer.resolve(res);
-                });
-
-                return defer.promise;
-            }
         };
 
         return service;

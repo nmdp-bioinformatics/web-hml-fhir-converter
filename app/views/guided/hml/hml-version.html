@@ -8,7 +8,7 @@
             <form>
                 <div class="form-group">
                     <label for="hmlVersionSelector">Versions:</label>
-                    <select id="hmlVersionSelector" class="form-control input-sm" data-ng-options="version.name for version in hmlVersionCtrl.versions track by version"
+                    <select id="hmlVersionSelector" class="form-control input-sm" data-ng-options="version as version.name for version in hmlVersionCtrl.versions track by version.id"
                             data-ng-model="hmlVersionCtrl.version"></select>
                 </div>
             </form>

@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hml ($scope, appConfig, $uibModal, toaster, $location, hmlModel, gridCellTemplateFactory, hmlService, typeaheadQueryBuilder, versionService, defaultHmlVersion) {
+    function hml ($scope, appConfig, $uibModal, toaster, $location, hmlModel, gridCellTemplateFactory, hmlService, typeaheadQueryBuilder, defaultHmlVersion, versions) {
         /*jshint validthis: true */
         var hmlCtrl = this,
             dateColumnTemplate = gridCellTemplateFactory.createDateCellTemplate(),
@@ -13,6 +13,7 @@
         hmlCtrl.scope = $scope;
         hmlCtrl.hml = hmlModel;
         hmlCtrl.hml.version = defaultHmlVersion;
+        hmlCtrl.versions = versions
         hmlCtrl.selectedHmlProjectName = null;
         hmlCtrl.formSubmitted = false;
         hmlCtrl.panelTitle = undefined;
@@ -47,7 +48,7 @@
                         return hmlCtrl.hml.version;
                     },
                     versions: function () {
-                        return versionService.getVersionTerminology(10, 0);
+                        return hmlCtrl.versions;
                     },
                     maxQuery: function () {
                         return appConfig.defaultMaxQueryTypeahead;
@@ -60,7 +61,7 @@
                     if (result !== hmlCtrl.hml.version) {
                         toaster.pop({
                             type: 'info',
-                            body: 'Successfully changed to HML version: ' + result
+                            body: 'Successfully changed to HML version: ' + result.name
                         });
                     }
 
@@ -69,13 +70,28 @@
             });
         };
 
-        hmlCtrl.createHml = function (form) {
-            hmlCtrl.formSubmitted = true;
+        hmlCtrl.createHml = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/guided/hml/hml-create.html',
+                controller: 'hmlCreate',
+                controllerAs: 'hmlCreateCtrl',
+                resolve: {
+                    hml: function () {
+                        return hmlCtrl.hml;
+                    },
+                    versions: function () {
+                        return hmlCtrl.versions;
+                    },
+                    title: function () {
+                        return 'Create HML Project';
+                    }
+                }
+            });
 
-            if (!form.$invalid) {
-                hmlCtrl.formSubmitted = false;
-                hmlCtrl.panelTitle = 'Project Name: ' + hmlCtrl.hml.project.name + ', HML Version: ' + hmlCtrl.hml.version;
-            }
+            modalInstance.result.then(function (result) {
+
+            });
         };
 
         hmlCtrl.cancelHml = function () {
@@ -96,7 +112,7 @@
         };
 
         hmlCtrl.hmlChange = function () {
-            hmlCtrl.selectedHmlProjectName = null;
+            hmlCtrl.hml.project = null;
         };
 
         hmlCtrl.selectHml = function (item) {
@@ -105,5 +121,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hml', hml);
-    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', 'hmlModel', 'gridCellTemplateFactory', 'hmlService', 'typeaheadQueryBuilder', 'versionService', 'defaultHmlVersion'];
+    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', 'hmlModel', 'gridCellTemplateFactory', 'hmlService', 'typeaheadQueryBuilder', 'defaultHmlVersion', 'versions'];
 }());
