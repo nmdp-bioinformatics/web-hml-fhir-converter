@@ -4,15 +4,11 @@
 (function () {
     'use strict';
 
-    function reportingCenter ($scope, $uibModal) {
+    function reportingCenter ($scope, $uibModal, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var reportingCenterCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
-            deleteColumnTemplate = '<div class="ui-grid-cell-contents centered-heading">' +
-                '<button type="button" class="btn btn-danger btn-xs" data-ng-click="grid.appScope.removeReportingCenter(row.entity)">' +
-                '<i class="glyphicon glyphicon-minus" />'
-        '</button>' +
-        '</div>';
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         reportingCenterCtrl.scope = $scope;
         reportingCenterCtrl.edit = parentCtrl.edit;
@@ -93,5 +89,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenter', reportingCenter);
-    reportingCenter.$inject = ['$scope', '$uibModal'];
+    reportingCenter.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
 }());

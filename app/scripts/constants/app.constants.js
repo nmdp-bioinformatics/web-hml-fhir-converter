@@ -9,15 +9,9 @@
         'fhir_base_url': 'http://fhir.b12x.org/',
         'resource_server_base_url': 'http://localhost:8090/v1/',
         'hml': {
-            'version': '1.0.1',
-            'versions': [
-                '0.2',
-                '0.3',
-                '0.3.3',
-                '1.0',
-                '1.0.1',
-                '1.0.2'
-            ]
+            'version': {
+                'name': '1.0.1'
+            }
         },
         'resultsPerPage': [
             { number: 5, text: '5' },

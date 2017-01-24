@@ -94,6 +94,16 @@
                 });
 
                 return defer.promise;
+            },
+
+            getVersionModel: function () {
+                var defer = $q.defer();
+
+                hmlModelService.getModel('Version').then(function (result) {
+                    defer.resolve(result);
+                });
+
+                return defer.promise;
             }
         };
 

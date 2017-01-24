@@ -4,15 +4,11 @@
 (function () {
     'use strict';
 
-    function typingTestNames ($scope, $uibModal) {
+    function typingTestNames ($scope, $uibModal, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var typingTestNamesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
-            deleteColumnTemplate = '<div class="ui-grid-cell-contents centered-heading">' +
-                                       '<button type="button" class="btn btn-danger btn-xs" data-ng-click="grid.appScope.removeTypingTestName(row.entity)">' +
-                                           '<i class="glyphicon glyphicon-minus" />'
-                                       '</button>' +
-                                   '</div>';
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         typingTestNamesCtrl.scope = $scope;
         typingTestNamesCtrl.edit = parentCtrl.edit;
@@ -94,5 +90,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNames', typingTestNames);
-    typingTestNames.$inject = ['$scope', '$uibModal'];
+    typingTestNames.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
 }());

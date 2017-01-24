@@ -5,15 +5,11 @@
 (function () {
     'use strict';
 
-    function properties ($scope, $uibModal) {
+    function properties ($scope, $uibModal, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var propertiesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
-            deleteColumnTemplate = '<div class="ui-grid-cell-contents centered-heading">' +
-                '<button type="button" class="btn btn-danger btn-xs" data-ng-click="grid.appScope.removeProperty(row.entity)">' +
-                '<i class="glyphicon glyphicon-minus" />'
-        '</button>' +
-        '</div>';
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         propertiesCtrl.scope = $scope;
         propertiesCtrl.edit = parentCtrl.edit;
@@ -94,5 +90,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('properties', properties);
-    properties.$inject = ['$scope', '$uibModal'];
+    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
 }());

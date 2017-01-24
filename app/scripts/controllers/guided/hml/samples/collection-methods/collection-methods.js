@@ -7,15 +7,11 @@
 (function () {
     'use strict';
 
-    function collectionMethods ($scope, $uibModal) {
+    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var collectionMethodsCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
-            deleteColumnTemplate = '<div class="ui-grid-cell-contents centered-heading">' +
-                '<button type="button" class="btn btn-danger btn-xs" data-ng-click="grid.appScope.removeCollectionMethod(row.entity)">' +
-                '<i class="glyphicon glyphicon-minus" />'
-        '</button>' +
-        '</div>';
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         collectionMethodsCtrl.scope = $scope;
         collectionMethodsCtrl.edit = parentCtrl.edit;
@@ -96,5 +92,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethods', collectionMethods);
-    collectionMethods.$inject = ['$scope', '$uibModal'];
+    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
 }());

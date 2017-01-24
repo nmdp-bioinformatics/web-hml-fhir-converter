@@ -1,24 +1,24 @@
 /**
- * Created by abrown3 on 1/4/17.
+ * Created by abrown3 on 1/23/17.
  */
 (function () {
     'use strict';
 
-    function typingTestNamesTerminology($scope, typingTestNameService, $uibModal, toaster, objectModelFactory, gridCellTemplateFactory) {
+    function versionsTerminology($scope, versionService, $uibModal, toaster, objectModelFactory, gridCellTemplateFactory) {
         /* jshint validthis: true */
-        var typingTestNamesTerminologyCtrl = this,
+        var versionsTerminologyCtrl = this,
             dateColumnTemplate = gridCellTemplateFactory.createDateCellTemplate(),
             activeColumnTemplate = gridCellTemplateFactory.createActiveCellTemplate(),
             deleteColumnTemplate = gridCellTemplateFactory.createDeleteCellTemplate();
 
-        typingTestNamesTerminologyCtrl.scope = $scope;
-        typingTestNamesTerminologyCtrl.maxQuery = 10;
-        typingTestNamesTerminologyCtrl.gridOptions = {
+        versionsTerminologyCtrl.scope = $scope;
+        versionsTerminologyCtrl.maxQuery = 10;
+        versionsTerminologyCtrl.gridOptions = {
             data: [],
             enableSorting: true,
             showGridFooter: true,
             enableCellEditOnFocus: true,
-            appScopeProvider: typingTestNamesTerminologyCtrl,
+            appScopeProvider: versionsTerminologyCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
                 { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
@@ -29,7 +29,7 @@
             ]
         };
 
-        typingTestNamesTerminologyCtrl.deleteItem = function (typingTestName) {
+        versionsTerminologyCtrl.deleteItem = function (typingTestName) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/common/confirmation-modal.html',
@@ -37,25 +37,25 @@
                 controllerAs: 'confirmationModalCtrl',
                 resolve: {
                     title: function () {
-                        return 'Remove Typing Test Name from Database?'
+                        return 'Remove Version from Database?'
                     },
                     message: function () {
                         return 'This action cannot be undone, please ensure you would like to remove the entry with Name: ' +
-                                typingTestName.name + ' and Description: ' + typingTestName.description + ' that was Created on: ' +
-                                typingTestName.dateCreated;
+                            typingTestName.name + ' and Description: ' + typingTestName.description + ' that was Created on: ' +
+                            typingTestName.dateCreated;
                     }
                 }
             });
 
             modalInstance.result.then(function (result) {
                 if (result) {
-                    typingTestNameService.removeSingleTypingTestNameTerminology(typingTestName).then(function (res) {
-                        getTypingTestNames();
+                    versionService.removeSingleVersionTerminology(version).then(function (res) {
+                        getVersions();
 
                         if (res) {
                             toaster.pop({
                                 type: 'info',
-                                body: 'Successfully deleted Typing Test Name entry.'
+                                body: 'Successfully deleted Version entry.'
                             });
                         }
                     });
@@ -63,18 +63,18 @@
             })
         };
 
-        typingTestNamesTerminologyCtrl.addItem = function () {
+        versionsTerminologyCtrl.addItem = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
-                controller: 'typingTestNamesTerminologyAddEditModal',
-                controllerAs: 'typingTestNamesTerminologyAddEditModalCtrl',
-                templateUrl: 'views/settings/hml/typing-test-names/terminology/typing-test-names-terminology-add-edit-modal.html',
+                controller: 'versionsTerminologyAddEditModal',
+                controllerAs: 'versionsTerminologyAddEditModalCtrl',
+                templateUrl: 'views/settings/hml/versions/terminology/versions-terminology-add-edit-modal.html',
                 resolve: {
                     title: function () {
-                        return 'Add Typing Test Name Item';
+                        return 'Add Version Item';
                     },
-                    typingTestName: function () {
-                        return objectModelFactory.getTypingTestNameModel();
+                    version: function () {
+                        return objectModelFactory.getVersionModel();
                     },
                     edit: function () {
                         return false;
@@ -84,28 +84,28 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
-                    getTypingTestNames();
+                    getVersions();
 
                     toaster.pop({
                         type: 'info',
-                        body: 'Successfully added Typing Test Name entry.'
+                        body: 'Successfully added Version entry.'
                     });
                 }
             });
         };
 
-        typingTestNamesTerminologyCtrl.editItem = function (typingTestName) {
+        versionsTerminologyCtrl.editItem = function (version) {
             var modalInstance = $uibModal.open({
                 animation: true,
-                controller: 'typingTestNamesTerminologyAddEditModal',
-                controllerAs: 'typingTestNamesTerminologyAddEditModalCtrl',
-                templateUrl: 'views/settings/hml/typing-test-names/terminology/typing-test-names-terminology-add-edit-modal.html',
+                controller: 'versionsTerminologyAddEditModal',
+                controllerAs: 'versionsTerminologyAddEditModalCtrl',
+                templateUrl: 'views/settings/hml/versions/terminology/versions-terminology-add-edit-modal.html',
                 resolve: {
                     title: function () {
-                        return 'Edit Typing Test Name Item';
+                        return 'Edit Version Item';
                     },
-                    typingTestName: function () {
-                        return typingTestName;
+                    version: function () {
+                        return version;
                     },
                     edit: function () {
                         return true;
@@ -115,25 +115,25 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
-                    getTypingTestNames();
+                    getVersions();
 
                     toaster.pop({
                         type: 'info',
-                        body: 'Successfully edited Typing Test Name entry.'
+                        body: 'Successfully edited Version entry.'
                     });
                 }
             });
         };
 
-        getTypingTestNames();
+        getVersions();
 
-        function getTypingTestNames() {
-            typingTestNameService.getTypingTestNameTerminology(typingTestNamesTerminologyCtrl.maxQuery).then(function (typingTestNames) {
-                typingTestNamesTerminologyCtrl.gridOptions.data = typingTestNames;
+        function getVersions() {
+            versionService.getVersionTerminology(versionsTerminologyCtrl.maxQuery).then(function (versions) {
+                versionsTerminologyCtrl.gridOptions.data = versions;
             });
         }
     }
 
-    angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNamesTerminology', typingTestNamesTerminology);
-    typingTestNamesTerminology.$inject = ['$scope', 'typingTestNameService', '$uibModal', 'toaster', 'objectModelFactory', 'gridCellTemplateFactory'];
+    angular.module('hmlFhirAngularClientApp.controllers').controller('versionsTerminology', versionsTerminology);
+    versionsTerminology.$inject = ['$scope', 'versionService', '$uibModal', 'toaster', 'objectModelFactory', 'gridCellTemplateFactory'];
 }());

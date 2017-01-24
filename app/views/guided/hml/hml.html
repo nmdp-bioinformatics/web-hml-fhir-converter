@@ -4,185 +4,73 @@
             <h4 class="panel-title" data-ng-class="{ 'centered-heading': hmlCtrl.inputSequence > 1 }">{{ hmlCtrl.panelTitle === undefined ? 'HML' : hmlCtrl.panelTitle }}</h4>
         </div>
         <div class="panel-body">
-            <div data-ng-show="hmlCtrl.inputSequence === 1">
-                <div class="row centered-heading">
-                    <i id="glyphy" class="glyphicon glyphicon-asterisk" /><label for="glyphy">Current HML Version Selected: {{ hmlCtrl.hmlVersion }}</label>
-                </div>
-                <div class="row centered-heading">
-                    <button type="button" class="btn btn-link" data-ng-click="hmlCtrl.changeHmlVersion()">Select different version</button>
-                </div>
-                <div class="form">
-                    <form name="hmlForm">
-                        <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
-                            <label class="control-label">Project Name:</label>
-                            <input name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.hml.project.name" placeholder="Project Name" required />
-                            <div class="help-block" data-ng-show="hmlForm.projectName.$error.required && hmlCtrl.formSubmitted">
-                                <small>Project Name Is Required</small>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="row centered-heading">
+                <i id="glyphy" class="glyphicon glyphicon-asterisk" /><label for="glyphy">Current HML Version Selected: {{ hmlCtrl.hmlVersion }}</label>
             </div>
-            <div data-ng-show="hmlCtrl.inputSequence === 2">
-                <div class="row centered-heading">
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
+            <div class="row centered-heading">
+                <button type="button" class="btn btn-link" data-ng-click="hmlCtrl.changeHmlVersion()">Select different version</button>
+            </div>
+            <div class="form">
+                <form name="hmlForm">
+                    <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
+                        <label class="control-label">Project Name:</label>
+                        <!--<input name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.hml.project.name" placeholder="Project Name" required />-->
+                        <input id="projectName" name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.selectedHmlProjectName" placeholder="Project Name"
+                               uib-typeahead="hml.project.name for hml in hmlCtrl.getHmls($viewValue)" data-ng-change="hmlCtrl.hmlChange()"
+                               typeahead-on-select="hmlCtrl.selectHml($item)" autocomplete="off" required />
+                        <div class="help-block" data-ng-show="hmlForm.projectName.$error.required && hmlCtrl.formSubmitted">
+                            <small>Project Name Is Required</small>
+                        </div>
+                    </div>
+                    <div class="form-group centered-heading">
+                        <label for="advancedSearch" class="control-label">Enable Advanced Search:</label>
+                        <input type="checkbox" id="advancedSearch" data-ng-model="hmlCtrl.advancedSearchEnabled" />
+                    </div>
+                    <div data-ng-if="hmlCtrl.advancedSearchEnabled">
+                        <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h5 class="panel-title">Reporting Center</h5>
+                                <h5 class="panel-title">Advanced Search Fields</h5>
                             </div>
                             <div class="panel-body">
-                                <div class="scrollable-panel-body">
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.reportingCenter.id !== undefined">
-                                        <div class="row">
-                                            <div class="col-md-12 push-down">
-                                                <label for="reportingCenterName" class="control-label">Center Name:</label>
-                                                <p id="reportingCenterName">{{ hmlCtrl.hml.reportingCenter.name }}</p>
-                                                <div data-ng-show="hmlCtrl.hml.reportingCenter.context !== undefined">
-                                                    <label for="reportingCenterContext" class="control-label">Context:</label>
-                                                    <p id="reportingCenterContext">{{ hmlCtrl.hml.reportingCenter.context }}</p>
-                                                </div>
+                                <div class="form">
+                                    <form name="advancedHmlSearchForm">
+                                        <div class="form-group" data-ng-class="{ 'has-error': hmlForm.id.$invalid && hmlCtrl.formSubmitted }">
+                                            <label for="id" class="control-label">ID:</label>
+                                            <input name="id" id="id" class="form-control input-sm" data-ng-model="hmlCtrl.hml.id" placeholder="HML ID" />
+                                            <div class="help-block" data-ng-show="hmlForm.id.$error && hmlCtrl.formSubmitted">
+                                                <small>Input contains invalid text.</small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.reportingCenter.id === undefined">
-                                        <label class="vertical-center-text">None Selected</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-md-12 centered-heading">
-                                        <button data-ng-show="!hmlCtrl.hml.reportingCenter.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addReportingCenter(false)">
-                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
-                                        </button>
-                                        <button data-ng-show="hmlCtrl.hml.reportingCenter.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addReportingCenter(true)">
-                                            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">HML ID</h5>
-                            </div>
-                            <div class="panel-body">
-                                <div class="scrollable-panel-body">
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.hmlId.id !== undefined">
-                                        <div class="row">
-                                            <div class="col-md-12 push-down">
-                                                <label for="rootName" class="control-label"><i class="glyphicon glyphicon-tree-conifer" />Root Name:</label>
-                                                <p id="rootName">{{ hmlCtrl.hml.hmlId.rootName }}</p>
-                                                <label for="extension" class="control-label">Extension:</label>
-                                                <p id="extension">{{ hmlCtrl.hml.hmlId.extension }}</p>
+                                        <div class="form-group" data-ng-class="{ 'has-error': hmlForm.name.$invalid && hmlCtrl.formSubmitted }">
+                                            <label for="name" class="control-label">Project Name:</label>
+                                            <input name="name" id="name" class="form-control input-sm" data-ng-model="hmlCtrl.hml.project.name" placeholder="Project Name" />
+                                            <div class="help-block" data-ng-show="hmlForm.name.$error && hmlCtrl.formSubmitted">
+                                                <small>Input contains invalid text.</small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.hmlId.id === undefined">
-                                        <label class="vertical-center-text">None Selected</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-md-12 centered-heading">
-                                        <button data-ng-show="!hmlCtrl.hml.hmlId.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addHmlId(false)">
-                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
-                                        </button>
-                                        <button data-ng-show="hmlCtrl.hml.hmlId.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addHmlId(true)">
-                                            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">Typing Test Names</h5>
-                            </div>
-                            <div class="panel-body">
-                                <div class="scrollable-panel-body">
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.typingTestNames.length > 0">
-                                        <div class="row" data-ng-repeat="typingTest in hmlCtrl.hml.typingTestNames">
-                                            <p>{{ typingTest.name }}</p>
+                                        <div class="form-group" data-ng-class="{ 'has-error': hmlForm.version.$invalid && hmlCtrl.formSubmitted }">
+                                            <label for="version" class="control-label">Version:</label>
+                                            <input name="version" id="version" class="form-control input-sm" data-ng-model="hmlCtrl.hml.version" placeholder="HML Version" />
+                                            <div class="help-block" data-ng-show="hmlForm.version.$error && hmlCtrl.formSubmitted">
+                                                <small>Input contains invalid text.</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.typingTestNames.length === 0">
-                                        <label class="vertical-center-text">None Selected</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-md-12 centered-heading">
-                                        <button data-ng-show="hmlCtrl.hml.typingTestNames.length === 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addTypingTestNames(false)">
-                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
-                                        </button>
-                                        <button data-ng-show="hmlCtrl.hml.typingTestNames.length > 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addTypingTestNames(true)">
-                                            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
-                                        </button>
-                                    </div>
+                                        <div class="form-group" data-ng-class="{ 'has-error': hmlForm.dateCreated.$invalid && hmlCtrl.formSubmitted }">
+                                            <label for="dateCreated" class="control-label">Date Created:</label>
+                                            <input name="dateCreated" id="dateCreated" class="form-control input-sm" data-ng-model="hmlCtrl.hml.dateCreated" placeholder="Date Created" />
+                                            <div class="help-block" data-ng-show="hmlForm.dateCreated.$error && hmlCtrl.formSubmitted">
+                                                <small>Input contains invalid text.</small>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row centered-heading">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">Samples</h5>
-                            </div>
-                            <div class="panel-body">
-                                <div class="scrollable-panel-body">
-
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.samples.length === 0">
-                                        <label class="vertical-center-text">None Selected</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-md-12 centered-heading">
-                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addSamples()">
-                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div data-ng-show="hmlCtrl.gridOptions.data.length > 0">
+                        <div ui-grid="hmlCtrl.gridOptions" ui-grid-edit ui-grid-cellNav class="modal-grid"></div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h5 class="panel-title">Properties</h5>
-                            </div>
-                            <div class="panel-body">
-                                <div class="scrollable-panel-body">
-
-                                    <div class="centered-heading" data-ng-if="hmlCtrl.hml.properties.length === 0">
-                                        <label class="vertical-center-text">None Selected</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-md-12 centered-heading">
-                                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlCtrl.addProperties()">
-                                            <i class="glyphicon glyphicon-plus button-glyphicon" />Add
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="panel-footer">

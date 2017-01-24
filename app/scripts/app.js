@@ -73,6 +73,22 @@ var app = angular.module('hmlFhirAngularClientApp', [
           resolve: {
               hmlModel: function (objectModelFactory) {
                   return objectModelFactory.getHmlModel();
+              },
+              defaultVersion: function (versionService, appConfig) {
+                  return versionService.getVersionByName(appConfig.hml.version.name);
+              }
+          }
+      })
+      .when('/guided/hml/main/:edit', {
+          templateUrl: '/views/guided/hml/hml.html',
+          controller: 'hml',
+          controllerAs: 'hmlCtrl',
+          resolve: {
+              hmlModel: function (objectModelFactory) {
+                  return objectModelFactory.getHmlModel();
+              },
+              edit: function ($routeParams) {
+                  return $routeParams.edit === 'true';
               }
           }
       })

@@ -39,6 +39,9 @@
                     case 'TypingTestName':
                         url = getTypingTestNameModelUrl();
                         break;
+                    case 'Version':
+                        url = getVersionModelUrl();
+                        break;
                     default:
                         return;
                 }
@@ -89,6 +92,10 @@
 
         function getTypingTestNameModelUrl () {
             return appConfig.resource_server_base_url + 'typingTestName';
+        }
+
+        function getVersionModelUrl() {
+            return appConfig.resource_server_base_url + 'version';
         }
 
         return service;

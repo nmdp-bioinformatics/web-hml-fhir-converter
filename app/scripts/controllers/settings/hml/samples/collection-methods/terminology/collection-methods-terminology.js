@@ -4,13 +4,12 @@
 (function () {
     'use strict';
 
-    function collectionMethodsTerminology($scope, collectionMethodService, $uibModal, $filter, toaster, objectModelFactory) {
+    function collectionMethodsTerminology($scope, collectionMethodService, $uibModal, toaster, objectModelFactory, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var collectionMethodsTerminologyCtrl = this,
-            dateColumnTemplate = '<div class="ui-grid-cell-contents ng-binding ng-scope" title="{{ row.entity.dateCreated | date : \'medium\' }}">{{ row.entity.dateCreated | date : \'medium\' }}</div>',
-            activeColumnTemplate = '<button type="button" class="btn btn-link" data-ng-click="grid.appScope.editItem(row.entity)">Edit</button>' +
-                '<input type="checkbox" data-ng-model="row.entity.active" />&nbsp;<small>Active</small>',
-            deleteColumnTemplate = '<button type="button" class="btn btn-link red-link" data-ng-click="grid.appScope.deleteItem(row.entity)">Delete</button>';
+            dateColumnTemplate = gridCellTemplateFactory.createDateCellTemplate(),
+            activeColumnTemplate = gridCellTemplateFactory.createActiveCellTemplate(),
+            deleteColumnTemplate = gridCellTemplateFactory.createDeleteCellTemplate();
 
         collectionMethodsTerminologyCtrl.scope = $scope;
         collectionMethodsTerminologyCtrl.maxQuery = 10;
@@ -25,7 +24,7 @@
                 { name: 'id', field: 'id', visible: false },
                 { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
                 { name: 'description', field: 'description', displayName: 'Description', cellTooltip: function (row) { return row.entity.description; }, headerTooltip: function(col) { return col.displayName; } },
-                { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:', cellTemplate: dateColumnTemplate, cellTooltip: function (row) { return parseDate(row.entity.dateCreated); }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:', cellTemplate: dateColumnTemplate, cellTooltip: function (row) { return gridCellTemplateFactory.parseDate(row.entity.dateCreated); }, headerTooltip: function(col) { return col.displayName; } },
                 { name: 'active', field: 'active', displayName: 'Modify', enableColumnMenu: false, cellTemplate: activeColumnTemplate, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Delete', maxWidth: 60, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
@@ -128,10 +127,6 @@
 
         getCollectionMethods();
 
-        function parseDate(date) {
-            return $filter('date')(date, 'medium');
-        }
-
         function getCollectionMethods() {
             collectionMethodService.getCollectionMethodTerminology(collectionMethodsTerminologyCtrl.maxQuery, collectionMethodsTerminologyCtrl.pageNumber).then(function (collectionMethods) {
                 collectionMethodsTerminologyCtrl.gridOptions.data = collectionMethods;
@@ -140,5 +135,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethodsTerminology', collectionMethodsTerminology);
-    collectionMethodsTerminology.$inject = ['$scope', 'collectionMethodService', '$uibModal', '$filter', 'toaster', 'objectModelFactory'];
+    collectionMethodsTerminology.$inject = ['$scope', 'collectionMethodService', '$uibModal', 'toaster', 'objectModelFactory', 'gridCellTemplateFactory'];
 }());

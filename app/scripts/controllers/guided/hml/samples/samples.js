@@ -5,15 +5,11 @@
 (function () {
     'use strict';
 
-    function samples ($scope, $uibModal) {
+    function samples ($scope, $uibModal, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var samplesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
-            deleteColumnTemplate = '<div class="ui-grid-cell-contents centered-heading">' +
-                '<button type="button" class="btn btn-danger btn-xs" data-ng-click="grid.appScope.removeSample(row.entity)">' +
-                '<i class="glyphicon glyphicon-minus" />'
-        '</button>' +
-        '</div>';
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         samplesCtrl.scope = $scope;
         samplesCtrl.edit = parentCtrl.edit;
@@ -94,5 +90,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samples', samples);
-    samples.$inject = ['$scope', '$uibModal'];
+    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
 }());

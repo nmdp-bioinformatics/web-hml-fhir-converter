@@ -7,6 +7,11 @@
         <div class="col-md-12">
             <form>
                 <div class="form-group">
+                    <label for="maxQuery" class="control-label">Maximum Query Results:</label>
+                    <select id="maxQuery" data-ng-options="numResults.text for numResults in hmlVersionCtrl.resultsPerPage track by numResults.number"
+                            data-ng-model="hmlVersionCtrl.maxQuery" class="form-control input-sm" data-ng-on-selected="hmlVersionCtrl.maxQueryChange()" />
+                </div>
+                <div class="form-group">
                     <label for="hmlVersionSelector">Versions:</label>
                     <select id="hmlVersionSelector" class="form-control input-sm" data-ng-options="version for version in hmlVersionCtrl.versions"
                             data-ng-model="hmlVersionCtrl.defaultHmlVersion"></select>
