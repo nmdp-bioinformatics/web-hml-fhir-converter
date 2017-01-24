@@ -21,7 +21,10 @@
             { number: 100, text: '100' }
         ],
         'autoAddOnNoResults' : true,
-        'autoAddOnNoResultsTimer': 2500
+        'autoAddOnNoResultsTimer': 2500,
+        'defaultMaxQueryTypeahead': {
+             number: 10, text: '10'
+        }
     };
 
     angular.module('hmlFhirAngularClientApp.constants').constant('appConfig', appConfig);

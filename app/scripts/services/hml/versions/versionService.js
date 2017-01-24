@@ -111,7 +111,8 @@
 
             getVersionByName: function (name) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'version/name',
+                    properties = ['name'],
+                    url = appConfig.resource_server_base_url + 'version/properties/' + properties,
                     headers = httpHeaderTransform.getHeaderForResourceServer();
 
                 $http({

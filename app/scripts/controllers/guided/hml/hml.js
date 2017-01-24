@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hml ($scope, appConfig, $uibModal, toaster, $location, hmlModel, gridCellTemplateFactory, hmlService, typeaheadQueryBuilder, versionService, defaultVersion) {
+    function hml ($scope, appConfig, $uibModal, toaster, $location, hmlModel, gridCellTemplateFactory, hmlService, typeaheadQueryBuilder, versionService, defaultHmlVersion) {
         /*jshint validthis: true */
         var hmlCtrl = this,
             dateColumnTemplate = gridCellTemplateFactory.createDateCellTemplate(),
@@ -12,13 +12,13 @@
 
         hmlCtrl.scope = $scope;
         hmlCtrl.hml = hmlModel;
-        hmlCtrl.hml.version = defaultVersion;
+        hmlCtrl.hml.version = defaultHmlVersion;
         hmlCtrl.selectedHmlProjectName = null;
         hmlCtrl.formSubmitted = false;
         hmlCtrl.panelTitle = undefined;
         hmlCtrl.advancedSearchResults = [];
         hmlCtrl.advancedSearchEnabled = false;
-        hmlCtrl.maxQuery = 10;
+        hmlCtrl.maxQuery = appConfig.defaultMaxQueryTypeahead;
         hmlCtrl.pageNumber = 0;
         hmlCtrl.resultsPerPage = appConfig.resultsPerPage;
         hmlCtrl.autoAdd = appConfig.autoAddOnNoResults;
@@ -44,13 +44,13 @@
                 controllerAs: 'hmlVersionCtrl',
                 resolve: {
                     version: function () {
-                        return appConfig.hml.version;
+                        return hmlCtrl.hml.version;
                     },
                     versions: function () {
                         return versionService.getVersionTerminology(10, 0);
                     },
                     maxQuery: function () {
-                        return { number: 10, text: '10' };
+                        return appConfig.defaultMaxQueryTypeahead;
                     }
                 }
             });
@@ -105,5 +105,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hml', hml);
-    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', 'hmlModel', 'gridCellTemplateFactory', 'hmlService', 'typeaheadQueryBuilder', 'versionService'];
+    hml.$inject = ['$scope', 'appConfig', '$uibModal', 'toaster', '$location', 'hmlModel', 'gridCellTemplateFactory', 'hmlService', 'typeaheadQueryBuilder', 'versionService', 'defaultHmlVersion'];
 }());
