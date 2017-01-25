@@ -111,10 +111,6 @@
                 });
         };
 
-        hmlCtrl.hmlChange = function () {
-            hmlCtrl.hml.project = null;
-        };
-
         hmlCtrl.selectHml = function (item) {
             hmlCtrl.hml = item;
         };

@@ -14,17 +14,17 @@
                 <form name="hmlForm">
                     <div class="form-group" data-ng-show="!hmlCtrl.advancedSearchEnabled" data-ng-class="{ 'has-error': hmlForm.projectName.$invalid && hmlCtrl.formSubmitted }">
                         <label class="control-label">Project Name:</label>
-                        <input id="projectName" name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.selectedHmlProjectName" placeholder="Project Name"
-                               uib-typeahead="hml.project.name for hml in hmlCtrl.getHmls($viewValue)" data-ng-change="hmlCtrl.hmlChange()"
+                        <input id="projectName" name="projectName" type="text" class="form-control input-sm" data-ng-model="hmlCtrl.selectedHmlProjectName"
+                               uib-typeahead="hml.project.name for hml in hmlCtrl.getHmls($viewValue)" placeholder="Project Name"
                                typeahead-on-select="hmlCtrl.selectHml($item)" typeahead-no-results="projectNameNoResults" autocomplete="off" required />
                         <span data-ng-show="projectNameNoResults && hmlForm.projectName.$viewValue.length > 0" uib-dropdown uib-dropdown-toggle>
                             <div class="uib-dropdown-menu">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h6>*Querying HML database for project name containing: '{{ hmlForm.projectName.$viewValue }}' returns no results.
+                                        <h5>Querying HML database for project name containing: '{{ hmlForm.projectName.$viewValue }}' returns no results.
                                             Please use advanced search to search by other criteria, or click
                                             <a data-ng-click="hmlCtrl.createHml()">here</a> to create a new HML project.
-                                        </h6>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>

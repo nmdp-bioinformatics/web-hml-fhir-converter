@@ -20,21 +20,21 @@
                                 </div>
                             </div>
                             <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectDescription.$invalid && hmlCreateCtrl.formSubmitted }">
-                                <label class="control-label" for="projectDescription">Project Name:</label>
+                                <label class="control-label" for="projectDescription">Project Description:</label>
                                 <input type="text" class="form-control input-sm" data-ng-model="hmlCreateCtrl.hml.project.description" id="projectDescription" name="projectDescription" placeholder="Project Description" />
                                 <div class="help-block" data-ng-show="hmlForm.projectName.$error && hmlCreateCtrl.formSubmitted">
                                     <small>Invalid input contained above</small>
                                 </div>
                             </div>
                             <div class="form-group" data-ng-class="{ 'has-error': hmlForm.rootName.$invalid && hmlCreateCtrl.formSubmitted }">
-                                <label class="control-label" for="rootName">Project Name:</label>
+                                <label class="control-label" for="rootName">Project Root Name:</label>
                                 <input type="text" class="form-control input-sm" data-ng-model="hmlCreateCtrl.hml.hmlId.rootName" id="rootName" name="rootName" placeholder="HML Root Name" required />
                                 <div class="help-block" data-ng-show="hmlForm.rootName.$error.required && hmlCreateCtrl.formSubmitted">
                                     <small>Root Name Is Required</small>
                                 </div>
                             </div>
                             <div class="form-group" data-ng-class="{ 'has-error': hmlForm.projectDescription.$invalid && hmlCreateCtrl.formSubmitted }">
-                                <label class="control-label" for="extension">Project Name:</label>
+                                <label class="control-label" for="extension">Project Extension:</label>
                                 <input type="text" class="form-control input-sm" data-ng-model="hmlCreateCtrl.hml.hmlId.extension" id="extension" name="extension" placeholder="Project Extension" required />
                                 <div class="help-block" data-ng-show="hmlForm.extension.$error.required && hmlCreateCtrl.formSubmitted">
                                     <small>Extension Is Required</small>
@@ -55,7 +55,7 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlCreateCtrl.create()">Create</button>
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlCreateCtrl.create(hmlForm)">Create</button>
             <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="hmlCreateCtrl.close()">Close</button>
         </div>
     </div>
