@@ -90,7 +90,15 @@
             });
 
             modalInstance.result.then(function (result) {
+                if (result) {
+                    if (result.constructor === Array) {
+                        hmlCtrl.hml = result[0];
+                    } else {
+                        hmlCtrl.hml = result;
+                    }
 
+                    loadHmlDetails(hmlCtrl.hml.id, false);
+                }
             });
         };
 
@@ -114,6 +122,10 @@
         hmlCtrl.selectHml = function (item) {
             hmlCtrl.hml = item;
         };
+
+        function loadHmlDetails(hmlId, edit) {
+            $location.path('/guided/hml/details/' + edit + '/' + hmlId + '/');
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hml', hml);

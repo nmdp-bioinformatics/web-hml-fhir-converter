@@ -82,16 +82,16 @@ var app = angular.module('hmlFhirAngularClientApp', [
               }
           }
       })
-      .when('/guided/hml/main/:edit', {
-          templateUrl: '/views/guided/hml/hml.html',
-          controller: 'hml',
-          controllerAs: 'hmlCtrl',
+      .when('/guided/hml/details/:edit/:hmlId', {
+          templateUrl: '/views/guided/hml/hml-add-edit-main.html',
+          controller: 'hmlAddEditMain',
+          controllerAs: 'hmlAddEditMainCtrl',
           resolve: {
-              hmlModel: function (objectModelFactory) {
-                  return objectModelFactory.getHmlModel();
+              hmlModel: function (hmlService, $route) {
+                  return hmlService.getHml($route.current.params.hmlId);
               },
-              edit: function ($routeParams) {
-                  return $routeParams.edit === 'true';
+              edit: function ($route) {
+                  return $route.current.params.edit === 'true';
               }
           }
       })

@@ -46,8 +46,8 @@
                 <div class="scrollable-panel-body">
                     <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.hmlId.id !== undefined">
                         <div class="row">
-                            <div class="col-md-12 push-down">
-                                <label for="rootName" class="control-label"><i class="glyphicon glyphicon-tree-conifer" />Root Name:</label>
+                            <div class="col-md-12">
+                                <label for="rootName" class="control-label">Root Name:</label>
                                 <p id="rootName">{{ hmlAddEditMainCtrl.hml.hmlId.rootName }}</p>
                                 <label for="extension" class="control-label">Extension:</label>
                                 <p id="extension">{{ hmlAddEditMainCtrl.hml.hmlId.extension }}</p>
@@ -62,10 +62,10 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 centered-heading">
-                        <button data-ng-show="!hmlAddEditMainCtrl.hml.hmlId.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addHmlId(false)">
+                        <button data-ng-show="!hmlAddEditMainCtrl.hml.hmlId.id" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addHmlId(false)">
                             <i class="glyphicon glyphicon-plus button-glyphicon" />Add
                         </button>
-                        <button data-ng-show="hmlAddEditMainCtrl.hml.hmlId.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addHmlId(true)">
+                        <button data-ng-show="hmlAddEditMainCtrl.hml.hmlId.id" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addHmlId(true)">
                             <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
                         </button>
                     </div>

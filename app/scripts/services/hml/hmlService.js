@@ -59,6 +59,22 @@
                 return defer.promise;
             },
 
+            getHml: function (hmlId) {
+                var defer = $q.defer(),
+                    url = appConfig.resource_server_base_url + 'hml/' + hmlId,
+                    headers = httpHeaderTransform.getHeaderForResourceServer();
+
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: headers
+                }).success(function (res) {
+                    defer.resolve(res);
+                });
+
+                return defer.promise;
+            },
+
             updateSingleHmlTerminology: function (hml) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hml',
