@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="modal" class="close" aria-hidden="true" data-ng-click="hmlIdAddEditCtrl.cancel()">&times;</button>
-    <h3 class="modal-title">{{ hmlIdAddEditCtrl.edit ? 'Edit' : 'Add' }} Hml ID</h3>
+    <h3 class="modal-title">Edit Hml ID</h3>
 </div>
 <div class="modal-body">
     <toaster-container toaster-options="{ 'close-button': true, 'limit': 1, 'tap-to-dismiss': true, 'toaster-id': 1 }"></toaster-container>
@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">{{ hmlIdAddEditCtrl.edit ? 'Edit' : 'Add' }} Hml ID Information</h4>
+                    <h4 class="panel-title">Edit Hml ID Information</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -21,9 +21,9 @@
                                                 data-ng-model="hmlIdAddEditCtrl.maxQuery" class="form-control input-sm" />
                                     </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': hmlIdAddEditCtrl.inputForm.hmlId.$invalid && hmlIdAddEditCtrl.formSubmitted }">
-                                        <label for="hmlId" class="control-label">Hml ID:</label>
-                                        <input id="hmlId" name="hmlId" type="text" class="form-control input-sm" data-ng-model="hmlIdAddEditCtrl.selectedReportingCenterName" placeholder="Reporting Center"
-                                               uib-typeahead="hmlId.context for hmlId in hmlIdAddEditCtrl.getHmlIds($viewValue)" data-ng-change="hmlIdAddEditCtrl.hmlIdChange()"
+                                        <label for="hmlId" class="control-label">Root Name:</label>
+                                        <input id="hmlId" name="hmlId" type="text" class="form-control input-sm" placeholder="Root Name" data-ng-model="hmlIdAddEditCtrl.selectedHmlIdRootName"
+                                               uib-typeahead="hmlId.rootName for hmlId in hmlIdAddEditCtrl.getHmlIds($viewValue)" data-ng-change="hmlIdAddEditCtrl.hmlIdChange()"
                                                typeahead-on-select="hmlIdAddEditCtrl.selectHmlId($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="hmlIdAddEditCtrl.inputForm.hmlId.$error.required && hmlIdAddEditCtrl.formSubmitted">
                                             <small>Please select an Hml ID</small>
@@ -45,7 +45,7 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlIdAddEditCtrl.add(hmlIdAddEditCtrl.inputForm)">{{ hmlIdAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlIdAddEditCtrl.save(hmlIdAddEditCtrl.inputForm)">Update</button>
             <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="hmlIdAddEditCtrl.close()">Close</button>
         </div>
     </div>

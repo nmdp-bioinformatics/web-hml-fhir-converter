@@ -75,7 +75,7 @@
                 return defer.promise;
             },
 
-            updateSingleHmlTerminology: function (hml) {
+            updateHml: function (hml) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hml',
                     headers = httpHeaderTransform.postHeaderForResourceSever();

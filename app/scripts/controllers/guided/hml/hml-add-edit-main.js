@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster) {
+    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q) {
        /* jshint validthis:true */
         var hmlAddEditMainCtrl = this;
 
@@ -12,9 +12,9 @@
         hmlAddEditMainCtrl.hml = hmlModel;
         hmlAddEditMainCtrl.edit = edit;
 
-        hmlAddEditMainCtrl.addReportingCenter = function () {
+        hmlAddEditMainCtrl.addReportingCenter = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.reportingCenters.length > 0 ? 'Edit' : 'Add';
-            openModal(titlePrefix + ' Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', hmlAddEditMainCtrl.edit).then(function (result) {
+            openModal(titlePrefix + ' Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
                 if (result) {
                     hmlAddEditMainCtrl.hml.reportingCenters = result;
 
@@ -26,9 +26,9 @@
             });
         };
 
-        hmlAddEditMainCtrl.addHmlId = function () {
+        hmlAddEditMainCtrl.addHmlId = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.hmlId.id !== null ? 'Edit' : 'Add';
-            openModal(titlePrefix + ' HML ID', 'views/guided/hml/hml-id/hml-id.html', hmlAddEditMainCtrl.edit).then(function (result) {
+            openModal(titlePrefix + ' HML ID', 'views/guided/hml/hml-id/hml-id.html', edit).then(function (result) {
                 if (result) {
                     hmlAddEditMainCtrl.hml.hmlId = result;
 
@@ -40,9 +40,9 @@
             });
         };
 
-        hmlAddEditMainCtrl.addTypingTestNames = function () {
+        hmlAddEditMainCtrl.addTypingTestNames = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.typingTestNames.length > 0 ? 'Edit' : 'Add';
-            openModal(titlePrefix + ' Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', hmlAddEditMainCtrl.edit).then(function (result) {
+            openModal(titlePrefix + ' Typing Test Names', 'views/guided/hml/typing-test-names/typing-test-names.html', edit).then(function (result) {
                 if (result) {
                     hmlAddEditMainCtrl.hml.typingTestNames = result;
 
@@ -54,18 +54,18 @@
             });
         };
 
-        hmlAddEditMainCtrl.addSamples = function () {
+        hmlAddEditMainCtrl.addSamples = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.samples.length > 0 ? 'Edit' : 'Add';
-            openModal(titlePrefix + ' Samples', 'views/guided/hml/samples/samples.html', hmlAddEditMainCtrl.edit).then(function (result) {
+            openModal(titlePrefix + ' Samples', 'views/guided/hml/samples/samples.html', edit).then(function (result) {
                 if (result) {
                     hmlAddEditMainCtrl.hml.samples.push(result);
                 }
             });
         };
 
-        hmlAddEditMainCtrl.addProperties = function () {
+        hmlAddEditMainCtrl.addProperties = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.properties.length > 0 ? 'Edit' : 'Add';
-            openModal(titlePrefix + ' Properties', 'views/guided/hml/properties/properties.html', hmlAddEditMainCtrl.edit).then(function (result) {
+            openModal(titlePrefix + ' Properties', 'views/guided/hml/properties/properties.html', edit).then(function (result) {
                 if (result) {
                     hmlAddEditMainCtrl.hml.properties.push(result);
                 }
@@ -86,7 +86,7 @@
                         bodyTemplateUrl: function () {
                             return bodyTemplateUrl;
                         },
-                        hmlObject: function () {
+                        hmlModel: function () {
                             return hmlAddEditMainCtrl.hml;
                         },
                         edit: function () {
@@ -104,5 +104,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlAddEditMain', hmlAddEditMain);
-    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster'];
+    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q'];
 }());

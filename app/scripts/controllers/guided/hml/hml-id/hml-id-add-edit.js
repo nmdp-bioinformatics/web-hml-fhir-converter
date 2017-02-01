@@ -4,27 +4,22 @@
 (function () {
     'use strict';
 
-    function hmlIdAddEdit ($scope, $uibModalInstance, $uibModal, edit, hmlId, selectedHmlIds, hmlIdService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory) {
+    function hmlIdAddEdit ($scope, $uibModalInstance, $uibModal, hmlModel, hmlIdService, appConfig, toaster, typeaheadQueryBuilder, hmlService) {
         /* jshint validthis: true */
         var hmlIdAddEditCtrl = this;
 
         hmlIdAddEditCtrl.scope = $scope;
         hmlIdAddEditCtrl.formSubmitted = false;
-        hmlIdAddEditCtrl.edit = edit;
-        hmlIdAddEditCtrl.selectedHmlIdName = null;
-        hmlIdAddEditCtrl.selectedHmlId = null
         hmlIdAddEditCtrl.maxQuery = { number: 10, text: '10' };
         hmlIdAddEditCtrl.pageNumber = 0;
         hmlIdAddEditCtrl.resultsPerPage = appConfig.resultsPerPage;
         hmlIdAddEditCtrl.autoAdd = appConfig.autoAddOnNoResults;
+        hmlIdAddEditCtrl.hml = hmlModel;
+        hmlIdAddEditCtrl.selectedHmlIdRootName = null;
 
         $scope.$on('hmlIdAddEditCtrl.addedExternal.success', function (event, result) {
             $uibModalInstance.close(result);
         });
-
-        if (hmlIdAddEditCtrl.edit) {
-            hmlIdAddEditCtrl.selectedHmlId = hmlId;
-        }
 
         hmlIdAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -34,23 +29,31 @@
             $uibModalInstance.close();
         };
 
-        hmlIdAddEditCtrl.add = function (form) {
+        hmlIdAddEditCtrl.save = function (form) {
             hmlIdAddEditCtrl.formSubmitted = true;
 
             if (!form.$invalid) {
                 hmlIdAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(hmlIdAddEditCtrl.selectedHmlId);
+                hmlService.updateHml(hmlIdAddEditCtrl.hml).then(function (result) {
+                    if (result) {
+                        $uibModalInstance.close(result);
+                    }
+                });
             }
         };
 
+        hmlIdAddEditCtrl.hmlIdChange = function () {
+            hmlIdAddEditCtrl.hml.hmlId = null;
+        };
+
         hmlIdAddEditCtrl.selectHmlId = function (item) {
-            hmlIdAddEditCtrl.selectedHmlId = item;
+            hmlIdAddEditCtrl.hml.hmlId = item;
         };
 
         hmlIdAddEditCtrl.getHmlIds = function (viewValue) {
             return hmlIdService.getTypeaheadOptions(hmlIdAddEditCtrl.maxQuery.number,
                 typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('rootName', viewValue, false,
-                    selectedHmlIds, 'id')).then(function (response) {
+                    [], 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
                 }
@@ -59,10 +62,6 @@
                     setTimeout(timeNoResults, appConfig.autoAddOnNoResultsTimer);
                 }
             });
-        };
-
-        hmlIdAddEditCtrl.hmlIdChange = function () {
-            hmlIdAddEditCtrl.selectedHmlId = null;
         };
 
         function createTypeAheadItemEntry() {
@@ -114,5 +113,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlIdAddEdit', hmlIdAddEdit);
-    hmlIdAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'hmlId', 'selectedHmlIds', 'hmlIdService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory'];
+    hmlIdAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'hmlModel', 'hmlIdService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'hmlService'];
 }());
