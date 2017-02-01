@@ -4,14 +4,14 @@
 (function () {
     'use strict';
 
-    function typingTestNames ($scope, $uibModal, gridCellTemplateFactory) {
+    function typingTestNames ($scope, $uibModal, gridCellTemplateFactory, hmlService) {
         /* jshint validthis: true */
         var typingTestNamesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         typingTestNamesCtrl.scope = $scope;
-        typingTestNamesCtrl.edit = parentCtrl.edit;
+        typingTestNamesCtrl.hml = parentCtrl.hml;
         typingTestNamesCtrl.gridOptions = {
             data: [],
             enableSorting: true,
@@ -25,12 +25,14 @@
             ]
         };
 
-        if (typingTestNamesCtrl.edit) {
-            typingTestNamesCtrl.gridOptions.data = parentCtrl.hml.typingTestNames;
-        }
+        typingTestNamesCtrl.gridOptions.data = parentCtrl.hml.typingTestNames;
 
         $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', typingTestNamesCtrl.gridOptions.data);
+            hmlService.updateHml(typingTestNamesCtrl.hml).then(function (result) {
+                if (result) {
+                    $scope.$broadcast('guided:hml:node:updated', result);
+                }
+            });
         });
 
         typingTestNamesCtrl.addTypingTestNameEntry = function () {
@@ -47,7 +49,7 @@
                         return undefined;
                     },
                     selectedTypingTestNames: function () {
-                        var typingTestNames = typingTestNamesCtrl.gridOptions.data,
+                        var typingTestNames = typingTestNamesCtrl.hml.typingTestNames,
                             idArray = [];
 
                         for (var i = 0; i < typingTestNames.length; i++) {
@@ -63,24 +65,24 @@
                 if (typingTestName) {
                     if (typingTestName.constructor === Array) {
                         for (var i = 0; i < typingTestName.length; i++) {
-                            typingTestNamesCtrl.gridOptions.data.push(typingTestName[i]);
+                            typingTestNamesCtrl.hml.typingTestNames.push(typingTestName[i]);
                         }
 
                         return;
                     }
 
-                    typingTestNamesCtrl.gridOptions.data.push(typingTestName);
+                    typingTestNamesCtrl.hml.typingTestNames.push(typingTestName);
                 }
             });
         };
 
         typingTestNamesCtrl.removeTypingTestName = function (typingTestName) {
-            typingTestNamesCtrl.gridOptions.data.splice(getTypingTestNameIndex(typingTestName), 1);
+            typingTestNamesCtrl.hml.typingTestNames.splice(getTypingTestNameIndex(typingTestName), 1);
         };
 
         function getTypingTestNameIndex (typingTestName) {
-            for (var i = 0; i < typingTestNamesCtrl.gridOptions.data.length; i++) {
-                if (typingTestNamesCtrl.gridOptions.data[i].id === typingTestName.id) {
+            for (var i = 0; i < typingTestNamesCtrl.hml.typingTestNames.length; i++) {
+                if (typingTestNamesCtrl.hml.typingTestNames[i].id === typingTestName.id) {
                     return i;
                 }
             }
@@ -90,5 +92,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingTestNames', typingTestNames);
-    typingTestNames.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
+    typingTestNames.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService'];
 }());

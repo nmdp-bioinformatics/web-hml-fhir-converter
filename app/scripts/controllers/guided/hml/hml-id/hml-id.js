@@ -13,7 +13,7 @@
         hmlIdCtrl.hml = parentCtrl.hml;
 
         $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', hmlIdCtrl.hml);
+            $scope.$broadcast('guided:hml:node:updated', hmlIdCtrl.hml);
         });
 
         hmlIdCtrl.editHmlId = function () {

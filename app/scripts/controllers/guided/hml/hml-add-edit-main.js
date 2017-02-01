@@ -12,6 +12,10 @@
         hmlAddEditMainCtrl.hml = hmlModel;
         hmlAddEditMainCtrl.edit = edit;
 
+        $scope.$on('guided:hml:node:updated', function (event, data) {
+            hmlAddEditMainCtrl.hml = data;
+        });
+
         hmlAddEditMainCtrl.addReportingCenter = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.reportingCenters.length > 0 ? 'Edit' : 'Add';
             openModal(titlePrefix + ' Reporting Center', 'views/guided/hml/reporting-center/reporting-center.html', edit).then(function (result) {
