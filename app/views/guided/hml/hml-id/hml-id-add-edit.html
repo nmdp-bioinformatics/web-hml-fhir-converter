@@ -8,26 +8,36 @@
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Edit Hml ID Information</h4>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <select data-ng-options="numResults.text for numResults in hmlIdAddEditCtrl.resultsPerPage track by numResults.number"
+                                    data-ng-model="hmlIdAddEditCtrl.maxQuery" class="form-control input-sm" />
+                        </div>
+                        <div class="col-md-10">
+                            <h5 class="select-label-right-side">(Maximum results returned on auto search)</h5>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form">
                                 <form name="hmlIdAddEditCtrl.inputForm">
-                                    <div class="form-group">
-                                        <label for="maxQuery" class="control-label">Maximum Query Results:</label>
-                                        <select id="maxQuery" data-ng-options="numResults.text for numResults in hmlIdAddEditCtrl.resultsPerPage track by numResults.number"
-                                                data-ng-model="hmlIdAddEditCtrl.maxQuery" class="form-control input-sm" />
-                                    </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': hmlIdAddEditCtrl.inputForm.hmlId.$invalid && hmlIdAddEditCtrl.formSubmitted }">
                                         <label for="hmlId" class="control-label">Root Name:</label>
                                         <input id="hmlId" name="hmlId" type="text" class="form-control input-sm" placeholder="Root Name" data-ng-model="hmlIdAddEditCtrl.selectedHmlIdRootName"
-                                               uib-typeahead="hmlId.rootName for hmlId in hmlIdAddEditCtrl.getHmlIds($viewValue)" data-ng-change="hmlIdAddEditCtrl.hmlIdChange()"
+                                               uib-typeahead="hmlId.rootName for hmlId in hmlIdAddEditCtrl.getHmlIdsByRootName($viewValue)"
                                                typeahead-on-select="hmlIdAddEditCtrl.selectHmlId($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="hmlIdAddEditCtrl.inputForm.hmlId.$error.required && hmlIdAddEditCtrl.formSubmitted">
                                             <small>Please select an Hml ID</small>
                                         </div>
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': hmlIdAddEditCtrl.inputForm.extension.$invalid && hmlIdAddEditCtrl.formSubmitted }">
+                                        <label for="extension" class="control-label">Extension:</label>
+                                        <input id="extension" name="extension" type="text" class="form-control input-sm" placeholder="Extension" data-ng-model="hmlIdAddEditCtrl.selectedHmlIdExtension"
+                                               uib-typeahead="hmlId.extension for hmlId in hmlIdAddEditCtrl.getHmlIdsByExtension($viewValue)"
+                                               typeahead-on-select="hmlIdAddEditCtrl.selectHmlId($item)" autocomplete="off" required />
                                     </div>
                                     <div class="form-group">
                                         <input type="checkbox" data-ng-model="hmlIdAddEditCtrl.autoAdd" />
@@ -45,7 +55,7 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlIdAddEditCtrl.save(hmlIdAddEditCtrl.inputForm)">Update</button>
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="hmlIdAddEditCtrl.save(hmlIdAddEditCtrl.inputForm)">Save</button>
             <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="hmlIdAddEditCtrl.close()">Close</button>
         </div>
     </div>

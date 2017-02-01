@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlIdAddEdit ($scope, $uibModalInstance, $uibModal, hmlModel, hmlIdService, appConfig, toaster, typeaheadQueryBuilder, hmlService) {
+    function hmlIdAddEdit ($scope, $uibModalInstance, hmlModel, hmlIdService, appConfig, toaster, typeaheadQueryBuilder, hmlService) {
         /* jshint validthis: true */
         var hmlIdAddEditCtrl = this;
 
@@ -16,10 +16,18 @@
         hmlIdAddEditCtrl.autoAdd = appConfig.autoAddOnNoResults;
         hmlIdAddEditCtrl.hml = hmlModel;
         hmlIdAddEditCtrl.selectedHmlIdRootName = null;
+        hmlIdAddEditCtrl.selectedHmlIdExtension = null;
 
         $scope.$on('hmlIdAddEditCtrl.addedExternal.success', function (event, result) {
             $uibModalInstance.close(result);
         });
+
+        if (hmlIdAddEditCtrl.hml !== null) {
+            if (hmlIdAddEditCtrl.hml.hmlId !== null) {
+                hmlIdAddEditCtrl.selectedHmlIdRootName = hmlIdAddEditCtrl.hml.hmlId.rootName;
+                hmlIdAddEditCtrl.selectedHmlIdExtension = hmlIdAddEditCtrl.hml.hmlId.extension;
+            }
+        }
 
         hmlIdAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -32,86 +40,77 @@
         hmlIdAddEditCtrl.save = function (form) {
             hmlIdAddEditCtrl.formSubmitted = true;
 
-            if (!form.$invalid) {
-                hmlIdAddEditCtrl.formSubmitted = false;
-                hmlService.updateHml(hmlIdAddEditCtrl.hml).then(function (result) {
-                    if (result) {
-                        $uibModalInstance.close(result);
-                    }
+            if (!form.$dirty) {
+                toaster.pop({
+                    type: 'info',
+                    body: 'No updates to form, returning.'
                 });
-            }
-        };
 
-        hmlIdAddEditCtrl.hmlIdChange = function () {
-            hmlIdAddEditCtrl.hml.hmlId = null;
+                $uibModalInstance.close();
+            }
+
+            if (!form.$invalid) {
+                if (dirtyObject(hmlIdAddEditCtrl.hml)) {
+                    updateHmlId(hmlIdAddEditCtrl.hml);
+                    hmlIdAddEditCtrl.formSubmitted = false;
+                    hmlService.updateHml(hmlIdAddEditCtrl.hml).then(function (result) {
+                        if (result) {
+                            $uibModalInstance.close(result);
+                        }
+                    });
+                } else {
+                    toaster.pop({
+                        type: 'info',
+                        body: 'No updates to form, returning.'
+                    });
+
+                    $uibModalInstance.close();
+                }
+            }
         };
 
         hmlIdAddEditCtrl.selectHmlId = function (item) {
             hmlIdAddEditCtrl.hml.hmlId = item;
+            hmlIdAddEditCtrl.selectedHmlIdRootName = hmlIdAddEditCtrl.hml.hmlId.rootName;
+            hmlIdAddEditCtrl.selectedHmlIdExtension = hmlIdAddEditCtrl.hml.hmlId.extension;
         };
 
-        hmlIdAddEditCtrl.getHmlIds = function (viewValue) {
+        hmlIdAddEditCtrl.getHmlIdsByRootName = function (viewValue) {
+            return getTypeaheadByTerm('rootName', viewValue)
+        };
+
+        hmlIdAddEditCtrl.getHmlIdsByExtension = function (viewValue) {
+            return getTypeaheadByTerm('extension', viewValue);
+        };
+
+        function updateHmlId(hml) {
+            hml.hmlId.extension = hmlIdAddEditCtrl.selectedHmlIdExtension;
+            hml.hmlId.rootName = hmlIdAddEditCtrl.selectedHmlIdRootName;
+        }
+
+        function dirtyObject(hml) {
+            if (hml.hmlId.rootName !== hmlIdAddEditCtrl.selectedHmlIdRootName) {
+                return true;
+            }
+
+            if (hml.hmlId.extension !== hmlIdAddEditCtrl.selectedHmlIdExtension) {
+                return true;
+            }
+
+            return false;
+        }
+
+        function getTypeaheadByTerm(searchTerm, viewValue) {
             return hmlIdService.getTypeaheadOptions(hmlIdAddEditCtrl.maxQuery.number,
-                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('rootName', viewValue, false,
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion(searchTerm, viewValue, false,
                     [], 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
                 }
-
-                if (hmlIdAddEditCtrl.autoAdd) {
-                    setTimeout(timeNoResults, appConfig.autoAddOnNoResultsTimer);
-                }
             });
-        };
-
-        function createTypeAheadItemEntry() {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                controller: 'hmlIdTerminologyAddEditModal',
-                controllerAs: 'hmlIdTerminologyAddEditModalCtrl',
-                templateUrl: 'views/settings/hml/hml-id/terminology/hml-id-terminology-add-edit-modal.html',
-                resolve: {
-                    title: function () {
-                        return 'Add Hml ID Item';
-                    },
-                    hmlIds: function () {
-                        return objectModelFactory.getHmlIdModel();
-                    },
-                    edit: function () {
-                        return false;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (result) {
-                if (result) {
-                    toaster.pop({
-                        type: 'info',
-                        body: 'Successfully added Hml ID.'
-                    });
-
-                    $scope.$emit('hmlIdAddEditCtrl.addedExternal.success', result);
-                }
-            });
-        }
-
-        function timeNoResults() {
-            if (hmlIdAddEditCtrl.selectedHmlId === null) {
-
-                toaster.pop({
-                    type: 'info',
-                    title: 'Add / Edit Hml ID',
-                    body: 'Not finding the data you need? Close this notification to be taken to add/edit page.',
-                    toasterId: 1,
-                    timeout: 0,
-                    onHideCallback: function () {
-                        createTypeAheadItemEntry();
-                    }
-                });
-            }
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlIdAddEdit', hmlIdAddEdit);
-    hmlIdAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'hmlModel', 'hmlIdService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'hmlService'];
+    hmlIdAddEdit.$inject = ['$scope', '$uibModalInstance', 'hmlModel', 'hmlIdService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'hmlService'];
 }());
