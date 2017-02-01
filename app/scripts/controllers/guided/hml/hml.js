@@ -70,7 +70,7 @@
             });
         };
 
-        hmlCtrl.createHml = function () {
+        hmlCtrl.createHml = function (created) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/hml-create.html',
@@ -85,6 +85,9 @@
                     },
                     title: function () {
                         return 'Create HML Project';
+                    },
+                    created: function () {
+                        return created;
                     }
                 }
             });
@@ -121,6 +124,7 @@
 
         hmlCtrl.selectHml = function (item) {
             hmlCtrl.hml = item;
+            hmlCtrl.createHml(true);
         };
 
         function loadHmlDetails(hmlId, edit) {

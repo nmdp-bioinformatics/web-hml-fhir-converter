@@ -4,11 +4,12 @@
 (function () {
     'use strict';
 
-    function hmlCreate ($scope, hml, title, $uibModalInstance, hmlService, versions) {
+    function hmlCreate ($scope, hml, title, $uibModalInstance, hmlService, versions, created) {
         /* jshint validthis: true */
         var hmlCreateCtrl = this;
 
         hmlCreateCtrl.scope = $scope;
+        hmlCreateCtrl.created = created;
         hmlCreateCtrl.hml = hml;
         hmlCreateCtrl.title = title;
         hmlCreateCtrl.formSubmitted = false;
@@ -34,8 +35,12 @@
                 });
             }
         };
+
+        hmlCreateCtrl.edit = function () {
+            $uibModalInstance.close(hmlCreateCtrl.hml);
+        };
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlCreate', hmlCreate);
-    hmlCreate.$inject = ['$scope', 'hml', 'title', '$uibModalInstance', 'hmlService', 'versions'];
+    hmlCreate.$inject = ['$scope', 'hml', 'title', '$uibModalInstance', 'hmlService', 'versions', 'created'];
 }());
