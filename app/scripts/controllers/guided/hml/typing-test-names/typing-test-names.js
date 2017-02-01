@@ -20,7 +20,7 @@
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
                 { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
-                { name: 'description', field: 'description', displayName: 'Description:', cellTooltip: function (row) { return row.entity.description ;}, headerTooltip: function(col) { return col.displayName; } },,
+                { name: 'description', field: 'description', displayName: 'Description:', cellTooltip: function (row) { return row.entity.description ;}, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
@@ -30,7 +30,7 @@
         $scope.$on('guided:hml:node:update', function () {
             hmlService.updateHml(typingTestNamesCtrl.hml).then(function (result) {
                 if (result) {
-                    $scope.$broadcast('guided:hml:node:updated', result);
+                    $scope.$emit('guided:hml:node:updated', result);
                 }
             });
         });

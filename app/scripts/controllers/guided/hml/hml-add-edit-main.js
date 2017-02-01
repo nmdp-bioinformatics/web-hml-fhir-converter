@@ -4,15 +4,54 @@
 (function () {
     'use strict';
 
-    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q) {
+    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope) {
        /* jshint validthis:true */
         var hmlAddEditMainCtrl = this;
 
         hmlAddEditMainCtrl.scope = $scope;
         hmlAddEditMainCtrl.hml = hmlModel;
         hmlAddEditMainCtrl.edit = edit;
+        hmlAddEditMainCtrl.gridOptions = {
+            typingTestNamesGrid: {
+                data: hmlAddEditMainCtrl.hml.typingTestNames,
+                enableSorting: true,
+                showGridFooter: true,
+                appScopeProvider: hmlAddEditMainCtrl,
+                columnDefs: [
+                    { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
+                    { name: 'description', field: 'description', displayName: 'Description:', cellTooltip: function (row) { return row.entity.description ;}, headerTooltip: function(col) { return col.displayName; } }
+                ]
+            },
+            reportingCentersGrid: {
+                data: hmlAddEditMainCtrl.hml.reportingCenters,
+                enableSorting: true,
+                showGridFooter: true,
+                appScopeProvider: hmlAddEditMainCtrl,
+                columnDefs: [
+                    { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } }
+                ]
+            },
+            samplesGrid: {
+                data: hmlAddEditMainCtrl.hml.samples,
+                enableSorting: true,
+                showGridFooter: true,
+                appScopeProvider: hmlAddEditMainCtrl,
+                columnDefs: [
+                    { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } }
+                ]
+            },
+            propertiesGrid: {
+                data: hmlAddEditMainCtrl.hml.properties,
+                enableSorting: true,
+                showGridFooter: true,
+                appScopeProvider: hmlAddEditMainCtrl,
+                columnDefs: [
+                    { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } }
+                ]
+            }
+        };
 
-        $scope.$on('guided:hml:node:updated', function (event, data) {
+        $rootScope.$on('guided:hml:node:updated', function (event, data) {
             hmlAddEditMainCtrl.hml = data;
         });
 
@@ -108,5 +147,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlAddEditMain', hmlAddEditMain);
-    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q'];
+    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope'];
 }());
