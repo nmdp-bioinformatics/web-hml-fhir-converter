@@ -206,6 +206,14 @@ body {
   border-radius: 5px !important;
 }
 
+.cell-button {
+  margin-right: 3px;
+}
+
+.cell-button:last-of-type {
+  margin-right: 0;
+}
+
 .typing-test-list {
   float: right;
   margin-bottom: 12px;

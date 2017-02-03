@@ -9,9 +9,11 @@
         /* jshint validthis: true */
         var samplesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
-            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate(),
+            collectionMethodColumnTemplate = gridCellTemplateFactory.createCollectionMethodCell();
 
         samplesCtrl.selectedSample = parentCtrl.newModel;
+        samplesCtrl.selectedSampleCount = 0;
         samplesCtrl.scope = $scope;
         samplesCtrl.hml = parentCtrl.hml;
         samplesCtrl.gridOptions = {
@@ -24,7 +26,7 @@
             columnDefs: [
                 { name: 'id', visible: false },
                 { name: 'centerCode', displayName: 'Center Code:' },
-                { name: 'collectionMethods', displayName: 'Collection Methods:' },
+                { name: 'collectionMethods', displayName: 'Collection Methods:', enableColumnMenu: false, cellTemplate: collectionMethodColumnTemplate },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ],
             multiSelect: false,
@@ -34,6 +36,7 @@
 
                 samplesCtrl.gridApi.selection.on.rowSelectionChanged($scope, function (row) {
                     samplesCtrl.selectedSample = row.entity;
+                    samplesCtrl.selectedSampleCount = samplesCtrl.gridApi.selection.getSelectedCount();
                 });
             }
         };
@@ -46,6 +49,10 @@
                 }
             });
         });
+
+        samplesCtrl.showCollectionMethodData = function (collectionMethod) {
+            //TODO: display collection method that was selected
+        };
 
         samplesCtrl.addSampleEntry = function () {
             handleSampleUpdates(samplesCtrl.selectedSample, false);

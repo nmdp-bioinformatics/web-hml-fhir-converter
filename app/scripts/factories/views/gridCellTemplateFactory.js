@@ -28,6 +28,16 @@
                 return '<button type="button" class="btn btn-link red-link" data-ng-click="grid.appScope.deleteItem(row.entity)">Delete</button>';
             },
 
+            createCollectionMethodCell: function () {
+                return '<div class="ui-grid-cell-contents centered-heading">' +
+                            '<button type="button" class="btn btn-primary btn-xs cell-button" ' +
+                                'data-ng-click="grid.appScope.showCollectionMethodData(collectionMethod)"' +
+                                'data-ng-repeat="collectionMethod in row.entity.collectionMethods">' +
+                                    '{{ collectionMethod.name }}' +
+                            '</button>'
+                       '</div>';
+            },
+
             parseDate: function (date) {
                 $filter('date')(date, 'medium');
             }

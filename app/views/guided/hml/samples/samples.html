@@ -1,7 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn btn-success" data-ng-click="samplesCtrl.addSampleEntry()">
+        <button type="button" class="btn btn-success btn-sm" data-ng-show="samplesCtrl.selectedSampleCount === 0" data-ng-click="samplesCtrl.addSampleEntry()">
             <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" data-ng-show="samplesCtrl.selectedSampleCount > 0" data-ng-click="samplesCtrl.addSampleEntry()">
+            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
         </button>
     </div>
 </div>
