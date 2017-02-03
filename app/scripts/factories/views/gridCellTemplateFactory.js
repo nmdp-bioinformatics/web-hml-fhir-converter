@@ -29,7 +29,7 @@
             },
 
             createCollectionMethodCell: function () {
-                return '<div class="ui-grid-cell-contents centered-heading">' +
+                return '<div class="ui-grid-cell-contents">' +
                             '<button type="button" class="btn btn-primary btn-xs cell-button" ' +
                                 'data-ng-click="grid.appScope.showCollectionMethodData(collectionMethod)"' +
                                 'data-ng-repeat="collectionMethod in row.entity.collectionMethods">' +

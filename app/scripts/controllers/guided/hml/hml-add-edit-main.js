@@ -38,7 +38,8 @@
                 showGridFooter: true,
                 appScopeProvider: hmlAddEditMainCtrl,
                 columnDefs: [
-                    { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } }
+                    { name: 'centerCode', field: 'centerCode', displayName: 'Code:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                    { name: 'collectionMethods', field: 'collectionMethods.length', displayName: 'No. Collection Methods:' }
                 ]
             },
             propertiesGrid: {

@@ -25,7 +25,7 @@
             appScopeProvider: samplesCtrl,
             columnDefs: [
                 { name: 'id', visible: false },
-                { name: 'centerCode', displayName: 'Center Code:' },
+                { name: 'centerCode', displayName: 'Code:', maxWidth: 80 },
                 { name: 'collectionMethods', displayName: 'Collection Methods:', enableColumnMenu: false, cellTemplate: collectionMethodColumnTemplate },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ],
