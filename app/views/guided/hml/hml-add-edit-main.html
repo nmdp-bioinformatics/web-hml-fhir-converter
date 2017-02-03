@@ -6,12 +6,12 @@
             </div>
             <div class="panel-body">
                 <div class="scrollable-panel-body">
-                    <div class="row">
+                    <div class="row" data-ng-show="hmlAddEditMainCtrl.hml.reportingCenters.length > 0">
                         <div class="col-md-12 centered-heading">
                             <div ui-grid="hmlAddEditMainCtrl.gridOptions.reportingCentersGrid" ui-grid-edit ui-grid-cellNav class="modal-grid-sm"></div>
                         </div>
                     </div>
-                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.reportingCenters.length === 0">
+                    <div class="centered-heading" data-ng-show="hmlAddEditMainCtrl.hml.reportingCenters.length === 0">
                         <label class="vertical-center-text">None Selected</label>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="panel-body">
                 <div class="scrollable-panel-body">
-                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.hmlId.id !== undefined">
+                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.hmlId.id !== null">
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="rootName">Root Name:</label>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.hmlId.id === undefined">
+                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.hmlId.id === null">
                         <label class="vertical-center-text">None Selected</label>
                     </div>
                 </div>
@@ -75,12 +75,12 @@
             </div>
             <div class="panel-body">
                 <div class="scrollable-panel-body">
-                    <div class="row">
+                    <div class="row" data-ng-show="hmlAddEditMainCtrl.hml.samples.length > 0">
                         <div class="col-md-12 centered-heading">
                             <div ui-grid="hmlAddEditMainCtrl.gridOptions.samplesGrid" ui-grid-edit ui-grid-cellNav class="modal-grid-sm"></div>
                         </div>
                     </div>
-                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.samples.length === 0">
+                    <div data-ng-show="hmlAddEditMainCtrl.hml.samples.length === 0" class="centered-heading">
                         <label class="vertical-center-text">None Selected</label>
                     </div>
                 </div>
@@ -103,12 +103,12 @@
             </div>
             <div class="panel-body">
                 <div class="scrollable-panel-body">
-                    <div class="row">
+                    <div class="row" data-ng-show="hmlAddEditMainCtrl.hml.properties.length > 0">
                         <div class="col-md-12 centered-heading">
                             <div ui-grid="hmlAddEditMainCtrl.gridOptions.propertiesGrid" ui-grid-edit ui-grid-cellNav class="modal-grid-sm"></div>
                         </div>
                     </div>
-                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.properties.length === 0">
+                    <div data-ng-show="hmlAddEditMainCtrl.hml.properties.length === 0" class="centered-heading">
                         <label class="vertical-center-text">None Selected</label>
                     </div>
                 </div>
@@ -134,12 +134,12 @@
             </div>
             <div class="panel-body">
                 <div class="scrollable-panel-body">
-                    <div class="row">
+                    <div class="row" data-ng-show="hmlAddEditMainCtrl.hml.typingTestNames.length > 0">
                         <div class="col-md-12 centered-heading">
                             <div ui-grid="hmlAddEditMainCtrl.gridOptions.typingTestNamesGrid" ui-grid-edit ui-grid-cellNav class="modal-grid-sm"></div>
                         </div>
                     </div>
-                    <div class="centered-heading" data-ng-if="hmlAddEditMainCtrl.hml.typingTestNames.length === 0">
+                    <div data-ng-show="hmlAddEditMainCtrl.hml.typingTestNames.length === 0" class="centered-heading">
                         <label class="vertical-center-text">None Selected</label>
                     </div>
                 </div>
