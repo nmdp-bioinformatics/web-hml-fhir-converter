@@ -19,6 +19,13 @@
                                     <small>Context Is Required</small>
                                 </div>
                             </div>
+                            <div class="form-group" data-ng-class="{ 'has-error': reportingCenterTerminologyAddEditModalCtrl.terminologyForm.centerId.$invalid && reportingCenterTerminologyAddEditModalCtrl.formSubmitted }">
+                                <label for="centerId" class="control-label">Reporting Center ID:</label>
+                                <input id="centerId" name="centerId" type="text" class="form-control input-sm" data-ng-model="reportingCenterTerminologyAddEditModalCtrl.reportingCenter.centerId" placeholder="Center ID" required />
+                                <div class="help-block" data-ng-show="reportingCenterTerminologyAddEditModalCtrl.terminologyForm.centerId.$error && reportingCenterTerminologyAddEditModalCtrl.formSubmitted">
+                                    <small>Center ID Required</small>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <input id="active" type="checkbox" data-ng-model="reportingCenterTerminologyAddEditModalCtrl.reportingCenter.active" />
                                 &nbsp;

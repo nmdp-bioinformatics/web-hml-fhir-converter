@@ -20,13 +20,22 @@
                                         <select id="maxQuery" data-ng-options="numResults.text for numResults in reportingCenterAddEditCtrl.resultsPerPage track by numResults.number"
                                                 data-ng-model="reportingCenterAddEditCtrl.maxQuery" class="form-control input-sm" />
                                     </div>
-                                    <div class="form-group" data-ng-class="{ 'has-error': reportingCenterAddEditCtrl.inputForm.reportingCenter.$invalid && reportingCenterAddEditCtrl.formSubmitted }">
-                                        <label for="reportingCenter" class="control-label">Typing Test name:</label>
-                                        <input id="reportingCenter" name="reportingCenter" type="text" class="form-control input-sm" data-ng-model="reportingCenterAddEditCtrl.selectedReportingCenterName" placeholder="Reporting Center"
-                                               uib-typeahead="reportingCenter.context for reportingCenter in reportingCenterAddEditCtrl.getReportingCenters($viewValue)" data-ng-change="reportingCenterAddEditCtrl.reportingCenterChange()"
+                                    <div class="form-group" data-ng-class="{ 'has-error': reportingCenterAddEditCtrl.inputForm.context.$invalid && reportingCenterAddEditCtrl.formSubmitted }">
+                                        <label for="context" class="control-label">Reporting Center Context:</label>
+                                        <input id="context" name="context" type="text" class="form-control input-sm" data-ng-model="reportingCenterAddEditCtrl.selectedReportingCenterContext" placeholder="Reporting Center Context"
+                                               uib-typeahead="reportingCenter.context for reportingCenter in reportingCenterAddEditCtrl.getReportingCentersByContext($viewValue)" data-ng-change="reportingCenterAddEditCtrl.reportingCenterChange()"
                                                typeahead-on-select="reportingCenterAddEditCtrl.selectReportingCenter($item)" autocomplete="off" required />
-                                        <div class="help-block" data-ng-show="reportingCenterAddEditCtrl.inputForm.reportingCenter.$error.required && reportingCenterAddEditCtrl.formSubmitted">
-                                            <small>Please select a reporting center</small>
+                                        <div class="help-block" data-ng-show="reportingCenterAddEditCtrl.inputForm.context.$error.required && reportingCenterAddEditCtrl.formSubmitted">
+                                            <small>Search by Context</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': reportingCenterAddEditCtrl.inputForm.centerId.$invalid && reportingCenterAddEditCtrl.formSubmitted }">
+                                        <label for="centerId" class="control-label">Reporting Center ID:</label>
+                                        <input id="centerId" name="reportingCenter" type="text" class="form-control input-sm" data-ng-model="reportingCenterAddEditCtrl.selectedReportingCenterId" placeholder="Reporting Center ID"
+                                               uib-typeahead="reportingCenter.centerId for reportingCenter in reportingCenterAddEditCtrl.getReportingCentersById($viewValue)" data-ng-change="reportingCenterAddEditCtrl.reportingCenterChange()"
+                                               typeahead-on-select="reportingCenterAddEditCtrl.selectReportingCenter($item)" autocomplete="off" required />
+                                        <div class="help-block" data-ng-show="reportingCenterAddEditCtrl.inputForm.centerId.$error.required && reportingCenterAddEditCtrl.formSubmitted">
+                                            <small>Search by ID</small>
                                         </div>
                                     </div>
                                     <div class="form-group">

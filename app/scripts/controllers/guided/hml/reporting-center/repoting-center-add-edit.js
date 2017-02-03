@@ -11,7 +11,8 @@
         reportingCenterAddEditCtrl.scope = $scope;
         reportingCenterAddEditCtrl.formSubmitted = false;
         reportingCenterAddEditCtrl.edit = edit;
-        reportingCenterAddEditCtrl.selectedReportingCenterName = null;
+        reportingCenterAddEditCtrl.selectedReportingCenterContext = null;
+        reportingCenterAddEditCtrl.selectedReportingCenterId= null;
         reportingCenterAddEditCtrl.selectedReportingCenter = null
         reportingCenterAddEditCtrl.maxQuery = { number: 10, text: '10' };
         reportingCenterAddEditCtrl.pageNumber = 0;
@@ -24,6 +25,8 @@
 
         if (reportingCenterAddEditCtrl.edit) {
             reportingCenterAddEditCtrl.selectedReportingCenter = reportingCenter;
+            reportingCenterAddEditCtrl.selectedReportingCenterContext = reportingCenter.context;
+            reportingCenterAddEditCtrl.selectedReportingCenterId= reportingCenter.centerId;
         }
 
         reportingCenterAddEditCtrl.cancel = function () {
@@ -45,11 +48,25 @@
 
         reportingCenterAddEditCtrl.selectReportingCenter = function (item) {
             reportingCenterAddEditCtrl.selectedReportingCenter = item;
+            reportingCenterAddEditCtrl.selectedReportingCenterContext = item.context;
+            reportingCenterAddEditCtrl.selectedReportingCenterId= item.centerId;
         };
 
-        reportingCenterAddEditCtrl.getReportingCenters = function (viewValue) {
+        reportingCenterAddEditCtrl.getReportingCentersByContext = function (viewValue) {
+            return getReportingCentersByTerm('context', viewValue);
+        };
+
+        reportingCenterAddEditCtrl.getReportingCentersById = function (viewValue) {
+            return getReportingCentersByTerm('centerId', viewValue);
+        };
+
+        reportingCenterAddEditCtrl.reportingCenterChange = function () {
+            reportingCenterAddEditCtrl.selectedReportingCenter = null;
+        };
+
+        function getReportingCentersByTerm(term, viewValue) {
             return reportingCenterService.getTypeaheadOptions(reportingCenterAddEditCtrl.maxQuery.number,
-                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('context', viewValue, false,
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion(term, viewValue, false,
                     selectedReportingCenters, 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
@@ -59,11 +76,7 @@
                     setTimeout(timeNoResults, appConfig.autoAddOnNoResultsTimer);
                 }
             });
-        };
-
-        reportingCenterAddEditCtrl.reportingCenterChange = function () {
-            reportingCenterAddEditCtrl.selectedReportingCenter = null;
-        };
+        }
 
         function createTypeAheadItemEntry() {
             var modalInstance = $uibModal.open({

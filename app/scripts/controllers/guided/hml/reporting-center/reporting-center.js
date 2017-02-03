@@ -4,32 +4,33 @@
 (function () {
     'use strict';
 
-    function reportingCenter ($scope, $uibModal, gridCellTemplateFactory) {
+    function reportingCenter ($scope, $uibModal, gridCellTemplateFactory, hmlService) {
         /* jshint validthis: true */
         var reportingCenterCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         reportingCenterCtrl.scope = $scope;
-        reportingCenterCtrl.edit = parentCtrl.edit;
+        reportingCenterCtrl.hml = parentCtrl.hml;
         reportingCenterCtrl.gridOptions = {
-            data: [],
+            data: reportingCenterCtrl.hml.reportingCenters,
             enableSorting: true,
             showGridFooter: true,
             appScopeProvider: reportingCenterCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
                 { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'centerId', field: 'centerId', dsiplayName: 'Reporting Center ID', cellTooltip: function (row) { return row.entity.centerId; }, headerTooltip: function (col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
 
-        if (reportingCenterCtrl.edit) {
-            reportingCenterCtrl.gridOptions.data = parentCtrl.hml.reportingCenters;
-        }
-
         $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', reportingCenterCtrl.gridOptions.data);
+            hmlService.updateHml(reportingCenterCtrl.hml).then(function (result) {
+                if (result) {
+                    $scope.$emit('guided:hml:node:updated', result);
+                }
+            });
         });
 
         reportingCenterCtrl.addReportingCenterEntry = function () {
@@ -89,5 +90,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('reportingCenter', reportingCenter);
-    reportingCenter.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
+    reportingCenter.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService'];
 }());

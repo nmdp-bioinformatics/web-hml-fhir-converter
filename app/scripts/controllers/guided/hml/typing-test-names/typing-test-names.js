@@ -13,7 +13,7 @@
         typingTestNamesCtrl.scope = $scope;
         typingTestNamesCtrl.hml = parentCtrl.hml;
         typingTestNamesCtrl.gridOptions = {
-            data: [],
+            data: typingTestNamesCtrl.hml.typingTestNames,
             enableSorting: true,
             showGridFooter: true,
             appScopeProvider: typingTestNamesCtrl,
@@ -24,8 +24,6 @@
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
-
-        typingTestNamesCtrl.gridOptions.data = parentCtrl.hml.typingTestNames;
 
         $scope.$on('guided:hml:node:update', function () {
             hmlService.updateHml(typingTestNamesCtrl.hml).then(function (result) {

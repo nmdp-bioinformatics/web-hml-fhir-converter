@@ -22,6 +22,7 @@
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
                 { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'centerId', field: 'centerId', dsiplayName: 'Reporting Center ID', cellTooltip: function (row) { return row.entity.centerId; }, headerTooltip: function (col) { return col.displayName; } },
                 { name: 'dateCreated', field: 'dateCreated', displayName: 'Date Created:', cellTemplate: dateColumnTemplate, cellTooltip: function (row) { return gridCellTemplateFactory.parseDate(row.entity.dateCreated); }, headerTooltip: function(col) { return col.displayName; } },
                 { name: 'active', field: 'active', displayName: 'Modify', enableColumnMenu: false, cellTemplate: activeColumnTemplate, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Delete', maxWidth: 60, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
