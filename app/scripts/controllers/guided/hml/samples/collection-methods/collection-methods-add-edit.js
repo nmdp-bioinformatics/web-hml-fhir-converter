@@ -4,15 +4,14 @@
 (function () {
     'use strict';
 
-    function collectionMethodsAddEdit ($scope, $uibModalInstance, $uibModal, edit, collectionMethods, selectedCollectionMethod, collectionMethodService, appConfig, toaster, typeaheadQueryBuilder) {
+    function collectionMethodsAddEdit ($scope, $uibModalInstance, $uibModal, collectionMethod, selectedCollectionMethods, collectionMethodService, appConfig, toaster, typeaheadQueryBuilder) {
         /* jshint validthis: true */
         var collectionMethodsAddEditCtrl = this;
 
         collectionMethodsAddEditCtrl.scope = $scope;
         collectionMethodsAddEditCtrl.formSubmitted = false;
-        collectionMethodsAddEditCtrl.edit = edit;
         collectionMethodsAddEditCtrl.selectedCollectionMethodName = null;
-        collectionMethodsAddEditCtrl.selectedCollectionMethod = null
+        collectionMethodsAddEditCtrl.selectedCollectionMethod = collectionMethod
         collectionMethodsAddEditCtrl.maxQuery = { number: 10, text: '10' };
         collectionMethodsAddEditCtrl.pageNumber = 0;
         collectionMethodsAddEditCtrl.resultsPerPage = appConfig.resultsPerPage;
@@ -21,10 +20,6 @@
         $scope.$on('collectionMethodsAddEditCtrl.addedExternal.success', function (event, result) {
             $uibModalInstance.close(result);
         });
-
-        if (collectionMethodsAddEditCtrl.edit) {
-            collectionMethodsAddEditCtrl.selectedCollectionMethod = collectionMethods;
-        }
 
         collectionMethodsAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -50,7 +45,7 @@
         collectionMethodsAddEditCtrl.getCollectionMethods = function (viewValue) {
             return collectionMethodService.getTypeaheadOptions(collectionMethodsAddEditCtrl.maxQuery.number,
                 typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('context', viewValue, false,
-                    selectedCollectionMethod, 'id')).then(function (response) {
+                    selectedCollectionMethods, 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
                 }
@@ -123,5 +118,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethodsAddEdit', collectionMethodsAddEdit);
-    collectionMethodsAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'collectionMethods', 'selectedCollectionMethod', 'collectionMethodService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
+    collectionMethodsAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'collectionMethod', 'selectedCollectionMethods', 'collectionMethodService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
 }());

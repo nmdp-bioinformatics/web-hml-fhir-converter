@@ -4,27 +4,33 @@
 (function () {
     'use strict';
 
-    function samplesAddEdit ($scope, $uibModalInstance, $uibModal, edit, sample, selectedSamples, sampleService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory) {
+    function samplesAddEdit ($scope, $uibModalInstance, $uibModal, sample, selectedSamples, sampleService, appConfig, toaster, typeaheadQueryBuilder, objectModelFactory, templateController, hmlModel, newSample) {
         /* jshint validthis: true */
-        var samplesAddEditCtrl = this;
+        var samplesAddEditCtrl = this,
+            collectionMethodsTemplateUrl = 'views/guided/hml/samples/collection-methods/collection-methods.html',
+            controllerData = templateController.getControllerNameByTemplateUrl(collectionMethodsTemplateUrl);
 
         samplesAddEditCtrl.scope = $scope;
+        samplesAddEditCtrl.hml = hmlModel;
         samplesAddEditCtrl.formSubmitted = false;
-        samplesAddEditCtrl.edit = edit;
-        samplesAddEditCtrl.selectedSampleName = null;
-        samplesAddEditCtrl.selectedSample = null
+        samplesAddEditCtrl.selectedSampleCenterCode = null;
+        samplesAddEditCtrl.selectedSample = newSample,
         samplesAddEditCtrl.maxQuery = { number: 10, text: '10' };
         samplesAddEditCtrl.pageNumber = 0;
         samplesAddEditCtrl.resultsPerPage = appConfig.resultsPerPage;
         samplesAddEditCtrl.autoAdd = appConfig.autoAddOnNoResults;
+        samplesAddEditCtrl.expandCollectionMethods = false;
+        samplesAddEditCtrl.controllerDeclaration = controllerData;
+        samplesAddEditCtrl.collectionMethodsTemplateUrl = collectionMethodsTemplateUrl;
+        samplesAddEditCtrl.selectedSampleId = newSample.id === null ? 0 : newSample.id;
+
+        if (samplesAddEditCtrl.hml.samples.length === 0) {
+            samplesAddEditCtrl.hml.samples.push(newSample);
+        }
 
         $scope.$on('samplesAddEditCtrl.addedExternal.success', function (event, result) {
             $uibModalInstance.close(result);
         });
-
-        if (samplesAddEditCtrl.edit) {
-            samplesAddEditCtrl.selectedSample = sample;
-        }
 
         samplesAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -45,11 +51,24 @@
 
         samplesAddEditCtrl.selectSample = function (item) {
             samplesAddEditCtrl.selectedSample = item;
+            samplesAddEditCtrl.selectedSampleCenterCode = item.centerCode;
         };
 
-        samplesAddEditCtrl.getSamples = function (viewValue) {
+        samplesAddEditCtrl.getSamplesByCenterCode = function (viewValue) {
+            return getSamples('centerCode', viewValue);
+        };
+
+        samplesAddEditCtrl.sampleChange = function () {
+            samplesAddEditCtrl.selectedSample = null;
+        };
+
+        samplesAddEditCtrl.toggleCollectionPanel = function () {
+            samplesAddEditCtrl.expandCollectionMethods = !samplesAddEditCtrl.expandCollectionMethods;
+        };
+
+        function getSamples(term, viewValue) {
             return sampleService.getTypeaheadOptions(samplesAddEditCtrl.maxQuery.number,
-                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('name', viewValue, false,
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion(term, viewValue, false,
                     selectedSamples, 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
@@ -59,11 +78,7 @@
                     setTimeout(timeNoResults, appConfig.autoAddOnNoResultsTimer);
                 }
             });
-        };
-
-        samplesAddEditCtrl.sampleChange = function () {
-            samplesAddEditCtrl.selectedSample = null;
-        };
+        }
 
         function createTypeAheadItemEntry() {
             var modalInstance = $uibModal.open({
@@ -114,5 +129,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samplesAddEdit', samplesAddEdit);
-    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'sample', 'selectedSamples', 'sampleService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory'];
+    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'sample', 'selectedSamples', 'sampleService', 'appConfig', 'toaster', 'typeaheadQueryBuilder', 'objectModelFactory', 'templateController', 'hmlModel', 'newSample'];
 }());

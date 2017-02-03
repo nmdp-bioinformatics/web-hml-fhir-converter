@@ -7,38 +7,40 @@
 (function () {
     'use strict';
 
-    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory) {
+    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory, hmlService) {
         /* jshint validthis: true */
         var collectionMethodsCtrl = this,
-            parentCtrl = $scope.hmlModalCtrl,
+            parentCtrl = $scope.samplesAddEditCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         collectionMethodsCtrl.scope = $scope;
-        collectionMethodsCtrl.edit = parentCtrl.edit;
+        collectionMethodsCtrl.sampleId = parentCtrl.selectedSampleId;
+        collectionMethodsCtrl.hml = parentCtrl.hml;
         collectionMethodsCtrl.gridOptions = {
-            data: [],
+            data: getCollectionMethodsBySampleId(collectionMethodsCtrl.sampleId),
             enableSorting: true,
             showGridFooter: true,
             appScopeProvider: collectionMethodsCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
-                { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'description', field: 'description', displayName: 'Descriptioin:', cellTooltip: function (row) { return row.entity.description; }, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
 
-        if (collectionMethodsCtrl.edit) {
-            collectionMethodsCtrl.gridOptions.data = parentCtrl.hml.collectionMethods;
-        }
-
         $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', collectionMethodsCtrl.gridOptions.data);
+            hmlService.updateHml(collectionMethodsCtrl.hml).then(function (result) {
+                if (result) {
+                    $scope.$emit('guided:hml:node:updated', result);
+                }
+            });
         });
 
         collectionMethodsCtrl.addCollectionMethodEntry = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/guided/hml/collection-methods/collection-methods-add-edit.html',
+                templateUrl: 'views/guided/hml/samples/collection-methods/collection-methods-add-edit.html',
                 controller: 'collectionMethodsAddEdit',
                 controllerAs: 'collectionMethodsAddEditCtrl',
                 resolve: {
@@ -65,32 +67,88 @@
                 if (collectionMethods) {
                     if (collectionMethods.constructor === Array) {
                         for (var i = 0; i < collectionMethods.length; i++) {
-                            collectionMethodsCtrl.gridOptions.data.push(collectionMethods[i]);
+                            updateHmlWithCollectionData(collectionMethods[i], collectionMethodsCtrl.sampleId, false);
                         }
 
                         return;
                     }
 
-                    collectionMethodsCtrl.gridOptions.data.push(collectionMethods);
+                    updateHmlWithCollectionData(collectionMethods, collectionMethodsCtrl.sampleId, false);
                 }
             });
         };
 
         collectionMethodsCtrl.removeCollectionMethod = function (collectionMethod) {
-            collectionMethodsCtrl.gridOptions.data.splice(getCollectionMethodIndex(collectionMethod), 1);
+            updateHmlWithCollectionData(collectionMethod, collectionMethodsCtrl.sampleId, true);
         };
 
-        function getCollectionMethodIndex (collectionMethod) {
-            for (var i = 0; i < collectionMethodsCtrl.gridOptions.data.length; i++) {
-                if (collectionMethodsCtrl.gridOptions.data[i].id === collectionMethod.id) {
+        function getCollectionMethodsBySampleId(sampleId) {
+            if (sampleId === parseInt(sampleId, 10)) {
+                return collectionMethodsCtrl.hml.samples[sampleId].collectionMethods;
+            }
+
+            var sampleIndex = getSampleIndex(sampleId);
+            return collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods;
+        }
+
+        function updateHmlWithCollectionData(collectionMethod, sampleId, isDelete) {
+            var sample = getSampleById(sampleId),
+                collectionMethods = sample.collectionMethods,
+                sampleIndex = getSampleIndex(sampleId),
+                collectionMethodIndex = getCollectionMethodIndex(collectionMethod.id, collectionMethods);
+
+            if (isDelete) {
+                collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods.splice(collectionMethodIndex, 1);
+                return;
+            }
+
+            if (collectionMethodIndex === -1) {
+                collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods.push(collectionMethod);
+                return;
+            }
+
+            collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods[collectionMethodIndex] = collectionMethod;
+        }
+
+        function getCollectionMethodIndex(collectionMethodId, collectionMethods) {
+            for (var i = 0; i < collectionMethods.length; i++) {
+                if (collectionMethods[i].id === collectionMethodId) {
                     return i;
                 }
             }
 
-            return undefined;
+            return -1;
+        }
+
+        function getSampleIndex(sampleId) {
+            for (var i = 0; i < collectionMethodsCtrl.hml.samples.length; i++) {
+                if (collectionMethodsCtrl.hml.samples[i].id === sampleId) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        function getSampleObjectById(sampleId) {
+            for (var i = 0; i < collectionMethodsCtrl.hml.samples.length; i++) {
+                if (collectionMethodsCtrl.hml.samples[i].id === sampleId) {
+                    return collectionMethodsCtrl.hml.samples[i];
+                }
+            }
+
+            return {};
+        }
+
+        function getSampleById(sampleId) {
+            if (sampleId === parseInt(sampleId, 10)) {
+                return collectionMethodsCtrl.hml.samples[sampleId];
+            }
+
+            return getSampleObjectById(sampleId);
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethods', collectionMethods);
-    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
+    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService'];
 }());

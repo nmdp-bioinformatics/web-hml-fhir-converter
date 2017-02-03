@@ -4,11 +4,12 @@
 (function () {
     'use strict';
 
-    function hmlModal ($scope, $uibModalInstance, title, bodyTemplateUrl, hmlModel, edit, templateController) {
+    function hmlModal ($scope, $uibModalInstance, title, bodyTemplateUrl, hmlModel, edit, templateController, newModel) {
         /* jshint validthis: true */
         var hmlModalCtrl = this,
             controllerData = templateController.getControllerNameByTemplateUrl(bodyTemplateUrl);
 
+        hmlModalCtrl.newModel = newModel;
         hmlModalCtrl.scope = $scope;
         hmlModalCtrl.title = title;
         hmlModalCtrl.hml = hmlModel;
@@ -36,5 +37,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlModal', hmlModal);
-    hmlModal.$inject = ['$scope', '$uibModalInstance', 'title', 'bodyTemplateUrl', 'hmlModel', 'edit', 'templateController']
+    hmlModal.$inject = ['$scope', '$uibModalInstance', 'title', 'bodyTemplateUrl', 'hmlModel', 'edit', 'templateController', 'newModel']
 }());

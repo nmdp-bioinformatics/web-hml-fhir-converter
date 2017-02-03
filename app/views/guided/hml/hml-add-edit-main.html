@@ -19,10 +19,10 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 centered-heading">
-                        <button data-ng-show="!hmlAddEditMainCtrl.hml.reportingCenter.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addReportingCenter(false)">
+                        <button data-ng-show="!hmlAddEditMainCtrl.hml.reportingCenters.length === 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addReportingCenter(false)">
                             <i class="glyphicon glyphicon-plus button-glyphicon" />Add
                         </button>
-                        <button data-ng-show="hmlAddEditMainCtrl.hml.reportingCenter.init" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addReportingCenter(true)">
+                        <button data-ng-show="hmlAddEditMainCtrl.hml.reportingCenters.length > 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addReportingCenter(true)">
                             <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
                         </button>
                     </div>

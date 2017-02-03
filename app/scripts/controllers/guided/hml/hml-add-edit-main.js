@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope) {
+    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory) {
        /* jshint validthis:true */
         var hmlAddEditMainCtrl = this;
 
@@ -28,7 +28,8 @@
                 showGridFooter: true,
                 appScopeProvider: hmlAddEditMainCtrl,
                 columnDefs: [
-                    { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } }
+                    { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                    { name: 'centerId', field: 'centerId', displayName: 'Center ID:', cellTooltip: function (row) { return row.entity.centerId; }, headerTooltip: function(col) { return col.displayName; } }
                 ]
             },
             samplesGrid: {
@@ -99,7 +100,7 @@
 
         hmlAddEditMainCtrl.addSamples = function (edit) {
             var titlePrefix = hmlAddEditMainCtrl.hml.samples.length > 0 ? 'Edit' : 'Add';
-            openModal(titlePrefix + ' Samples', 'views/guided/hml/samples/samples.html', edit).then(function (result) {
+            openModal(titlePrefix + ' Samples', 'views/guided/hml/samples/samples.html', edit, 'sample').then(function (result) {
                 if (result) {
                     hmlAddEditMainCtrl.hml.samples.push(result);
                 }
@@ -115,7 +116,7 @@
             });
         };
 
-        function openModal (title, bodyTemplateUrl, edit) {
+        function openModal (title, bodyTemplateUrl, edit, newModelName) {
             var defer = $q.defer(),
                 modalInstance = $uibModal.open({
                     animation: true,
@@ -134,6 +135,13 @@
                         },
                         edit: function () {
                             return edit;
+                        },
+                        newModel: function () {
+                            if (newModelName) {
+                                return objectModelFactory.getModelByName(newModelName);
+                            }
+
+                            return null;
                         }
                     }
                 });
@@ -147,5 +155,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlAddEditMain', hmlAddEditMain);
-    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope'];
+    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory'];
 }());

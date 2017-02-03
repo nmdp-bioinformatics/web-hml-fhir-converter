@@ -20,13 +20,13 @@
                                         <select id="maxQuery" data-ng-options="numResults.text for numResults in samplesAddEditCtrl.resultsPerPage track by numResults.number"
                                                 data-ng-model="samplesAddEditCtrl.maxQuery" class="form-control input-sm" />
                                     </div>
-                                    <div class="form-group" data-ng-class="{ 'has-error': samplesAddEditCtrl.inputForm.sample.$invalid && samplesAddEditCtrl.formSubmitted }">
-                                        <label for="sample" class="control-label">Sample:</label>
-                                        <input id="sample" name="sample" type="text" class="form-control input-sm" data-ng-model="samplesAddEditCtrl.selectedSampleName" placeholder="Sample"
-                                               uib-typeahead="sample.context for sample in samplesAddEditCtrl.getSamples($viewValue)" data-ng-change="samplesAddEditCtrl.sampleChange()"
+                                    <div class="form-group" data-ng-class="{ 'has-error': samplesAddEditCtrl.inputForm.centerCode.$invalid && samplesAddEditCtrl.formSubmitted }">
+                                        <label for="centerCode" class="control-label">Center Code:</label>
+                                        <input id="centerCode" name="centerCode" type="text" class="form-control input-sm" data-ng-model="samplesAddEditCtrl.selectedSampleCenterCode" placeholder="Center Code"
+                                               uib-typeahead="sample.centerCode for sample in samplesAddEditCtrl.getSamplesByCenterCode($viewValue)" data-ng-change="samplesAddEditCtrl.sampleChange()"
                                                typeahead-on-select="samplesAddEditCtrl.selectSample($item)" autocomplete="off" required />
-                                        <div class="help-block" data-ng-show="samplesAddEditCtrl.inputForm.sample.$error.required && samplesAddEditCtrl.formSubmitted">
-                                            <small>Please select a sample</small>
+                                        <div class="help-block" data-ng-show="samplesAddEditCtrl.inputForm.centerCode.$error.required && samplesAddEditCtrl.formSubmitted">
+                                            <small>Search by Center Code</small>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -34,6 +34,15 @@
                                         <small>Automatically route to add / edit form on no results</small>
                                     </div>
                                 </form>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" data-ng-click="samplesAddEditCtrl.toggleCollectionPanel()">
+                                    <h5 class="panel-title">Collection Methods</h5>
+                                </div>
+                                <div class="panel-body" data-ng-show="samplesAddEditCtrl.expandCollectionMethods">
+                                    <dynamic-controller templateurl="{{ samplesAddEditCtrl.collectionMethodsTemplateUrl }}" controller="{{ samplesAddEditCtrl.controllerDeclaration.controller }}"
+                                        controlleras="{{ samplesAddEditCtrl.controllerDeclaration.controllerAs }}"></dynamic-controller>
+                                </div>
                             </div>
                         </div>
                     </div>

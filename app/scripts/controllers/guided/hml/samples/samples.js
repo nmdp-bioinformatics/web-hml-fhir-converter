@@ -5,32 +5,34 @@
 (function () {
     'use strict';
 
-    function samples ($scope, $uibModal, gridCellTemplateFactory) {
+    function samples ($scope, $uibModal, gridCellTemplateFactory, hmlService) {
         /* jshint validthis: true */
         var samplesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
+        samplesCtrl.selectedSample = parentCtrl.newModel;
         samplesCtrl.scope = $scope;
-        samplesCtrl.edit = parentCtrl.edit;
+        samplesCtrl.hml = parentCtrl.hml;
         samplesCtrl.gridOptions = {
-            data: [],
+            data: samplesCtrl.hml.samples,
             enableSorting: true,
             showGridFooter: true,
             appScopeProvider: samplesCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
-                { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'centerCode', field: 'centerCode', displayName: 'Center Code:', cellTooltip: function (row) { return row.entity.centerCode; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'collectionMethods', field: 'collectionMethods', displayName: 'Collection Methods:', headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
 
-        if (samplesCtrl.edit) {
-            samplesCtrl.gridOptions.data = parentCtrl.hml.samples;
-        }
-
         $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', samplesCtrl.gridOptions.data);
+            hmlService.updateHml(samplesCtrl.hml).then(function (result) {
+                if (result) {
+                    $scope.$emit('guided:hml:node:updated', result);
+                }
+            });
         });
 
         samplesCtrl.addSampleEntry = function () {
@@ -46,6 +48,9 @@
                     sample: function () {
                         return undefined;
                     },
+                    hmlModel: function () {
+                        return samplesCtrl.hml;
+                    },
                     selectedSamples: function () {
                         var samples = samplesCtrl.gridOptions.data,
                             idArray = [];
@@ -55,6 +60,9 @@
                         }
 
                         return idArray;
+                    },
+                    newSample: function () {
+                        return samplesCtrl.selectedSample;
                     }
                 }
             });
@@ -90,5 +98,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samples', samples);
-    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
+    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService'];
 }());

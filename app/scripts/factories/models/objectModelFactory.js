@@ -104,6 +104,52 @@
                 });
 
                 return defer.promise;
+            },
+
+            getModelByName: function (modelName) {
+                var defer = $q.defer(),
+                    callback;
+
+                switch (modelName) {
+                    case 'collectionMethod':
+                        callback = this.getCollectionMethodModel;
+                        break;
+                    case 'extendedItem':
+                        callback = this.getExtendedItemModel;
+                        break;
+                    case 'hml':
+                        callback = this.getHmlModel;
+                        break;
+                    case 'hmlId':
+                        callback = this.getHmlIdModel;
+                        break;
+                    case 'project':
+                        callback = this.getProjectModel;
+                        break;
+                    case 'property':
+                        callback = this.getPropertyModel;
+                        break;
+                    case 'reportingCenter':
+                        callback = this.getReportingCenterModel;
+                        break;
+                    case 'sample':
+                        callback = this.getSampleModel;
+                        break;
+                    case 'typingTestName':
+                        callback = this.getTypingTestNameModel;
+                        break;
+                    case 'version':
+                        callback = this.getVersionModel;
+                        break;
+                    default:
+                        defer.resolve({});
+                }
+
+                callback().then(function (result) {
+                    defer.resolve(result);
+                });
+
+                return defer.promise;
             }
         };
 
