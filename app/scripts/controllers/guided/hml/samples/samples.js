@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    function samples ($scope, $uibModal, gridCellTemplateFactory, hmlService) {
+    function samples ($scope, $uibModal, gridCellTemplateFactory, hmlService, guidGenerator) {
         /* jshint validthis: true */
         var samplesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
@@ -18,13 +18,24 @@
             data: samplesCtrl.hml.samples,
             enableSorting: true,
             showGridFooter: true,
+            enableRowSelection: true,
+            enableRowHeaderSelection: false,
             appScopeProvider: samplesCtrl,
             columnDefs: [
-                { name: 'id', field: 'id', visible: false },
-                { name: 'centerCode', field: 'centerCode', displayName: 'Center Code:', cellTooltip: function (row) { return row.entity.centerCode; }, headerTooltip: function(col) { return col.displayName; } },
-                { name: 'collectionMethods', field: 'collectionMethods', displayName: 'Collection Methods:', headerTooltip: function(col) { return col.displayName; } },
+                { name: 'id', visible: false },
+                { name: 'centerCode', displayName: 'Center Code:' },
+                { name: 'collectionMethods', displayName: 'Collection Methods:' },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
-            ]
+            ],
+            multiSelect: false,
+            modifierKeysToMultiSelect: false,
+            onRegisterApi: function (gridApi) {
+                samplesCtrl.gridApi = gridApi;
+
+                samplesCtrl.gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                    samplesCtrl.selectedSample = row.entity;
+                });
+            }
         };
 
         $scope.$on('guided:hml:node:update', function () {
@@ -38,7 +49,7 @@
 
         samplesCtrl.addSampleEntry = function () {
             handleSampleUpdates(samplesCtrl.selectedSample, false);
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/samples/samples-add-edit.html',
                 controller: 'samplesAddEdit',
@@ -53,11 +64,6 @@
                 }
             });
 
-            modalInstance.result.then(function (hml) {
-                if (hml) {
-                    samplesCtrl.hml = hml;
-                }
-            });
         };
 
         samplesCtrl.removeSample = function (sample) {
@@ -99,11 +105,19 @@
         }
 
         function stripTempSampleId(sampleId) {
+            var isGuid = guidGenerator.validateGuid(sampleId);
+
+            if (!isGuid) {
+                return;
+            }
+
             var index = getSampleIndex(sampleId);
             samplesCtrl.hml.samples[index].id = null;
+
+            //TODO: Add a selection function to rows in grid, set samplesCtrl.selectedSample equal to row selection, make highlightable
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samples', samples);
-    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService'];
+    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService', 'guidGenerator'];
 }());

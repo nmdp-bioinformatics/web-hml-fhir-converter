@@ -31,6 +31,7 @@ var app = angular.module('hmlFhirAngularClientApp', [
     'toaster',
     'cb.x2js',
     'ui.grid',
+    'ui.grid.selection',
     'angular-momentjs'
   ]);
 
