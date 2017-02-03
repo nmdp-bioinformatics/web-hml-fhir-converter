@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory) {
+    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory, guidGenerator) {
        /* jshint validthis:true */
         var hmlAddEditMainCtrl = this;
 
@@ -137,11 +137,18 @@
                             return edit;
                         },
                         newModel: function () {
+                            var defer = $q.defer();
+
                             if (newModelName) {
-                                return objectModelFactory.getModelByName(newModelName);
+                                objectModelFactory.getModelByName(newModelName).then(function(newModel) {
+                                    newModel.id = guidGenerator.generateRandomGuid();
+                                    defer.resolve(newModel);
+                                });
+                            } else {
+                                defer.resolve(null);
                             }
 
-                            return null;
+                            return defer.promise;
                         }
                     }
                 });
@@ -155,5 +162,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlAddEditMain', hmlAddEditMain);
-    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory'];
+    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory', 'guidGenerator'];
 }());

@@ -11,6 +11,7 @@
         collectionMethodsAddEditCtrl.scope = $scope;
         collectionMethodsAddEditCtrl.formSubmitted = false;
         collectionMethodsAddEditCtrl.selectedCollectionMethodName = null;
+        collectionMethodsAddEditCtrl.selectedCollectionMethodDescription = null;
         collectionMethodsAddEditCtrl.selectedCollectionMethod = collectionMethod
         collectionMethodsAddEditCtrl.maxQuery = { number: 10, text: '10' };
         collectionMethodsAddEditCtrl.pageNumber = 0;
@@ -40,11 +41,25 @@
 
         collectionMethodsAddEditCtrl.selectCollectionMethod = function (item) {
             collectionMethodsAddEditCtrl.selectedCollectionMethod = item;
+            collectionMethodsAddEditCtrl.selectedCollectionMethodName = item.name;
+            collectionMethodsAddEditCtrl.selectedCollectionMethodDescription = item.description;
         };
 
-        collectionMethodsAddEditCtrl.getCollectionMethods = function (viewValue) {
+        collectionMethodsAddEditCtrl.getCollectionMethodsByName = function (viewValue) {
+            return getCollectionMethods('name', viewValue);
+        };
+
+        collectionMethodsAddEditCtrl.getCollectionMethodsByDescription = function (viewValue) {
+            return getCollectionMethods('description', viewValue);
+        };
+
+        collectionMethodsAddEditCtrl.collectionMethodChange = function () {
+            collectionMethodsAddEditCtrl.selectedCollectionMethod = null;
+        };
+
+        function getCollectionMethods(term, viewValue) {
             return collectionMethodService.getTypeaheadOptions(collectionMethodsAddEditCtrl.maxQuery.number,
-                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion('context', viewValue, false,
+                typeaheadQueryBuilder.buildTypeaheadQueryWithSelectionExclusion(term, viewValue, false,
                     selectedCollectionMethods, 'id')).then(function (response) {
                 if (response.length > 0) {
                     return response;
@@ -54,11 +69,7 @@
                     setTimeout(timeNoResults, appConfig.autoAddOnNoResultsTimer);
                 }
             });
-        };
-
-        collectionMethodsAddEditCtrl.collectionMethodChange = function () {
-            collectionMethodsAddEditCtrl.selectedCollectionMethod = null;
-        };
+        }
 
         function createTypeAheadItemEntry() {
             var modalInstance = $uibModal.open({
@@ -118,5 +129,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethodsAddEdit', collectionMethodsAddEdit);
-    collectionMethodsAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'edit', 'collectionMethod', 'selectedCollectionMethods', 'collectionMethodService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
+    collectionMethodsAddEdit.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'collectionMethod', 'selectedCollectionMethods', 'collectionMethodService', 'appConfig', 'toaster', 'typeaheadQueryBuilder'];
 }());

@@ -15,23 +15,12 @@
                         <div class="col-md-12">
                             <div class="form">
                                 <form name="samplesAddEditCtrl.inputForm">
-                                    <div class="form-group">
-                                        <label for="maxQuery" class="control-label">Maximum Query Results:</label>
-                                        <select id="maxQuery" data-ng-options="numResults.text for numResults in samplesAddEditCtrl.resultsPerPage track by numResults.number"
-                                                data-ng-model="samplesAddEditCtrl.maxQuery" class="form-control input-sm" />
-                                    </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': samplesAddEditCtrl.inputForm.centerCode.$invalid && samplesAddEditCtrl.formSubmitted }">
                                         <label for="centerCode" class="control-label">Center Code:</label>
-                                        <input id="centerCode" name="centerCode" type="text" class="form-control input-sm" data-ng-model="samplesAddEditCtrl.selectedSampleCenterCode" placeholder="Center Code"
-                                               uib-typeahead="sample.centerCode for sample in samplesAddEditCtrl.getSamplesByCenterCode($viewValue)" data-ng-change="samplesAddEditCtrl.sampleChange()"
-                                               typeahead-on-select="samplesAddEditCtrl.selectSample($item)" autocomplete="off" required />
+                                        <input id="centerCode" name="centerCode" type="text" class="form-control input-sm" data-ng-model="samplesAddEditCtrl.hml.samples[samplesAddEditCtrl.sampleIndex].centerCode" placeholder="Center Code" required />
                                         <div class="help-block" data-ng-show="samplesAddEditCtrl.inputForm.centerCode.$error.required && samplesAddEditCtrl.formSubmitted">
-                                            <small>Search by Center Code</small>
+                                            <small>Center code is required.</small>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" data-ng-model="samplesAddEditCtrl.autoAdd" />
-                                        <small>Automatically route to add / edit form on no results</small>
                                     </div>
                                 </form>
                             </div>

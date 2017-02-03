@@ -7,14 +7,14 @@
 (function () {
     'use strict';
 
-    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory, hmlService) {
+    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory) {
         /* jshint validthis: true */
         var collectionMethodsCtrl = this,
             parentCtrl = $scope.samplesAddEditCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         collectionMethodsCtrl.scope = $scope;
-        collectionMethodsCtrl.sampleId = parentCtrl.selectedSampleId;
+        collectionMethodsCtrl.sampleId = parentCtrl.selectedSample.id;
         collectionMethodsCtrl.hml = parentCtrl.hml;
         collectionMethodsCtrl.gridOptions = {
             data: getCollectionMethodsBySampleId(collectionMethodsCtrl.sampleId),
@@ -28,14 +28,6 @@
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
-
-        $scope.$on('guided:hml:node:update', function () {
-            hmlService.updateHml(collectionMethodsCtrl.hml).then(function (result) {
-                if (result) {
-                    $scope.$emit('guided:hml:node:updated', result);
-                }
-            });
-        });
 
         collectionMethodsCtrl.addCollectionMethodEntry = function () {
             var modalInstance = $uibModal.open({
@@ -83,10 +75,6 @@
         };
 
         function getCollectionMethodsBySampleId(sampleId) {
-            if (sampleId === parseInt(sampleId, 10)) {
-                return collectionMethodsCtrl.hml.samples[sampleId].collectionMethods;
-            }
-
             var sampleIndex = getSampleIndex(sampleId);
             return collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods;
         }
@@ -130,7 +118,7 @@
             return -1;
         }
 
-        function getSampleObjectById(sampleId) {
+        function getSampleById(sampleId) {
             for (var i = 0; i < collectionMethodsCtrl.hml.samples.length; i++) {
                 if (collectionMethodsCtrl.hml.samples[i].id === sampleId) {
                     return collectionMethodsCtrl.hml.samples[i];
@@ -139,16 +127,8 @@
 
             return {};
         }
-
-        function getSampleById(sampleId) {
-            if (sampleId === parseInt(sampleId, 10)) {
-                return collectionMethodsCtrl.hml.samples[sampleId];
-            }
-
-            return getSampleObjectById(sampleId);
-        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethods', collectionMethods);
-    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService'];
+    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
 }());

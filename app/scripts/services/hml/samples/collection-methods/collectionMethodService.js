@@ -78,7 +78,7 @@
 
             getTypeaheadOptions: function (maxResults, query) {
                 var defer = $q.defer(),
-                    url = appConfig.resource_server_base_url + 'collectionMethood/' + maxResults,
+                    url = appConfig.resource_server_base_url + 'collectionMethod/' + maxResults,
                     headers = httpHeaderTransform.postHeaderForResourceSever();
 
                 $http({

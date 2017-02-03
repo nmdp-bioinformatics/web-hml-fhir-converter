@@ -20,13 +20,22 @@
                                         <select id="maxQuery" data-ng-options="numResults.text for numResults in collectionMethodsAddEditCtrl.resultsPerPage track by numResults.number"
                                                 data-ng-model="collectionMethodsAddEditCtrl.maxQuery" class="form-control input-sm" />
                                     </div>
-                                    <div class="form-group" data-ng-class="{ 'has-error': collectionMethodsAddEditCtrl.inputForm.collectionMethod.$invalid && collectionMethodsAddEditCtrl.formSubmitted }">
-                                        <label for="collectionMethod" class="control-label">Collection Method:</label>
-                                        <input id="collectionMethod" name="collectionMethod" type="text" class="form-control input-sm" data-ng-model="collectionMethodsAddEditCtrl.selectedCollectionMethodName" placeholder="Collection Method"
-                                               uib-typeahead="collectionMethods.context for collectionMethods in collectionMethodsAddEditCtrl.getCollectionMethods($viewValue)" data-ng-change="collectionMethodsAddEditCtrl.collectionMethodsChange()"
+                                    <div class="form-group" data-ng-class="{ 'has-error': collectionMethodsAddEditCtrl.inputForm.name.$invalid && collectionMethodsAddEditCtrl.formSubmitted }">
+                                        <label for="name" class="control-label">Name:</label>
+                                        <input id="name" name="name" type="text" class="form-control input-sm" data-ng-model="collectionMethodsAddEditCtrl.selectedCollectionMethodName" placeholder="Name"
+                                               uib-typeahead="collectionMethods.name for collectionMethods in collectionMethodsAddEditCtrl.getCollectionMethodsByName($viewValue)" data-ng-change="collectionMethodsAddEditCtrl.collectionMethodsChange()"
                                                typeahead-on-select="collectionMethodsAddEditCtrl.selectCollectionMethod($item)" autocomplete="off" required />
-                                        <div class="help-block" data-ng-show="collectionMethodsAddEditCtrl.inputForm.collectionMethod.$error.required && collectionMethodsAddEditCtrl.formSubmitted">
-                                            <small>Please select a collection method</small>
+                                        <div class="help-block" data-ng-show="collectionMethodsAddEditCtrl.inputForm.name.$error.required && collectionMethodsAddEditCtrl.formSubmitted">
+                                            <small>Search by Name</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': collectionMethodsAddEditCtrl.inputForm.description.$invalid && collectionMethodsAddEditCtrl.formSubmitted }">
+                                        <label for="description" class="control-label">Description:</label>
+                                        <input id="description" name="description" type="text" class="form-control input-sm" data-ng-model="collectionMethodsAddEditCtrl.selectedCollectionMethodDescription" placeholder="Collection Method"
+                                               uib-typeahead="collectionMethods.context for collectionMethods in collectionMethodsAddEditCtrl.getCollectionMethodsByDescription($viewValue)" data-ng-change="collectionMethodsAddEditCtrl.collectionMethodsChange()"
+                                               typeahead-on-select="collectionMethodsAddEditCtrl.selectCollectionMethod($item)" autocomplete="off" required />
+                                        <div class="help-block" data-ng-show="collectionMethodsAddEditCtrl.inputForm.description.$error.required && collectionMethodsAddEditCtrl.formSubmitted">
+                                            <small>Search by Description</small>
                                         </div>
                                     </div>
                                     <div class="form-group">

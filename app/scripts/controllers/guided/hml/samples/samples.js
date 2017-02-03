@@ -28,6 +28,7 @@
         };
 
         $scope.$on('guided:hml:node:update', function () {
+            stripTempSampleId(samplesCtrl.selectedSample.id);
             hmlService.updateHml(samplesCtrl.hml).then(function (result) {
                 if (result) {
                     $scope.$emit('guided:hml:node:updated', result);
@@ -36,64 +37,70 @@
         });
 
         samplesCtrl.addSampleEntry = function () {
+            handleSampleUpdates(samplesCtrl.selectedSample, false);
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/samples/samples-add-edit.html',
                 controller: 'samplesAddEdit',
                 controllerAs: 'samplesAddEditCtrl',
                 resolve: {
-                    edit: function () {
-                        return false;
-                    },
-                    sample: function () {
-                        return undefined;
-                    },
                     hmlModel: function () {
                         return samplesCtrl.hml;
                     },
-                    selectedSamples: function () {
-                        var samples = samplesCtrl.gridOptions.data,
-                            idArray = [];
-
-                        for (var i = 0; i < samples.length; i++) {
-                            idArray.push(samples[i].id)
-                        }
-
-                        return idArray;
-                    },
-                    newSample: function () {
+                    sample: function () {
                         return samplesCtrl.selectedSample;
                     }
                 }
             });
 
-            modalInstance.result.then(function (samples) {
-                if (samples) {
-                    if (samples.constructor === Array) {
-                        for (var i = 0; i < samples.length; i++) {
-                            samplesCtrl.gridOptions.data.push(samples[i]);
-                        }
-
-                        return;
-                    }
-
-                    samplesCtrl.gridOptions.data.push(samples);
+            modalInstance.result.then(function (hml) {
+                if (hml) {
+                    samplesCtrl.hml = hml;
                 }
             });
         };
 
         samplesCtrl.removeSample = function (sample) {
-            samplesCtrl.gridOptions.data.splice(getSampleIndex(sample), 1);
+            handleSampleUpdates(sample, true);
         };
 
+        function handleSampleUpdates(sample, isDelete) {
+            var index = getSampleIndex(sample);
+
+            if (isDelete) {
+                samplesCtrl.hml.samples.splice(index, 1);
+                return;
+            }
+
+            if (index === -1) {
+                samplesCtrl.hml.samples.push(sample);
+                return;
+            }
+
+            samplesCtrl.hml.samples[index] = sample;
+        }
+
         function getSampleIndex (sample) {
-            for (var i = 0; i < samplesCtrl.gridOptions.data.length; i++) {
-                if (samplesCtrl.gridOptions.data[i].id === sample.id) {
+            var sampleId;
+
+            if (sample.id) {
+                sampleId = sample.id;
+            } else {
+                sampleId = sample;
+            }
+
+            for (var i = 0; i < samplesCtrl.hml.samples.length; i++) {
+                if (samplesCtrl.hml.samples[i].id === sampleId) {
                     return i;
                 }
             }
 
-            return undefined;
+            return -1;
+        }
+
+        function stripTempSampleId(sampleId) {
+            var index = getSampleIndex(sampleId);
+            samplesCtrl.hml.samples[index].id = null;
         }
     }
 
