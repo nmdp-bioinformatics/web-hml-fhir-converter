@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory, guidGenerator) {
+    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory, guidGenerator, spinnerService) {
        /* jshint validthis:true */
         var hmlAddEditMainCtrl = this;
 
@@ -156,6 +156,7 @@
 
             modalInstance.result.then(function (result) {
                 defer.resolve(result);
+                spinnerService.hide('indexSpinner');
             });
 
             return defer.promise;
@@ -163,5 +164,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlAddEditMain', hmlAddEditMain);
-    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory', 'guidGenerator'];
+    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory', 'guidGenerator', 'spinnerService'];
 }());
