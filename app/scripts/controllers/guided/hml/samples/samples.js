@@ -78,6 +78,10 @@
         };
 
         function handleSampleUpdates(sample, isDelete) {
+            if (sample === null) {
+                return;
+            }
+
             var index = getSampleIndex(sample);
 
             if (isDelete) {
@@ -119,9 +123,7 @@
             }
 
             var index = getSampleIndex(sampleId);
-            samplesCtrl.hml.samples[index].id = null;
-
-            //TODO: Add a selection function to rows in grid, set samplesCtrl.selectedSample equal to row selection, make highlightable
+            samplesCtrl.hml.samples[index].id = undefined;
         }
     }
 
