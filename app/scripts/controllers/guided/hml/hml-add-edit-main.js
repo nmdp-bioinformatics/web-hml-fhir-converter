@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory, guidGenerator, spinnerService) {
+    function hmlAddEditMain($scope, hmlModel, edit, $uibModal, toaster, $q, $rootScope, objectModelFactory, guidGenerator, spinnerService, $route) {
        /* jshint validthis:true */
         var hmlAddEditMainCtrl = this;
 
@@ -54,7 +54,7 @@
         };
 
         $rootScope.$on('guided:hml:node:updated', function (event, data) {
-            hmlAddEditMainCtrl.hml = data;
+            $route.reload();
         });
 
         hmlAddEditMainCtrl.addReportingCenter = function (edit) {
@@ -164,5 +164,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlAddEditMain', hmlAddEditMain);
-    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory', 'guidGenerator', 'spinnerService'];
+    hmlAddEditMain.$inject = ['$scope', 'hmlModel', 'edit', '$uibModal', 'toaster', '$q', '$rootScope', 'objectModelFactory', 'guidGenerator', 'spinnerService', '$route'];
 }());
