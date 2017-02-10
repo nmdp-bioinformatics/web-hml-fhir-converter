@@ -54,7 +54,9 @@
         };
 
         $rootScope.$on('guided:hml:node:updated', function (event, data) {
-            $route.reload();
+            if (data) {
+                $route.reload();
+            }
         });
 
         hmlAddEditMainCtrl.addReportingCenter = function (edit) {

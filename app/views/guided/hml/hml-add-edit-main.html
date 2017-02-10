@@ -88,8 +88,11 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 centered-heading">
-                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addSamples()">
+                        <button data-ng-show="hmlAddEditMainCtrl.hml.samples.length === 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addSamples()">
                             <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                        </button>
+                        <button data-ng-show="hmlAddEditMainCtrl.hml.samples.length > 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addSamples()">
+                            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
                         </button>
                     </div>
                 </div>
@@ -116,8 +119,11 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 centered-heading">
-                        <button type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addProperties()">
+                        <button data-ng-show="hmlAddEditMainCtrl.hml.properties.length === 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addProperties()">
                             <i class="glyphicon glyphicon-plus button-glyphicon" />Add
+                        </button>
+                        <button data-ng-show="hmlAddEditMainCtrl.hml.properties.length > 0" type="button" class="btn btn-success btn-outline-success inner-panel-footer-button" data-ng-click="hmlAddEditMainCtrl.addProperties()">
+                            <i class="glyphicon glyphicon-pencil button-glyphicon" />Edit
                         </button>
                     </div>
                 </div>
