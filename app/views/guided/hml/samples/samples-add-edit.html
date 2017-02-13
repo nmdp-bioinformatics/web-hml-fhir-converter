@@ -25,12 +25,30 @@
                                 </form>
                             </div>
                             <div class="panel panel-primary">
-                                <div class="panel-heading" data-ng-click="samplesAddEditCtrl.toggleCollectionPanel()">
+                                <div class="panel-heading" data-ng-click="samplesAddEditCtrl.togglePanel('collectionMethods')">
                                     <h5 class="panel-title">Collection Methods</h5>
                                 </div>
-                                <div class="panel-body" data-ng-show="samplesAddEditCtrl.expandCollectionMethods">
-                                    <dynamic-controller templateurl="{{ samplesAddEditCtrl.collectionMethodsTemplateUrl }}" controller="{{ samplesAddEditCtrl.controllerDeclaration.controller }}"
-                                        controlleras="{{ samplesAddEditCtrl.controllerDeclaration.controllerAs }}"></dynamic-controller>
+                                <div class="panel-body" data-ng-show="samplesAddEditCtrl.expandedPanels.collectionMethods">
+                                    <dynamic-controller templateurl="{{ samplesAddEditCtrl.panelData.collectionMethods.templateUrl }}" controller="{{ samplesAddEditCtrl.panelData.collectionMethods.controller }}"
+                                        controlleras="{{ samplesAddEditCtrl.panelData.collectionMethods.controllerAs }}"></dynamic-controller>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" data-ng-click="samplesAddEditCtrl.togglePanel('properties')">
+                                    <h5 class="panel-title">Properties</h5>
+                                </div>
+                                <div class="panel-body" data-ng-show="samplesAddEditCtrl.expandedPanels.properties">
+                                    <dynamic-controller templateurl="{{ samplesAddEditCtrl.panelData.properties.templateUrl }}" controller="{{ samplesAddEditCtrl.panelData.properties.controller }}"
+                                        controlleras="{{ samplesAddEditCtrl.panelData.properties.controllerAs }}"></dynamic-controller>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" data-ng-click="samplesAddEditCtrl.togglePanel('typing')">
+                                    <h5 class="panel-title">Typing</h5>
+                                </div>
+                                <div class="panel-body" data-ng-show="samplesAddEditCtrl.expandedPanels.typing">
+                                    <dynamic-controller templateurl="{{ samplesAddEditCtrl.panelData.typing.templateUrl }}" controller="{{ samplesAddEditCtrl.panelData.typing.controller }}"
+                                        controlleras="{{ samplesAddEditCtrl.panelData.typing.controllerAs }}"></dynamic-controller>
                                 </div>
                             </div>
                         </div>

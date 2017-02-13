@@ -4,20 +4,25 @@
 (function () {
     'use strict';
 
-    function samplesAddEdit ($scope, $uibModalInstance, templateController, hmlModel, sample) {
+    function samplesAddEdit ($scope, $uibModalInstance, hmlModel, sample, appConfig, indexCollection) {
         /* jshint validthis: true */
-        var samplesAddEditCtrl = this,
-            collectionMethodsTemplateUrl = 'views/guided/hml/samples/collection-methods/collection-methods.html',
-            controllerData = templateController.getControllerNameByTemplateUrl(collectionMethodsTemplateUrl);
+        var samplesAddEditCtrl = this
 
         samplesAddEditCtrl.scope = $scope;
         samplesAddEditCtrl.hml = hmlModel;
         samplesAddEditCtrl.formSubmitted = false;
         samplesAddEditCtrl.selectedSample = sample;
+        samplesAddEditCtrl.parentCollectionItemid = sample.id;
         samplesAddEditCtrl.sampleIndex = getSampleIndex(samplesAddEditCtrl.selectedSample)
-        samplesAddEditCtrl.expandCollectionMethods = false;
-        samplesAddEditCtrl.controllerDeclaration = controllerData;
-        samplesAddEditCtrl.collectionMethodsTemplateUrl = collectionMethodsTemplateUrl;
+        samplesAddEditCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        samplesAddEditCtrl.panelData = appConfig.samplePanels;
+        samplesAddEditCtrl.expandedPanels = {
+            collectionMethods: false,
+            properties: false,
+            typing: false
+        };
+
+        $scope.parentCtrl = samplesAddEditCtrl;
 
         samplesAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -36,21 +41,22 @@
             }
         };
 
-        samplesAddEditCtrl.toggleCollectionPanel = function () {
-            samplesAddEditCtrl.expandCollectionMethods = !samplesAddEditCtrl.expandCollectionMethods;
+        samplesAddEditCtrl.togglePanel = function (panelName) {
+            samplesAddEditCtrl.expandedPanels[panelName] = !samplesAddEditCtrl.expandedPanels[panelName];
         };
 
         function getSampleIndex(sample) {
-            for (var i = 0; i < samplesAddEditCtrl.hml.samples.length; i++) {
-                if (samplesAddEditCtrl.hml.samples[i].id === sample.id) {
-                    return i;
-                }
-            }
+            return indexCollection.getCollectionItemIndex(samplesAddEditCtrl.hml, 'samples', sample.id);
+        }
 
-            return -1;
+        function returnPropertyLocator() {
+            return [
+                { propertyString: 'samples', propertyIndex: samplesAddEditCtrl.sampleIndex },
+                { propertyString: 'properties', propertyIndex: -1 }
+            ];
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samplesAddEdit', samplesAddEdit);
-    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', 'templateController', 'hmlModel', 'sample'];
+    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', 'hmlModel', 'sample', 'appConfig', 'indexCollection'];
 }());

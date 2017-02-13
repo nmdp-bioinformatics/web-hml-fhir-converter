@@ -32,7 +32,7 @@
                                     <div class="form-group" data-ng-class="{ 'has-error': collectionMethodsAddEditCtrl.inputForm.description.$invalid && collectionMethodsAddEditCtrl.formSubmitted }">
                                         <label for="description" class="control-label">Description:</label>
                                         <input id="description" name="description" type="text" class="form-control input-sm" data-ng-model="collectionMethodsAddEditCtrl.selectedCollectionMethodDescription" placeholder="Collection Method"
-                                               uib-typeahead="collectionMethods.context for collectionMethods in collectionMethodsAddEditCtrl.getCollectionMethodsByDescription($viewValue)" data-ng-change="collectionMethodsAddEditCtrl.collectionMethodsChange()"
+                                               uib-typeahead="collectionMethods.description for collectionMethods in collectionMethodsAddEditCtrl.getCollectionMethodsByDescription($viewValue)" data-ng-change="collectionMethodsAddEditCtrl.collectionMethodsChange()"
                                                typeahead-on-select="collectionMethodsAddEditCtrl.selectCollectionMethod($item)" autocomplete="off" required />
                                         <div class="help-block" data-ng-show="collectionMethodsAddEditCtrl.inputForm.description.$error.required && collectionMethodsAddEditCtrl.formSubmitted">
                                             <small>Search by Description</small>

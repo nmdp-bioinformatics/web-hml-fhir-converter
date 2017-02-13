@@ -24,6 +24,23 @@
         'autoAddOnNoResultsTimer': 2500,
         'defaultMaxQueryTypeahead': {
              number: 10, text: '10'
+        },
+        'samplePanels': {
+            'collectionMethods': {
+                'templateUrl': 'views/guided/hml/samples/collection-methods/collection-methods.html',
+                'controller': 'collectionMethods',
+                'controllerAs': 'collectionMethodsCtrl'
+            },
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            },
+            'typing': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing.html',
+                'controller': 'typing',
+                'controllerAs': 'typingCtrl'
+            }
         }
     };
 

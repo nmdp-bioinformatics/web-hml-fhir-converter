@@ -15,23 +15,26 @@
                         <div class="col-md-12">
                             <div class="form">
                                 <form name="propertiesAddEditCtrl.inputForm">
-                                    <div class="form-group">
-                                        <label for="maxQuery" class="control-label">Maximum Query Results:</label>
-                                        <select id="maxQuery" data-ng-options="numResults.text for numResults in propertiesAddEditCtrl.resultsPerPage track by numResults.number"
-                                                data-ng-model="propertiesAddEditCtrl.maxQuery" class="form-control input-sm" />
-                                    </div>
-                                    <div class="form-group" data-ng-class="{ 'has-error': propertiesAddEditCtrl.inputForm.properties.$invalid && propertiesAddEditCtrl.formSubmitted }">
-                                        <label for="properties" class="control-label">Property:</label>
-                                        <input id="properties" name="properties" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.selectedPropertyName" placeholder="Properties"
-                                               uib-typeahead="property.context for property in propertiesAddEditCtrl.getProperties($viewValue)" data-ng-change="propertiesAddEditCtrl.propertyChange()"
-                                               typeahead-on-select="propertiesAddEditCtrl.selectProperty($item)" autocomplete="off" required />
-                                        <div class="help-block" data-ng-show="propertiesAddEditCtrl.inputForm.properties.$error.required && propertiesAddEditCtrl.formSubmitted">
+                                    <div class="form-group" data-ng-class="{ 'has-error': propertiesAddEditCtrl.inputForm.naem.$invalid && propertiesAddEditCtrl.formSubmitted }">
+                                        <label for="name" class="control-label">Property:</label>
+                                        <input id="name" name="name" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.property.name" placeholder="Name" required />
+                                        <div class="help-block" data-ng-show="propertiesAddEditCtrl.inputForm.name.$error.required && propertiesAddEditCtrl.formSubmitted">
                                             <small>Please select a Property</small>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" data-ng-model="propertiesAddEditCtrl.autoAdd" />
-                                        <small>Automatically route to add / edit form on no results</small>
+                                    <div class="form-group" data-ng-class="{ 'has-error': propertiesAddEditCtrl.inputForm.value.$invalid && propertiesAddEditCtrl.formSubmitted }">
+                                        <label for="value" class="control-label">Value:</label>
+                                        <input id="value" name="value" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.property.value" placeholder="Value" required />
+                                        <div class="help-block" data-ng-show="propertiesAddEditCtrl.inputForm.value.$error.required && propertiesAddEditCtrl.formSubmitted">
+                                            <small>Must contain a value</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': propertiesAddEditCtrl.inputForm.description.$invalid && propertiesAddEditCtrl.formSubmitted }">
+                                        <label for="description" class="control-label">Description:</label>
+                                        <input id="description" name="description" type="text" class="form-control input-sm" data-ng-model="propertiesAddEditCtrl.property.description" placeholder="Description" required />
+                                        <div class="help-block" data-ng-show="propertiesAddEditCtrl.inputForm.description.$error.required && propertiesAddEditCtrl.formSubmitted">
+                                            <small>Error in property description input</small>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

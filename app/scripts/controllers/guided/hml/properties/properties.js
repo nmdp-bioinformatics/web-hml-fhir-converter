@@ -5,33 +5,28 @@
 (function () {
     'use strict';
 
-    function properties ($scope, $uibModal, gridCellTemplateFactory) {
+    function properties ($scope, $uibModal, gridCellTemplateFactory, indexCollection, objectModelFactory) {
         /* jshint validthis: true */
         var propertiesCtrl = this,
-            parentCtrl = $scope.hmlModalCtrl,
+            parentCtrl = $scope.parentCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         propertiesCtrl.scope = $scope;
-        propertiesCtrl.edit = parentCtrl.edit;
+        propertiesCtrl.parentCollectionPropertyAllocation = parentCtrl.parentCollectionPropertyAllocation;
+        propertiesCtrl.hml = parentCtrl.hml;
         propertiesCtrl.gridOptions = {
-            data: [],
+            data: getPropertiesFromLocationString(),
             enableSorting: true,
             showGridFooter: true,
             appScopeProvider: propertiesCtrl,
             columnDefs: [
                 { name: 'id', field: 'id', visible: false },
-                { name: 'context', field: 'context', displayName: 'Context:', cellTooltip: function (row) { return row.entity.context; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'name', field: 'name', displayName: 'Name:', cellTooltip: function (row) { return row.entity.name; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'value', field: 'value', displayName: 'Value:', cellTooltip: function (row) { return row.entity.value; }, headerTooltip: function(col) { return col.displayName; } },
+                { name: 'description', field: 'description', displayName: 'Description:', cellTooltip: function (row) { return row.entity.description; }, headerTooltip: function(col) { return col.displayName; } },
                 { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
             ]
         };
-
-        if (propertiesCtrl.edit) {
-            propertiesCtrl.gridOptions.data = parentCtrl.hml.properties;
-        }
-
-        $scope.$on('guided:hml:node:update', function () {
-            $scope.$emit('guided:hml:node:updated', propertiesCtrl.gridOptions.data);
-        });
 
         propertiesCtrl.addPropertyEntry = function () {
             var modalInstance = $uibModal.open({
@@ -44,17 +39,7 @@
                         return false;
                     },
                     property: function () {
-                        return undefined;
-                    },
-                    selectedProperties: function () {
-                        var properties = propertiesCtrl.gridOptions.data,
-                            idArray = [];
-
-                        for (var i = 0; i < properties.length; i++) {
-                            idArray.push(properties[i].id)
-                        }
-
-                        return idArray;
+                        return objectModelFactory.getPropertyModel();
                     }
                 }
             });
@@ -64,31 +49,78 @@
                     if (properties.constructor === Array) {
                         for (var i = 0; i < properties.length; i++) {
                             propertiesCtrl.gridOptions.data.push(properties[i]);
+                            updateHmlWithPropertyData(properties[i], false);
                         }
 
                         return;
                     }
 
-                    propertiesCtrl.gridOptions.data.push(properties);
+                    updateHmlWithPropertyData(properties, false);
                 }
             });
         };
 
         propertiesCtrl.removeProperty = function (property) {
-            propertiesCtrl.gridOptions.data.splice(getPropertyIndex(property), 1);
+            updateHmlWithPropertyData(property, true);
         };
 
-        function getPropertyIndex (property) {
-            for (var i = 0; i < propertiesCtrl.gridOptions.data.length; i++) {
-                if (propertiesCtrl.gridOptions.data[i].id === property.id) {
-                    return i;
-                }
+        function updateHmlWithPropertyData(property, isDelete) {
+            var hmlProperties = getThisPropertyArray(),
+                propertiesIndex = getPropertyIndex(property);
+
+            if (isDelete) {
+                hmlProperties.splice(propertiesIndex, 1);
+                return;
             }
 
-            return undefined;
+            if (propertiesIndex === -1) {
+                hmlProperties.push(property);
+                return;
+            }
+
+            hmlProperties[propertiesIndex] = property;
+        }
+
+        function getPropertiesFromLocationString() {
+            return getThisPropertyArray();
+        }
+
+        function getThisPropertyArray(customLocator) {
+            var propertyArray = [],
+                locator = {};
+
+            if (customLocator) {
+                locator = customLocator;
+            } else {
+                locator = propertiesCtrl.parentCollectionPropertyAllocation;
+            }
+
+            if (locator) {
+                var obj = propertiesCtrl.hml;
+
+                for (var i = 0; i < locator.length; i++) {
+                    obj = obj[locator[i].propertyString];
+
+                    if (locator[i].propertyIndex > -1) {
+                        obj = obj[locator[i].propertyIndex]
+                    }
+                }
+
+                if (!obj) {
+                    return [];
+                }
+
+                propertyArray = obj;
+            }
+
+            return propertyArray;
+        }
+
+        function getPropertyIndex (property) {
+            return indexCollection.getCollectionItemIndex(getThisPropertyArray(), undefined, property.id);
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('properties', properties);
-    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
+    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'indexCollection', 'objectModelFactory'];
 }());

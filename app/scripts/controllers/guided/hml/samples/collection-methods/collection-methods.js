@@ -1,16 +1,13 @@
 /**
- * Created by abrown3 on 1/20/17.
- */
-/**
  * Created by abrown3 on 12/15/16.
  */
 (function () {
     'use strict';
 
-    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory) {
+    function collectionMethods ($scope, $uibModal, gridCellTemplateFactory, indexCollection) {
         /* jshint validthis: true */
         var collectionMethodsCtrl = this,
-            parentCtrl = $scope.samplesAddEditCtrl,
+            parentCtrl = $scope.parentCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         collectionMethodsCtrl.scope = $scope;
@@ -74,11 +71,6 @@
             updateHmlWithCollectionData(collectionMethod, collectionMethodsCtrl.sampleId, true);
         };
 
-        function getCollectionMethodsBySampleId(sampleId) {
-            var sampleIndex = getSampleIndex(sampleId);
-            return collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods;
-        }
-
         function updateHmlWithCollectionData(collectionMethod, sampleId, isDelete) {
             var sample = getSampleById(sampleId),
                 collectionMethods = sample.collectionMethods,
@@ -98,37 +90,24 @@
             collectionMethodsCtrl.hml.samples[sampleIndex].collectionMethods[collectionMethodIndex] = collectionMethod;
         }
 
-        function getCollectionMethodIndex(collectionMethodId, collectionMethods) {
-            for (var i = 0; i < collectionMethods.length; i++) {
-                if (collectionMethods[i].id === collectionMethodId) {
-                    return i;
-                }
-            }
+        function getCollectionMethodsBySampleId(sampleId) {
+            var sample = getSampleById(sampleId);
+            return sample.collectionMethods;
+        }
 
-            return -1;
+        function getCollectionMethodIndex(collectionMethodId, collectionMethods) {
+            return indexCollection.getCollectionItemIndex(collectionMethods, undefined, collectionMethodId);
         }
 
         function getSampleIndex(sampleId) {
-            for (var i = 0; i < collectionMethodsCtrl.hml.samples.length; i++) {
-                if (collectionMethodsCtrl.hml.samples[i].id === sampleId) {
-                    return i;
-                }
-            }
-
-            return -1;
+            return indexCollection.getCollectionItemIndex(collectionMethodsCtrl.hml, 'samples', sampleId);
         }
 
         function getSampleById(sampleId) {
-            for (var i = 0; i < collectionMethodsCtrl.hml.samples.length; i++) {
-                if (collectionMethodsCtrl.hml.samples[i].id === sampleId) {
-                    return collectionMethodsCtrl.hml.samples[i];
-                }
-            }
-
-            return {};
+            return indexCollection.getCollectionItemById(collectionMethodsCtrl.hml, 'samples', sampleId);
         }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('collectionMethods', collectionMethods);
-    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory'];
+    collectionMethods.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'indexCollection'];
 }());
