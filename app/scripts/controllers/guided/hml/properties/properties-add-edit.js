@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function propertiesAddEdit ($scope, $uibModalInstance, property, edit) {
+    function propertiesAddEdit ($scope, $uibModalInstance, property, edit, tempId) {
         /* jshint validthis: true */
         var propertiesAddEditCtrl = this;
 
@@ -12,6 +12,10 @@
         propertiesAddEditCtrl.formSubmitted = false;
         propertiesAddEditCtrl.property = property;
         propertiesAddEditCtrl.edit = edit;
+
+        if (!propertiesAddEditCtrl.edit) {
+            propertiesAddEditCtrl.property.id = tempId;
+        }
 
         propertiesAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -33,5 +37,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('propertiesAddEdit', propertiesAddEdit);
-    propertiesAddEdit.$inject = ['$scope', '$uibModalInstance', 'property', 'edit'];
+    propertiesAddEdit.$inject = ['$scope', '$uibModalInstance', 'property', 'edit', 'tempId'];
 }());

@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    function properties ($scope, $uibModal, gridCellTemplateFactory, indexCollection, objectModelFactory) {
+    function properties ($scope, $uibModal, gridCellTemplateFactory, indexCollection, objectModelFactory, guidGenerator) {
         /* jshint validthis: true */
         var propertiesCtrl = this,
             parentCtrl = $scope.parentCtrl,
@@ -40,6 +40,9 @@
                     },
                     property: function () {
                         return objectModelFactory.getPropertyModel();
+                    },
+                    tempId: function () {
+                        return guidGenerator.generateRandomGuid();
                     }
                 }
             });
@@ -122,5 +125,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('properties', properties);
-    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'indexCollection', 'objectModelFactory'];
+    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'indexCollection', 'objectModelFactory', 'guidGenerator'];
 }());
