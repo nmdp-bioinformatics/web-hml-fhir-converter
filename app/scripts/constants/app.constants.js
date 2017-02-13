@@ -41,6 +41,28 @@
                 'controller': 'typing',
                 'controllerAs': 'typingCtrl'
             }
+        },
+        'typingPanels': {
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            },
+            'alleleAssignment': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/allele-assignment.html',
+                'controller': 'alleleAssignment',
+                'controllerAs': 'alleleAssignmentCtrl'
+            },
+            'typingMethod': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/typing-method.html',
+                'controller': 'typingMethod',
+                'controllerAs': 'typingMethodCtrl'
+            },
+            'consensusSequence': {
+                'templateUrl': 'views/guided/hml/samples/typing/conesnsus-sequence/consensus-sequence.html',
+                'controller': 'consensusSequence',
+                'controllerAs': 'consensusSequenceCtrl'
+            }
         }
     };
 

@@ -70,7 +70,6 @@
                     }
                 }
             });
-
         };
 
         samplesCtrl.removeSample = function (sample) {
