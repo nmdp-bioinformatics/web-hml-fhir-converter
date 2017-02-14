@@ -10,32 +10,10 @@
             parentCtrl = $scope.parentCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
-        $scope.parentCtrl = typingCtrl;
-
         typingCtrl.scope = $scope;
         typingCtrl.hml = parentCtrl.hml;
         typingCtrl.sampleIndex = parentCtrl.sampleIndex;
         typingCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
-        typingCtrl.gridOptions = {
-            data: [],
-            enableSorting: true,
-            showGridFooter: true,
-            enableRowHeaderSelection: false,
-            appScopeProvider: typingCtrl,
-            columnDefs: [
-                { name: 'id', visible: false },
-                { field: 'delete', displayName: 'Remove', maxWidth: 75, enableColumnMenu: false, cellTemplate: deleteColumnTemplate }
-            ],
-            multiSelect: false,
-            modifierKeysToMultiSelect: false,
-            onRegisterApi: function (gridApi) {
-                typingCtrl.gridApi = gridApi;
-
-                typingCtrl.gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-                    typingCtrl.typing = row.entity;
-                });
-            }
-        };
 
         typingCtrl.addTypingEntry = function () {
             var modalInstance = $uibModal.open({
@@ -46,6 +24,12 @@
                 resolve: {
                     typing: function () {
                         return objectModelFactory.getTypingModel();
+                    },
+                    hmlModel: function () {
+                        return typingCtrl.hml;
+                    },
+                    parentCollectionPropertyAllocation: function () {
+                        return typingCtrl.parentCollectionPropertyAllocation;
                     }
                 }
             });
@@ -64,7 +48,7 @@
         function setLocatorIndexes(config) {
             for (var i = 0; i < config.length; i++) {
                 if (config[i].propertyString === 'samples') {
-                    config[i].propertyIndex = typing.sampleIndex;
+                    config[i].propertyIndex = typingCtrl.sampleIndex;
                 }
             }
 

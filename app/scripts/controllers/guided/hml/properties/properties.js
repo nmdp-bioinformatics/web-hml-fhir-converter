@@ -88,15 +88,9 @@
             return getThisPropertyArray();
         }
 
-        function getThisPropertyArray(customLocator) {
+        function getThisPropertyArray() {
             var propertyArray = [],
-                locator = {};
-
-            if (customLocator) {
-                locator = customLocator;
-            } else {
                 locator = propertiesCtrl.parentCollectionPropertyAllocation;
-            }
 
             if (locator) {
                 var obj = propertiesCtrl.hml;

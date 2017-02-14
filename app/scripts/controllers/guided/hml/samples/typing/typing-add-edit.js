@@ -4,14 +4,17 @@
 (function () {
     'use strict';
 
-    function typingAddEdit ($scope, appConfig, $uibModalInstance, typing) {
+    function typingAddEdit ($scope, appConfig, $uibModalInstance, typing, hmlModel, parentCollectionPropertyAllocation) {
         /* jshint validthis: true */
-        var typingAddEditCtrl = this
+        var typingAddEditCtrl = this;
 
+        $scope.parentCtrl = typingAddEditCtrl;
+
+        typingAddEditCtrl.hml = hmlModel;
         typingAddEditCtrl.scope = $scope;
         typingAddEditCtrl.panelData = appConfig.typingPanels;
         typingAddEditCtrl.formSubmitted = false;
-        typingAddEditCtrl.parentCollectionPropertyAllocation = createPropertyAllocator();
+        typingAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
         typingAddEditCtrl.typing = typing;
         typingAddEditCtrl.expandedPanels = {
             properties: false,
@@ -33,22 +36,15 @@
 
             if (!form.$invalid) {
                 typingAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(typingAddEditCtrl.hml);
+                $uibModalInstance.close(typingAddEditCtrl.typing);
             }
         };
 
         typingAddEditCtrl.togglePanels = function (panelName) {
             typingAddEditCtrl.expandedPanels[panelName] = !typingAddEditCtrl.expandedPanels[panelName];
         };
-
-        function createPropertyAllocator() {
-            return [
-                {},
-                {}
-            ];
-        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingAddEdit', typingAddEdit);
-    typingAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'typing'];
+    typingAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'typing', 'hmlModel', 'parentCollectionPropertyAllocation'];
 }());
