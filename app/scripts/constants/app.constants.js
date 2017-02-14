@@ -74,6 +74,23 @@
                 'controller': 'consensusSequence',
                 'controllerAs': 'consensusSequenceCtrl'
             }
+        },
+        'typingMethodPanels': {
+            'sso': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sso/sso.html',
+                'controller': 'sso',
+                'controllerAs': 'ssoCtrl'
+            },
+            'ssp': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/ssp/ssp.html',
+                'controller': 'ssp',
+                'controllerAs': 'sspCtrl'
+            },
+            'sbtSanger': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-sanger/sbt-sanger.html',
+                'controller': 'sbtSanger',
+                'controllerAs': 'sbtSangerCtrl'
+            }
         }
     };
 

@@ -4,13 +4,18 @@
 (function () {
     'use strict';
 
-    function typingMethod ($scope) {
+    function typingMethod ($scope, $uibModal, gridCellTemplateFactory, appConfig, objectModelFactory) {
         /* jshint validthis:true */
-        var typingMethodCtrl = this;
+        var typingMethodCtrl = this,
+            parentCtrl = $scope.parentCtrl,
+            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
         typingMethodCtrl.scope = $scope;
+        typingMethodCtrl.hml = parentCtrl.hml;
+        typingMethodCtrl.sampleIndex = parentCtrl.sampleIndex;
+
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingMethod', typingMethod);
-    typingMethod.$inject = ['$scope'];
+    typingMethod.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'appConfig', 'objectModelFactory'];
 }());
