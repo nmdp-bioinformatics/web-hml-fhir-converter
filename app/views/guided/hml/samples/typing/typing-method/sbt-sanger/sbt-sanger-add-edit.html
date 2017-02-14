@@ -1,13 +1,13 @@
 <div class="modal-header">
     <button type="modal" class="close" aria-hidden="true" data-ng-click="sbtSangerAddEditCtrl.cancel()">&times;</button>
-    <h3 class="modal-title">{{ sbtSangerAddEditCtrl.edit ? 'Edit' : 'Add' }} Collection Method</h3>
+    <h3 class="modal-title">{{ sbtSangerAddEditCtrl.edit ? 'Edit' : 'Add' }} Sbt-Sanger Method</h3>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">{{ collectionMethodsAddEditCtrl.edit ? 'Edit' : 'Add' }} Collection Method Information</h4>
+                    <h4 class="panel-title">{{ sbtSangerAddEditCtrl.edit ? 'Edit' : 'Add' }} Sbt-Sanger Information</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -36,14 +36,6 @@
                                                data-ng-model="sbtSangerAddEditCtrl.sbtSanger.testIdSource" placeholder="Test ID Source" required />
                                         <div class="help-block" data-ng-show="sbtSangerAddEditCtrl.inputForm.testIdSource.$error.required && sbtSangerAddEditCtrl.formSubmitted">
                                             <small>Test ID Source Required</small>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" data-ng-class="{ 'has-error': sbtSangerAddEditCtrl.inputForm.scores.$invalid && sbtSangerAddEditCtrl.formSubmitted }">
-                                        <label for="scores" class="control-label">Scores:</label>
-                                        <input id="scores" name="scores" type="text" class="form-control input-sm"
-                                               data-ng-model="sbtSangerAddEditCtrl.sbtSanger.scores" placeholder="Scores" required />
-                                        <div class="help-block" data-ng-show="sbtSangerAddEditCtrl.inputForm.scores.$error.required && sbtSangerAddEditCtrl.formSubmitted">
-                                            <small>Scores Required</small>
                                         </div>
                                     </div>
                                     <div class="panel panel-primary">
