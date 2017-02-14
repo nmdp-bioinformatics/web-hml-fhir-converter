@@ -109,6 +109,28 @@
                 'controller': 'sbtSanger',
                 'controllerAs': 'sbtSangerCtrl'
             }
+        },
+        'sbtSangerPanels': {
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            },
+            'amplification': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/allele-assignment.html',
+                'controller': 'amplification',
+                'controllerAs': 'amplificationCtrl'
+            },
+            'subAmplification': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/typing-method.html',
+                'controller': 'subAmplification',
+                'controllerAs': 'subAmplificationCtrl'
+            },
+            'gssp': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence.html',
+                'controller': 'gssp',
+                'controllerAs': 'gsspCtrl'
+            }
         }
     };
 
