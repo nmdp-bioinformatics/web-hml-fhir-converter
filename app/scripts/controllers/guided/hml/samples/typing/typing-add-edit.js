@@ -40,7 +40,7 @@
             }
         };
 
-        typingAddEditCtrl.togglePanels = function (panelName) {
+        typingAddEditCtrl.togglePanel = function (panelName) {
             typingAddEditCtrl.expandedPanels[panelName] = !typingAddEditCtrl.expandedPanels[panelName];
         };
     }
