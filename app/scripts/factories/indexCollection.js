@@ -7,7 +7,7 @@
     function indexCollection () {
         var factory = {
             getCollectionItemById: function (collection, collectionPropertyId, itemId) {
-                var collectionArray = []
+                var collectionArray = [];
 
                 if (collectionPropertyId) {
                     collectionArray = collection[collectionPropertyId];
@@ -20,7 +20,7 @@
                 }
 
                 for (var i = 0; i < collectionArray.length; i++) {
-                    if (collectionArray[i].id == itemId) {
+                    if (collectionArray[i].id === itemId) {
                         return collectionArray[i];
                     }
                 }
@@ -42,7 +42,7 @@
                 }
 
                 for (var i = 0; i < collectionArray.length; i++) {
-                    if (collectionArray[i].id == itemId) {
+                    if (collectionArray[i].id === itemId) {
                         return i;
                     }
                 }

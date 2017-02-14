@@ -104,7 +104,7 @@
                 for (var i = 0; i < locator.length; i++) {
                     obj = obj[locator[i].propertyString];
 
-                    if (locator[i].propertyIndex > -1) {
+                    if (locator[i].isArray && locator[i].propertyIndex > -1) {
                         obj = obj[locator[i].propertyIndex]
                     }
                 }

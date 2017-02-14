@@ -4,15 +4,18 @@
 (function () {
     'use strict';
 
-    function typing ($scope, $uibModal, gridCellTemplateFactory, hmlService, guidGenerator) {
+    function typing ($scope, $uibModal, gridCellTemplateFactory, appConfig, objectModelFactory) {
         /* jshint validthis: true */
         var typingCtrl = this,
             parentCtrl = $scope.parentCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
 
+        $scope.parentCtrl = typingCtrl;
+
         typingCtrl.scope = $scope;
         typingCtrl.hml = parentCtrl.hml;
-        typingCtrl.selectedTyping = {};
+        typingCtrl.sampleIndex = parentCtrl.sampleIndex;
+        typingCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
         typingCtrl.gridOptions = {
             data: [],
             enableSorting: true,
@@ -41,11 +44,8 @@
                 controller: 'typingAddEdit',
                 controllerAs: 'typingAddEditCtrl',
                 resolve: {
-                    hmlModel: function () {
-                        return typingCtrl.hml;
-                    },
                     typing: function () {
-                        return {};
+                        return objectModelFactory.getTypingModel();
                     }
                 }
             });
@@ -56,8 +56,22 @@
                 }
             })
         };
+
+        function returnPropertyLocator() {
+            return setLocatorIndexes(appConfig.propertiesParentMap.typingParent);
+        }
+
+        function setLocatorIndexes(config) {
+            for (var i = 0; i < config.length; i++) {
+                if (config[i].propertyString === 'samples') {
+                    config[i].propertyIndex = typing.sampleIndex;
+                }
+            }
+
+            return config;
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typing', typing);
-    typing.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService', 'guidGenerator'];
+    typing.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'appConfig', 'objectModelFactory'];
 }());

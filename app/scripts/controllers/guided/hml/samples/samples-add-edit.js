@@ -12,7 +12,6 @@
         samplesAddEditCtrl.hml = hmlModel;
         samplesAddEditCtrl.formSubmitted = false;
         samplesAddEditCtrl.selectedSample = sample;
-        samplesAddEditCtrl.parentCollectionItemid = sample.id;
         samplesAddEditCtrl.sampleIndex = getSampleIndex(samplesAddEditCtrl.selectedSample)
         samplesAddEditCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
         samplesAddEditCtrl.panelData = appConfig.samplePanels;
@@ -50,10 +49,17 @@
         }
 
         function returnPropertyLocator() {
-            return [
-                { propertyString: 'samples', propertyIndex: samplesAddEditCtrl.sampleIndex },
-                { propertyString: 'properties', propertyIndex: -1 }
-            ];
+            return setLocatorIndexes(appConfig.propertiesParentMap.samplesParent);
+        }
+
+        function setLocatorIndexes(config) {
+            for (var i = 0; i < config.length; i++) {
+                if (config[i].propertyString === 'samples') {
+                    config[i].propertyIndex = samplesAddEditCtrl.sampleIndex;
+                }
+            }
+
+            return config;
         }
     }
 

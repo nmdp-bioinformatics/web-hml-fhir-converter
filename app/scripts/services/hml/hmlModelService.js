@@ -42,6 +42,9 @@
                     case 'Version':
                         url = getVersionModelUrl();
                         break;
+                    case 'Typing':
+                        url = getTypingModelUrl();
+                        break;
                     default:
                         return;
                 }
@@ -96,6 +99,10 @@
 
         function getVersionModelUrl() {
             return appConfig.resource_server_base_url + 'version';
+        }
+
+        function getTypingModelUrl() {
+            return appConfig.resource_server_base_url + 'typing';
         }
 
         return service;

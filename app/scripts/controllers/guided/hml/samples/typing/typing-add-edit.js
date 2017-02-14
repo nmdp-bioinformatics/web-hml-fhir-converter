@@ -4,18 +4,18 @@
 (function () {
     'use strict';
 
-    function typingAddEdit ($scope, appConfig, $uibModalInstance, hmlModel) {
+    function typingAddEdit ($scope, appConfig, $uibModalInstance, typing) {
         /* jshint validthis: true */
         var typingAddEditCtrl = this
 
         typingAddEditCtrl.scope = $scope;
         typingAddEditCtrl.panelData = appConfig.typingPanels;
         typingAddEditCtrl.formSubmitted = false;
-        typingAddEditCtrl.hml = hmlModel;
         typingAddEditCtrl.parentCollectionPropertyAllocation = createPropertyAllocator();
+        typingAddEditCtrl.typing = typing;
         typingAddEditCtrl.expandedPanels = {
             properties: false,
-            alleleAssignmetn: false,
+            alleleAssignment: false,
             typingMethod: false,
             consensusSequence: false
         };
@@ -50,5 +50,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingAddEdit', typingAddEdit);
-    typingAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'hmlModel'];
+    typingAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'typing'];
 }());

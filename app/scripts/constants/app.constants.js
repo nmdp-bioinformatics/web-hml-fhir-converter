@@ -25,6 +25,17 @@
         'defaultMaxQueryTypeahead': {
              number: 10, text: '10'
         },
+        'propertiesParentMap': {
+            'samplesParent': [
+                { propertyString: 'samples', propertyIndex: -1, isArray: true },
+                { propertyString: 'properties', propertyIndex: -1, isArray: true }
+            ],
+            'typingParent': [
+                { propertyString: 'samples', propertyIndex: -1, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'properties', propertyIndex: -1, isArray: true }
+            ]
+        },
         'samplePanels': {
             'collectionMethods': {
                 'templateUrl': 'views/guided/hml/samples/collection-methods/collection-methods.html',
@@ -59,7 +70,7 @@
                 'controllerAs': 'typingMethodCtrl'
             },
             'consensusSequence': {
-                'templateUrl': 'views/guided/hml/samples/typing/conesnsus-sequence/consensus-sequence.html',
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence.html',
                 'controller': 'consensusSequence',
                 'controllerAs': 'consensusSequenceCtrl'
             }
