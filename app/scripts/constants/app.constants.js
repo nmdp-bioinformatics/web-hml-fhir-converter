@@ -34,6 +34,24 @@
                 { propertyString: 'samples', propertyIndex: -1, isArray: true },
                 { propertyString: 'typing', propertyIndex: -1, isArray: false },
                 { propertyString: 'properties', propertyIndex: -1, isArray: true }
+            ],
+            'ssoParent': [
+                { propertyString: 'samples', propertyIndex: -1, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'sso', propertyIndex: -1, isArray: false },
+                { propertyString: 'properties', propertyIndex: -1, isArray: true }
+            ],
+            'sspParent': [
+                { propertyString: 'samples', propertyIndex: -1, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'ssp', propertyIndex: -1, isArray: false },
+                { propertyString: 'properties', propertyIndex: -1, isArray: true }
+            ],
+            'sbtSangerParent': [
+                { propertyString: 'samples', propertyIndex: -1, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'sbtSanger', propertyIndex: -1, isArray: false },
+                { propertyString: 'properties', propertyIndex: -1, isArray: true }
             ]
         },
         'samplePanels': {

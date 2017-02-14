@@ -4,11 +4,10 @@
 (function () {
     'use strict';
 
-    function typing ($scope, $uibModal, gridCellTemplateFactory, appConfig, objectModelFactory) {
+    function typing ($scope, $uibModal, appConfig, objectModelFactory) {
         /* jshint validthis: true */
         var typingCtrl = this,
-            parentCtrl = $scope.parentCtrl,
-            deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
+            parentCtrl = $scope.parentCtrl;
 
         typingCtrl.scope = $scope;
         typingCtrl.hml = parentCtrl.hml;
@@ -30,6 +29,9 @@
                     },
                     parentCollectionPropertyAllocation: function () {
                         return typingCtrl.parentCollectionPropertyAllocation;
+                    },
+                    edit: function () {
+                        return false;
                     }
                 }
             });
@@ -57,5 +59,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typing', typing);
-    typing.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'appConfig', 'objectModelFactory'];
+    typing.$inject = ['$scope', '$uibModal', 'appConfig', 'objectModelFactory'];
 }());

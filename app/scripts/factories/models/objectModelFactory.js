@@ -116,6 +116,16 @@
               return defer.promise;
             },
 
+            getTypingMethodModel: function () {
+                var defer = $q.defer();
+
+                hmlModelService.getModel('TypingMethod').then(function (result) {
+                    defer.resolve(result);
+                });
+
+                return defer.promise;
+            },
+
             getModelByName: function (modelName) {
                 var defer = $q.defer(),
                     callback;
@@ -154,6 +164,9 @@
                         break;
                     case 'Typing':
                         callback = this.getTypingModel;
+                        break;
+                    case 'TypingMethod':
+                        callback = this.getTypingMethodModel;
                         break;
                     default:
                         defer.resolve({});

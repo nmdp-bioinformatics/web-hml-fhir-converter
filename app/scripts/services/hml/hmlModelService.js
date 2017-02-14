@@ -45,6 +45,9 @@
                     case 'Typing':
                         url = getTypingModelUrl();
                         break;
+                    case 'TypingMethod':
+                        url = getTypingMethodModelUrl();
+                        break;
                     default:
                         return;
                 }
@@ -103,6 +106,10 @@
 
         function getTypingModelUrl() {
             return appConfig.resource_server_base_url + 'typing';
+        }
+
+        function getTypingMethodModelUrl() {
+            return appConfig.resource_server_base_url + 'typingMethod';
         }
 
         return service;
