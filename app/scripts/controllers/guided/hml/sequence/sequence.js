@@ -11,6 +11,6 @@
         sequenceCtrl.scope = $scope;
     }
 
-    angular.module('hmlFhirAngularClientApp.controllers').controller('sequence', sequenc);
+    angular.module('hmlFhirAngularClientApp.controllers').controller('sequence', sequence);
     sequence.$inject = ['$scope'];
 }());

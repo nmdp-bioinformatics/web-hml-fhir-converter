@@ -12,5 +12,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('gsspAddEdit', gsspAddEdit);
-    gssp.$inject = ['$scope'];
+    gsspAddEdit.$inject = ['$scope'];
 }());
