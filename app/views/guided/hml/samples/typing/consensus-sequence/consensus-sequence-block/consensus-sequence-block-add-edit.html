@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="modal-header">
+    <button type="modal" class="close" aria-hidden="true" data-ng-click="consensusSequenceBlockAddEditCtrl.cancel()"></button>
+    <h3 class="modal-title">{{ consensusSequenceBlockAddEditCtrl.edit ? 'Edit' : 'Add' }} Consensus Sequence Block</h3>
+</div>
+<div class="modal-body">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Consensus Sequence Block</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" data-ng-click="consensusSequenceBlockAddEditCtrl.togglePanel('consensusSequenceBlock')">
+                                <h5 class="panel-title">Variant</h5>
+                            </div>
+                            <div class="panel-body" data-ng-show="consensusSequenceBlockAddEditCtrl.expandedPanels.consensusSequenceBlock">
+                                <dynamic-controller templateurl="{{ consensusSequenceBlockAddEditCtrl.panelData.consensusSequenceBlock.templateUrl }}" controller="{{ consensusSequenceBlockAddEditCtrl.panelData.consensusSequenceBlock.controller }}"
+                                    controlleras="{{ consensusSequenceBlockAddEditCtrl.panelData.consensusSequenceBlock.controllerAs }}"></dynamic-controller>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="consensusSequenceBlockAddEditCtrl.add()">{{ consensusSequenceBlockAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="consensusSequenceBlockAddEditCtrl.close()">Close</button>
+        </div>
+    </div>
+</div>

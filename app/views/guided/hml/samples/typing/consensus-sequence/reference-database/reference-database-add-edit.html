@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="modal-header">
+    <button type="modal" class="close" aria-hidden="true" data-ng-click="referenceDatabaseAddEditCtrl.cancel()"></button>
+    <h3 class="modal-title">{{ referenceDatabaseAddEditCtrl.edit ? 'Edit' : 'Add' }} Reference Database</h3>
+</div>
+<div class="modal-body">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Reference Database</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" data-ng-click="referenceDatabaseAddEditCtrl.togglePanel('referenceSequence')">
+                                <h5 class="panel-title">Reference Database</h5>
+                            </div>
+                            <div class="panel-body" data-ng-show="referenceDatabaseAddEditCtrl.expandedPanels.referenceSequence">
+                                <dynamic-controller templateurl="{{ referenceDatabaseAddEditCtrl.panelData.referenceSequence.templateUrl }}" controller="{{ referenceDatabaseAddEditCtrl.panelData.referenceSequence.controller }}"
+                                    controlleras="{{ referenceDatabaseAddEditCtrl.panelData.referenceSequence.controllerAs }}"></dynamic-controller>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="referenceDatabaseAddEditCtrl.add()">{{ referenceDatabaseAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="referenceDatabaseAddEditCtrl.close()">Close</button>
+        </div>
+    </div>
+</div>

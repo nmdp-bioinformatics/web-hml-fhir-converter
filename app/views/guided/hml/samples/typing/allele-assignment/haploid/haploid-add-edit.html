@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="modal-header">
+    <button type="modal" class="close" aria-hidden="true" data-ng-click="haploidAddEditCtrl.cancel()">&times;</button>
+    <h3 class="modal-title">{{ haploidAddEditCtrl.edit ? 'Edit' : 'Add' }} Haploid</h3>
+</div>
+<div class="modal-body">
+    <toaster-container toaster-options="{ 'close-button': true, 'limit': 1, 'tap-to-dismiss': true, 'toaster-id': 1 }"></toaster-container>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{ haploidAddEditCtrl.edit ? 'Edit' : 'Add' }} Gl String</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form">
+                                <form name="haploidAddEditCtrl.inputForm">
 
-</body>
-</html>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="haploidAddEditCtrl.add(haploidAddEditCtrl.inputForm)">{{ haploidAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="haploidAddEditCtrl.close()">Close</button>
+        </div>
+    </div>
+</div>
