@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="modal-header">
+    <button type="modal" class="close" aria-hidden="true" data-ng-click="variantAddEditCtrl.cancel()"></button>
+    <h3 class="modal-title">{{ variantAddEditCtrl.edit ? 'Edit' : 'Add' }} Variant</h3>
+</div>
+<div class="modal-body">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Variant</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" data-ng-click="variantAddEditCtrl.togglePanel('variantEffect')">
+                                <h5 class="panel-title">Variant Effect</h5>
+                            </div>
+                            <div class="panel-body" data-ng-show="variantAddEditCtrl.expandedPanels.variantEffect">
+                                <dynamic-controller templateurl="{{ variantAddEditCtrl.panelData.variantEffect.templateUrl }}" controller="{{ variantAddEditCtrl.panelData.variantEffect.controller }}"
+                                    controlleras="{{ variantAddEditCtrl.panelData.variantEffect.controllerAs }}"></dynamic-controller>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary modal-footer-button" data-ng-click="variantAddEditCtrl.add()">{{ variantAddEditCtrl.edit ? 'Edit' : 'Add' }}</button>
+            <button type="button" class="btn btn-danger modal-footer-button" data-ng-click="variantAddEditCtrl.close()">Close</button>
+        </div>
+    </div>
+</div>
