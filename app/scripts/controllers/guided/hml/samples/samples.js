@@ -5,13 +5,14 @@
 (function () {
     'use strict';
 
-    function samples ($scope, $uibModal, gridCellTemplateFactory, hmlService, guidGenerator) {
+    function samples ($scope, $uibModal, gridCellTemplateFactory, hmlService, guidGenerator, usSpinnerService) {
         /* jshint validthis: true */
         var samplesCtrl = this,
             parentCtrl = $scope.hmlModalCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate(),
             collectionMethodColumnTemplate = gridCellTemplateFactory.createCollectionMethodCell();
 
+        usSpinnerService.stop('index-spinner');
         samplesCtrl.selectedSample = parentCtrl.newModel;
         samplesCtrl.selectedSampleCount = 0;
         samplesCtrl.scope = $scope;
@@ -55,6 +56,7 @@
         };
 
         samplesCtrl.addSampleEntry = function () {
+            usSpinnerService.spin('index-spinner');
             handleSampleUpdates(samplesCtrl.selectedSample, false);
             $uibModal.open({
                 animation: true,
@@ -127,5 +129,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samples', samples);
-    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService', 'guidGenerator'];
+    samples.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'hmlService', 'guidGenerator', 'usSpinnerService'];
 }());

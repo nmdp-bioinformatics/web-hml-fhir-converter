@@ -4,11 +4,12 @@
 (function () {
     'use strict';
 
-    function typingAddEdit ($scope, appConfig, $uibModalInstance, typing, hmlModel, parentCollectionPropertyAllocation) {
+    function typingAddEdit ($scope, appConfig, $uibModalInstance, typing, hmlModel, parentCollectionPropertyAllocation, usSpinnerService) {
         /* jshint validthis: true */
         var typingAddEditCtrl = this;
 
         $scope.parentCtrl = typingAddEditCtrl;
+        usSpinnerService.stop('index-spinner');
 
         typingAddEditCtrl.hml = hmlModel;
         typingAddEditCtrl.scope = $scope;
@@ -46,5 +47,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingAddEdit', typingAddEdit);
-    typingAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'typing', 'hmlModel', 'parentCollectionPropertyAllocation'];
+    typingAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'typing', 'hmlModel', 'parentCollectionPropertyAllocation', 'usSpinnerService'];
 }());

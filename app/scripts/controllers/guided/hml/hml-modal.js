@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function hmlModal ($scope, $uibModalInstance, title, bodyTemplateUrl, hmlModel, edit, templateController, newModel, spinnerService) {
+    function hmlModal ($scope, $uibModalInstance, title, bodyTemplateUrl, hmlModel, edit, templateController, newModel, usSpinnerService) {
         /* jshint validthis: true */
         var hmlModalCtrl = this,
             controllerData = templateController.getControllerNameByTemplateUrl(bodyTemplateUrl);
@@ -32,11 +32,11 @@
         };
 
         hmlModalCtrl.update = function () {
-            spinnerService.show('indexSpinner');
+            usSpinnerService.spin('index-spinner');
             $scope.$broadcast('guided:hml:node:update');
         };
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('hmlModal', hmlModal);
-    hmlModal.$inject = ['$scope', '$uibModalInstance', 'title', 'bodyTemplateUrl', 'hmlModel', 'edit', 'templateController', 'newModel', 'spinnerService']
+    hmlModal.$inject = ['$scope', '$uibModalInstance', 'title', 'bodyTemplateUrl', 'hmlModel', 'edit', 'templateController', 'newModel', 'usSpinnerService']
 }());

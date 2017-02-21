@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function samplesAddEdit ($scope, $uibModalInstance, hmlModel, sample, appConfig, indexCollection) {
+    function samplesAddEdit ($scope, $uibModalInstance, hmlModel, sample, appConfig, indexCollection, usSpinnerService) {
         /* jshint validthis: true */
         var samplesAddEditCtrl = this
 
@@ -22,6 +22,7 @@
         };
 
         $scope.parentCtrl = samplesAddEditCtrl;
+        usSpinnerService.stop('index-spinner');
 
         samplesAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -64,5 +65,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('samplesAddEdit', samplesAddEdit);
-    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', 'hmlModel', 'sample', 'appConfig', 'indexCollection'];
+    samplesAddEdit.$inject = ['$scope', '$uibModalInstance', 'hmlModel', 'sample', 'appConfig', 'indexCollection', 'usSpinnerService'];
 }());

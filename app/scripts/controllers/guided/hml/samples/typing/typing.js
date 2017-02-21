@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typing ($scope, $uibModal, appConfig, objectModelFactory) {
+    function typing ($scope, $uibModal, appConfig, objectModelFactory, usSpinnerService) {
         /* jshint validthis: true */
         var typingCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -14,7 +14,10 @@
         typingCtrl.sampleIndex = parentCtrl.sampleIndex;
         typingCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
 
+        usSpinnerService.stop('index-spinner');
+
         typingCtrl.addTypingEntry = function () {
+            usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/samples/typing/typing-add-edit.html',
@@ -59,5 +62,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typing', typing);
-    typing.$inject = ['$scope', '$uibModal', 'appConfig', 'objectModelFactory'];
+    typing.$inject = ['$scope', '$uibModal', 'appConfig', 'objectModelFactory', 'usSpinnerService'];
 }());
