@@ -16,6 +16,7 @@
         typingAddEditCtrl.panelData = appConfig.typingPanels;
         typingAddEditCtrl.formSubmitted = false;
         typingAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
+        typingAddEditCtrl.sampleIndex = getSampleIndex(typingAddEditCtrl.parentCollectionPropertyAllocation);
         typingAddEditCtrl.typing = typing;
         typingAddEditCtrl.expandedPanels = {
             properties: false,
@@ -23,6 +24,9 @@
             typingMethod: false,
             consensusSequence: false
         };
+        typingAddEditCtrl.dateOptions = { };
+        typingAddEditCtrl.dateOpen = false;
+        typingAddEditCtrl.dateFormat = 'dd-MMM-yyyy';
 
         typingAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
@@ -44,6 +48,19 @@
         typingAddEditCtrl.togglePanel = function (panelName) {
             typingAddEditCtrl.expandedPanels[panelName] = !typingAddEditCtrl.expandedPanels[panelName];
         };
+
+        typingAddEditCtrl.openDatePicker = function () {
+            typingAddEditCtrl.dateOpen = !typingAddEditCtrl.dateOpen;
+        };
+
+        function getSampleIndex (propertyMap) {
+            var isEqual = function (item) {
+                    return item.propertyString === 'samples';
+                },
+                index = R.findIndex(isEqual, propertyMap);
+
+            return propertyMap[index].propertyIndex;
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingAddEdit', typingAddEdit);

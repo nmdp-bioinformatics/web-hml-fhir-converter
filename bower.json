@@ -16,7 +16,9 @@
     "angular-x2js": "^0.2.0",
     "angular-ui-grid": "^4.0.2",
     "angular-momentjs": "^0.2.2",
-    "angular-spinner": "^1.0.1"
+    "angular-spinner": "^1.0.1",
+    "ramda": "^0.23.0",
+    "angular-ui-bootstrap-datetimepicker": "^2.5.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

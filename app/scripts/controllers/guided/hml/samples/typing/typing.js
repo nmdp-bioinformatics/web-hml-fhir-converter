@@ -43,7 +43,7 @@
                 if (result) {
 
                 }
-            })
+            });
         };
 
         function returnPropertyLocator() {

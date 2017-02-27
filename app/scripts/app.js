@@ -21,6 +21,7 @@ var app = angular.module('hmlFhirAngularClientApp', [
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
+    'ui.bootstrap.datetimepicker',
     'hmlFhirAngularClientApp.controllers',
     'hmlFhirAngularClientApp.services',
     'hmlFhirAngularClientApp.directives',
