@@ -12,12 +12,30 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-primary">
-                            <div class="panel-heading" data-ng-click="consensusSequenceBlockAddEditCtrl.togglePanel('consensusSequenceBlock')">
+                            <div class="panel-heading" data-ng-click="consensusSequenceBlockAddEditCtrl.togglePanel('variant')">
                                 <h5 class="panel-title">Variant</h5>
                             </div>
-                            <div class="panel-body" data-ng-show="consensusSequenceBlockAddEditCtrl.expandedPanels.consensusSequenceBlock">
-                                <dynamic-controller templateurl="{{ consensusSequenceBlockAddEditCtrl.panelData.consensusSequenceBlock.templateUrl }}" controller="{{ consensusSequenceBlockAddEditCtrl.panelData.consensusSequenceBlock.controller }}"
-                                    controlleras="{{ consensusSequenceBlockAddEditCtrl.panelData.consensusSequenceBlock.controllerAs }}"></dynamic-controller>
+                            <div class="panel-body" data-ng-show="consensusSequenceBlockAddEditCtrl.expandedPanels.variant">
+                                <dynamic-controller templateurl="{{ consensusSequenceBlockAddEditCtrl.panelData.variant.templateUrl }}" controller="{{ consensusSequenceBlockAddEditCtrl.panelData.variant.controller }}"
+                                    controlleras="{{ consensusSequenceBlockAddEditCtrl.panelData.variant.controllerAs }}"></dynamic-controller>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" data-ng-click="consensusSequenceBlockAddEditCtrl.togglePanel('sequence')">
+                                <h5 class="panel-title">Sequence</h5>
+                            </div>
+                            <div class="panel-body" data-ng-show="consensusSequenceBlockAddEditCtrl.expandedPanels.sequence">
+                                <dynamic-controller templateurl="{{ consensusSequenceBlockAddEditCtrl.panelData.sequence.templateUrl }}" controller="{{ consensusSequenceBlockAddEditCtrl.panelData.sequence.controller }}"
+                                    controlleras="{{ consensusSequenceBlockAddEditCtrl.panelData.sequence.controllerAs }}"></dynamic-controller>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" data-ng-click="consensusSequenceBlockAddEditCtrl.togglePanel('sequenceQuality')">
+                                <h5 class="panel-title">Sequence Quality</h5>
+                            </div>
+                            <div class="panel-body" data-ng-show="consensusSequenceBlockAddEditCtrl.expandedPanels.sequenceQuality">
+                                <dynamic-controller templateurl="{{ consensusSequenceBlockAddEditCtrl.panelData.sequenceQuality.templateUrl }}" controller="{{ consensusSequenceBlockAddEditCtrl.panelData.sequenceQuality.controller }}"
+                                    controlleras="{{ consensusSequenceBlockAddEditCtrl.panelData.sequenceQuality.controllerAs }}"></dynamic-controller>
                             </div>
                         </div>
                     </div>
