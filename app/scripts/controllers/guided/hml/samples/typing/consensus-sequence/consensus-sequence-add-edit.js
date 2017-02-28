@@ -8,6 +8,7 @@
         /* jshint validthis:true */
         var consensusSequenceAddEditCtrl = this;
 
+        $scope.parentCtrl = consensusSequenceAddEditCtrl;
         usSpinnerService.stop('index-spinner');
 
         consensusSequenceAddEditCtrl.scope = $scope;

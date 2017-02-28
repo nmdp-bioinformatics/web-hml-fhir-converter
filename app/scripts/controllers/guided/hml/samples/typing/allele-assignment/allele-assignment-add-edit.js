@@ -8,6 +8,7 @@
         /* jshint validthis:true */
         var alleleAssignmentAddEditCtrl = this;
 
+        $scope.parentCtrl = alleleAssignmentAddEditCtrl;
         usSpinnerService.stop('index-spinner');
 
         alleleAssignmentAddEditCtrl.scope = $scope;

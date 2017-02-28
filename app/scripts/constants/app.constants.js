@@ -133,6 +133,13 @@
                 'controllerAs': 'consensusSequenceBlockCtrl'
             }
         },
+        'referenceDatabasePanels': {
+            'referenceSequence': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/reference-database/reference-sequence/reference-sequence.html',
+                'controller': 'referenceSequence',
+                'controllerAs': 'referenceSequenceCtrl'
+            }
+        },
         'typingMethodPanels': {
             'sso': {
                 'templateUrl': 'views/guided/hml/samples/typing/typing-method/sso/sso.html',
