@@ -121,6 +121,23 @@
                 'controllerAs': 'propertiesCtrl'
             },
         },
+        'consensusSequenceBlockPanels': {
+            'sequence': {
+                'templateUrl': 'views/guided/hml/sequence/sequence.html',
+                'controller': 'sequence',
+                'controllerAs': 'sequenceCtrl'
+            },
+            'variant': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence-block/variant/variant.html',
+                'controller': 'variant',
+                'controllerAs': 'variantCtrl'
+            },
+            'sequenceQuality': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence-block/sequence-quality/sequence-quality.html',
+                'controller': 'sequenceQuality',
+                'controllerAs': 'sequenceQualityCtrl'
+            }
+        },
         'consensusSequencePanels': {
             'referenceDatabase': {
                 'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/reference-database/reference-database.html',
