@@ -35,6 +35,12 @@
                 { propertyString: 'typing', propertyIndex: -1, isArray: false },
                 { propertyString: 'properties', propertyIndex: -1, isArray: true }
             ],
+            'alleleAssignmentParent': [
+                { propertyString: 'samples', propertyIndex: -1, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'alleleAssignment', propertyIndex: -1, isArray: false },
+                { propertyString: 'properties', propertyIndex: -1, isArray: true }
+            ],
             'ssoParent': [
                 { propertyString: 'samples', propertyIndex: -1, isArray: true },
                 { propertyString: 'typing', propertyIndex: -1, isArray: false },
@@ -91,6 +97,40 @@
                 'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence.html',
                 'controller': 'consensusSequence',
                 'controllerAs': 'consensusSequenceCtrl'
+            }
+        },
+        'alleleAssignmentPanels': {
+            'haploid': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/haploid/haploid.html',
+                'controller': 'haploid',
+                'controllerAs': 'haploidCtrl'
+            },
+            'genotypes': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/genotypes/genotypes.html',
+                'controller': 'genotypes',
+                'controllerAs': 'genotypesCtrl'
+            },
+            'glstring': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/glstring/glstring.html',
+                'controller': 'glstring',
+                'controllerAs': 'glstringCtrl'
+            },
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            },
+        },
+        'consensusSequencePanels': {
+            'referenceDatabase': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/reference-database/reference-database.html',
+                'controller': 'referenceDatabase',
+                'controllerAs': 'referenceDatabaseCtrl'
+            },
+            'consensusSequenceBlock': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence-block/consensus-sequence-block.html',
+                'controller': 'consensusSequenceBlock',
+                'controllerAs': 'consensusSequenceBlockCtrl'
             }
         },
         'typingMethodPanels': {

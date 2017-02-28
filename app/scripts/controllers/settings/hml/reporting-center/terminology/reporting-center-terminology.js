@@ -73,7 +73,7 @@
                         return 'Add Typing Test Name Item';
                     },
                     reportingCenter: function () {
-                        return objectModelFactory.getReportingCenterModel();
+                        return objectModelFactory.getModelByName('ReportingCenter');
                     },
                     edit: function () {
                         return false;

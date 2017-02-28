@@ -39,7 +39,7 @@
                         return false;
                     },
                     property: function () {
-                        return objectModelFactory.getPropertyModel();
+                        return objectModelFactory.getModelByName('Property');
                     },
                     tempId: function () {
                         return guidGenerator.generateRandomGuid();

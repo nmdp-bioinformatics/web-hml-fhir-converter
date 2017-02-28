@@ -74,7 +74,7 @@
                         return 'Add Typing Test Name Item';
                     },
                     typingTestName: function () {
-                        return objectModelFactory.getTypingTestNameModel();
+                        return objectModelFactory.getModelByName('TypingTestName');
                     },
                     edit: function () {
                         return false;

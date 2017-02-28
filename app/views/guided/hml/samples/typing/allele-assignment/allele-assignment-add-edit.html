@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="modal" class="close" aria-hidden="true" data-ng-click="alleleAssignmentAddEditCtrl.cancel()">&times;</button>
-    <h3 class="modal-title">{{ alleleAssignmentAddEditCtrl.edit ? 'Edit' : 'Add' }} Typing</h3>
+    <h3 class="modal-title">{{ alleleAssignmentAddEditCtrl.edit ? 'Edit' : 'Add' }} Allele Assignment</h3>
 </div>
 <div class="modal-body">
     <toaster-container toaster-options="{ 'close-button': true, 'limit': 1, 'tap-to-dismiss': true, 'toaster-id': 1 }"></toaster-container>
@@ -8,14 +8,33 @@
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">{{ alleleAssignmentAddEditCtrl.edit ? 'Edit' : 'Add' }} Typing Resources</h4>
+                    <h4 class="panel-title">{{ alleleAssignmentAddEditCtrl.edit ? 'Edit' : 'Add' }} Allele Assignemnts</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form">
                                 <form name="alleleAssignmentAddEditCtrl.inputForm">
-
+                                    <div class="form-group" data-ng-class="{ 'has-error': alleleAssignmentAddEditCtrl.inputForm.date.$invalid && alleleAssignmentAddEditCtrl.formSubmitted }">
+                                        <label for="date" class="control-label">Date:</label>
+                                        <input id="date" name="date" uib-datepicker-popup="{{ alleleAssignmentAddEditCtrl.dateFormat }}" data-ng-model="alleleAssignmentAddEditCtrl.hml.samples[alleleAssignmentAddEditCtrl.sampleIndex].typing.alleleAssignment.date"
+                                           class="form-control input-sm" datpicker-options="alleleAssignmentAddEditCtrl.dateOptions" data-ng-required="true"
+                                           data-ng-click="alleleAssignmentAddEditCtrl.openDatePicker()" is-open="alleleAssignmentAddEditCtrl.dateOpen" alt-input-formats="altInputFormats" />
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': alleleAssignmentAddEditCtrl.inputForm.geneFamily.$invalid && alleleAssignmentAddEditCtrl.formSubmitted }">
+                                        <label for="alleleDb" class="control-label">Allele DB:</label>
+                                        <input id="alleleDb" name="alleleDb" type="text" class="form-control input-sm" data-ng-model="alleleAssignmentAddEditCtrl.hml.samples[alleleAssignmentAddEditCtrl.sampleIndex].typing.alleleAssignment.alleleDb" placeholder="Allele DB" required />
+                                        <div class="help-block" data-ng-show="alleleAssignmentAddEditCtrl.inputForm.geneFamily.$error.required && alleleAssignmentAddEditCtrl.formSubmitted">
+                                            <small>Allele DB is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': alleleAssignmentAddEditCtrl.inputForm.geneFamily.$invalid && alleleAssignmentAddEditCtrl.formSubmitted }">
+                                        <label for="geneFamily" class="control-label">Allele Version:</label>
+                                        <input id="geneFamily" name="geneFamily" type="text" class="form-control input-sm" data-ng-model="alleleAssignmentAddEditCtrl.hml.samples[alleleAssignmentAddEditCtrl.sampleIndex].typing.alleleAssignment.alleleVersion" placeholder="Allele Version" required />
+                                        <div class="help-block" data-ng-show="alleleAssignmentAddEditCtrl.inputForm.geneFamily.$error.required && alleleAssignmentAddEditCtrl.formSubmitted">
+                                            <small>Allele Version is Required</small>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div class="panel panel-primary">

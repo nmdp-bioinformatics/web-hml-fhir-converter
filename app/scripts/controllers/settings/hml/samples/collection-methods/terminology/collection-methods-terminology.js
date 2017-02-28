@@ -74,7 +74,7 @@
                         return 'Add Typing Test Name Item';
                     },
                     collectionMethod: function () {
-                        return objectModelFactory.getCollectionMethodModel();
+                        return objectModelFactory.getModelByName('CollectionMethod');
                     },
                     edit: function () {
                         return false;

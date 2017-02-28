@@ -89,7 +89,7 @@
                         return 'Add Reporting Center Item';
                     },
                     reportingCenter: function () {
-                        return objectModelFactory.getReportingCenterModel();
+                        return objectModelFactory.getModelByName('ReportingCenter');
                     },
                     edit: function () {
                         return false;

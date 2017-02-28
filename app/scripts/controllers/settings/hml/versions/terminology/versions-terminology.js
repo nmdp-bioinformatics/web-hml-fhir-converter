@@ -74,7 +74,7 @@
                         return 'Add Version Item';
                     },
                     version: function () {
-                        return objectModelFactory.getVersionModel();
+                        return objectModelFactory.getModelByName('Version');
                     },
                     edit: function () {
                         return false;

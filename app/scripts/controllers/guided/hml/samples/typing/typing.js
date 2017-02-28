@@ -25,7 +25,7 @@
                 controllerAs: 'typingAddEditCtrl',
                 resolve: {
                     typing: function () {
-                        return objectModelFactory.getTypingModel();
+                        return objectModelFactory.getModelByName('Typing');
                     },
                     hmlModel: function () {
                         return typingCtrl.hml;

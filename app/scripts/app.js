@@ -75,7 +75,7 @@ var app = angular.module('hmlFhirAngularClientApp', [
           controllerAs: 'hmlCtrl',
           resolve: {
               hmlModel: function (objectModelFactory) {
-                  return objectModelFactory.getHmlModel();
+                  return objectModelFactory.getModelByName('Hml');
               },
               defaultHmlVersion: function (versionService) {
                   return versionService.getDefaultVersion();
