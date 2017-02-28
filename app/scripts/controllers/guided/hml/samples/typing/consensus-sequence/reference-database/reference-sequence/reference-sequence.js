@@ -21,8 +21,8 @@
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/samples/typing/consensus-sequence/reference-database/reference-sequence/reference-sequence-add-edit.html',
-                controller: 'referenceSequence',
-                controllerAs: 'referenceSequenceCtrl',
+                controller: 'referenceSequenceAddEdit',
+                controllerAs: 'referenceSequenceAddEditCtrl',
                 resolve: {
                     referenceSequence: function () {
                         return objectModelFactory.getModelByName('ReferenceSequence');

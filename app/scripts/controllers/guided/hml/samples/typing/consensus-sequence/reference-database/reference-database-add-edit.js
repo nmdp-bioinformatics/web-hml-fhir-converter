@@ -39,6 +39,10 @@
             }
         };
 
+        referenceDatabaseAddEditCtrl.togglePanel = function (panelName) {
+            referenceDatabaseAddEditCtrl.expandedPanels[panelName] = !referenceDatabaseAddEditCtrl.expandedPanels[panelName];
+        };
+
         function getSampleIndex (propertyMap) {
             var isEqual = function (item) {
                     return item.propertyString === 'samples';
