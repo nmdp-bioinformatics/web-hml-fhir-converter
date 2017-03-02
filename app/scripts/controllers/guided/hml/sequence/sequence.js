@@ -15,7 +15,7 @@
         sequenceCtrl.parentCollectionPropertyAllocation = parentCtrl.parentCollectionPropertyAllocation;
         sequenceCtrl.hml = parentCtrl.hml;
 
-        sequenceCtrl.addSequenceEntry = function () {
+        sequenceCtrl.addSequence = function () {
             usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,

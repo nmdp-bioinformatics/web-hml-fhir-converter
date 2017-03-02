@@ -6,31 +6,31 @@
 
     function sequenceAddEdit ($scope, $uibModalInstance, sequence, edit, tempId) {
         /* jshint validthis:true */
-        var seqeuenceAddEditCtrl = this;
+        var sequenceAddEditCtrl = this;
 
-        seqeuenceAddEditCtrl.scope = $scope;
-        seqeuenceAddEditCtrl.formSubmitted = false;
-        seqeuenceAddEditCtrl.sequence = sequence;
-        seqeuenceAddEditCtrl.edit = edit;
+        sequenceAddEditCtrl.scope = $scope;
+        sequenceAddEditCtrl.formSubmitted = false;
+        sequenceAddEditCtrl.sequence = sequence;
+        sequenceAddEditCtrl.edit = edit;
 
-        if (!seqeuenceAddEditCtrl.edit) {
-            seqeuenceAddEditCtrl.sequence.id = tempId;
+        if (!sequenceAddEditCtrl.edit) {
+            sequenceAddEditCtrl.sequence.id = tempId;
         }
 
-        seqeuenceAddEditCtrl.cancel = function () {
+        sequenceAddEditCtrl.cancel = function () {
             $uibModalInstance.dismiss();
         };
 
-        seqeuenceAddEditCtrl.close = function () {
+        sequenceAddEditCtrl.close = function () {
             $uibModalInstance.close();
         };
 
-        seqeuenceAddEditCtrl.add = function (form) {
-            seqeuenceAddEditCtrl.formSubmitted = true;
+        sequenceAddEditCtrl.add = function (form) {
+            sequenceAddEditCtrl.formSubmitted = true;
 
             if (!form.$invalid) {
-                seqeuenceAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(seqeuenceAddEditCtrl.sequence);
+                sequenceAddEditCtrl.formSubmitted = false;
+                $uibModalInstance.close(sequenceAddEditCtrl.sequence);
             }
         };
     }
