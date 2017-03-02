@@ -181,6 +181,32 @@
                 'controllerAs': 'sbtSangerCtrl'
             }
         },
+        'ssoPanels': {
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            }
+        },
+        'sspPanels': {
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            }
+        },
+        'sbtNgsPanels': {
+            'properties': {
+                'templateUrl': 'views/guided/hml/properties/properties.html',
+                'controller': 'properties',
+                'controllerAs': 'propertiesCtrl'
+            },
+            'rawReads': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-ngs/raw-reads/raw-reads.html',
+                'controller': 'rawReads',
+                'controllerAs': 'rawReadsCtrl'
+            }
+        },
         'sbtSangerPanels': {
             'properties': {
                 'templateUrl': 'views/guided/hml/properties/properties.html',
