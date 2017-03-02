@@ -26,7 +26,7 @@
                     edit: function () {
                         return false;
                     },
-                    property: function () {
+                    sequence: function () {
                         return objectModelFactory.getModelByName('Sequence');
                     },
                     tempId: function () {
