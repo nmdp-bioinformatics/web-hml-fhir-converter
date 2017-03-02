@@ -33,7 +33,7 @@
         variantAddEditCtrl.add = function (form) {
             variantAddEditCtrl.formSubmitted = true;
 
-            if (!form.$invalie) {
+            if (!form.$invalid) {
                 variantAddEditCtrl.formSubmitted = false;
                 $uibModalInstance.close(variantAddEditCtrl.variant);
             }
@@ -44,7 +44,12 @@
         };
 
         function getSampleIndex (propertyMap) {
+            var isEqual = function (item) {
+                    return item.propertyString === 'samples';
+                },
+                index = R.findIndex(isEqual, propertyMap);
 
+            return propertyMap[index].propertyIndex;
         }
     }
 
