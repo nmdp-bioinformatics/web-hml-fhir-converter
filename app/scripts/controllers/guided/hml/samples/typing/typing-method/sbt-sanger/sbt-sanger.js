@@ -4,13 +4,58 @@
 (function () {
     'use strict';
 
-    function sbtSanger ($scope) {
+    function sbtSanger ($scope, $uibModal, objectModelFactory, usSpinnerService) {
         /* jshint validthis:true */
-        var sbtSangerCtrl = this;
+        var sbtSangerCtrl = this,
+            parentCtrl = $scope.parentCtrl;
+
+        usSpinnerService.stop('index-spinner');
 
         sbtSangerCtrl.scope = $scope;
+        sbtSangerCtrl.hml = parentCtrl.hml;
+        sbtSangerCtrl.sampleIndex = parentCtrl.sampleIndex;
+        sbtSangerCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+
+        sbtSangerCtrl.addSbtSanger = function () {
+            usSpinnerService.spin('index-spinner');
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/guided/hml/samples/typing/typing-method/sbt-sanger/sbt-sanger-add-edit.html',
+                controller: 'sbtSangerAddEdit',
+                controllerAs: 'sbtSangerAddEditCtrl',
+                resolve: {
+                    sbtSanger: function () {
+                        return objectModelFactory.getModelByName('SbtSanger');
+                    },
+                    hmlModel: function () {
+                        return sbtSangerCtrl.hml;
+                    },
+                    parentCollectionPropertyAllocation: function () {
+                        return sbtSangerCtrl.parentCollectionPropertyAllocation;
+                    },
+                    edit: function () {
+                        return false;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (result) {
+                if (result) {
+
+                }
+            });
+        };
+
+        function returnPropertyLocator() {
+            return [
+                { propertyString: 'samples', propertyIndex: sbtSangerCtrl.sampleIndex, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'typingMethod', propertyIndex: -1, isArray: false },
+                { propertyString: 'sbtSanger', propertyIndex: -1, isArray: false }
+            ];
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('sbtSanger', sbtSanger);
-    sbtSanger.$inject = ['$scope'];
+    sbtSanger.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
 }());
