@@ -5,11 +5,13 @@
 (function () {
     'use strict';
 
-    function properties ($scope, $uibModal, gridCellTemplateFactory, indexCollection, objectModelFactory, guidGenerator) {
+    function properties ($scope, $uibModal, gridCellTemplateFactory, indexCollection, objectModelFactory, guidGenerator, usSpinnerService) {
         /* jshint validthis: true */
         var propertiesCtrl = this,
             parentCtrl = $scope.parentCtrl,
             deleteColumnTemplate = gridCellTemplateFactory.createRemoveCellTemplate();
+
+        usSpinnerService.stop('index-spinner');
 
         propertiesCtrl.scope = $scope;
         propertiesCtrl.parentCollectionPropertyAllocation = parentCtrl.parentCollectionPropertyAllocation;
@@ -29,6 +31,7 @@
         };
 
         propertiesCtrl.addPropertyEntry = function () {
+            usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/guided/hml/properties/properties-add-edit.html',
@@ -119,5 +122,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('properties', properties);
-    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'indexCollection', 'objectModelFactory', 'guidGenerator'];
+    properties.$inject = ['$scope', '$uibModal', 'gridCellTemplateFactory', 'indexCollection', 'objectModelFactory', 'guidGenerator', 'usSpinnerService'];
 }());
