@@ -33,7 +33,6 @@
                 $uibModalInstance.close(propertiesAddEditCtrl.property);
             }
         };
-
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('propertiesAddEdit', propertiesAddEdit);

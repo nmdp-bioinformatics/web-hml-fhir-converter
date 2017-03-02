@@ -41,6 +41,23 @@
                 }
             });
 
+            function updateHmlWithSequenceData (sequence, isDelete) {
+                var hmlSequences = getThisSequenceArray(),
+                    sequenceIndex = getSequenceIndex(sequence);
+
+                if (isDelete) {
+                    hmlSequences.splice(sequenceIndex, 1);
+                    return;
+                }
+
+                if (sequenceIndex === -1) {
+                    hmlSequences.push(sequence);
+                    return;
+                }
+
+                hmlSequences[sequenceIndex] = sequence;
+            }
+
             function getThisSequenceArray () {
                 var sequenceArray = [],
                     locator = sequenceCtrl.parentCollectionPropertyAllocation;
