@@ -157,6 +157,13 @@
                 'controllerAs': 'referenceSequenceCtrl'
             }
         },
+        'variantPanels': {
+            'variantEffect': {
+                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence-block/variant/variant-effect/variant-effect.html',
+                'controller': 'variantEffect',
+                'controllerAs': 'variantEffectCtrl'
+            }
+        },
         'typingMethodPanels': {
             'sso': {
                 'templateUrl': 'views/guided/hml/samples/typing/typing-method/sso/sso.html',
