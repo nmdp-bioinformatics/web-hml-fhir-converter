@@ -233,6 +233,27 @@
                 'controllerAs': 'rawReadsCtrl'
             }
         },
+        'amplificationPanels': {
+            'sequence': {
+                'templateUrl': 'views/guided/hml/sequence/sequence.html',
+                'controller': 'sequence',
+                'controllerAs': 'sequenceCtrl'
+            }
+        },
+        'subAmplificationPanels': {
+            'sequence': {
+                'templateUrl': 'views/guided/hml/sequence/sequence.html',
+                'controller': 'sequence',
+                'controllerAs': 'sequenceCtrl'
+            }
+        },
+        'gsspPanels': {
+            'sequence': {
+                'templateUrl': 'views/guided/hml/sequence/sequence.html',
+                'controller': 'sequence',
+                'controllerAs': 'sequenceCtrl'
+            }
+        },
         'sbtSangerPanels': {
             'properties': {
                 'templateUrl': 'views/guided/hml/properties/properties.html',
@@ -240,17 +261,17 @@
                 'controllerAs': 'propertiesCtrl'
             },
             'amplification': {
-                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/allele-assignment.html',
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-sanger/amplification/amplification.html',
                 'controller': 'amplification',
                 'controllerAs': 'amplificationCtrl'
             },
             'subAmplification': {
-                'templateUrl': 'views/guided/hml/samples/typing/typing-method/typing-method.html',
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-sanger/sub-amplification/sub-amplification.html',
                 'controller': 'subAmplification',
                 'controllerAs': 'subAmplificationCtrl'
             },
             'gssp': {
-                'templateUrl': 'views/guided/hml/samples/typing/consensus-sequence/consensus-sequence.html',
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-sanger/gssp/gssp.html',
                 'controller': 'gssp',
                 'controllerAs': 'gsspCtrl'
             }

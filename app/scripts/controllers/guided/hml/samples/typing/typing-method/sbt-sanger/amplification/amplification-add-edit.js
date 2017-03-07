@@ -13,7 +13,7 @@
 
         amplificationAddEditCtrl.hml = hmlModel;
         amplificationAddEditCtrl.scope = $scope;
-        amplificationAddEditCtrl.panelData = appConfig.typingPanels;
+        amplificationAddEditCtrl.panelData = appConfig.amplificationPanels;
         amplificationAddEditCtrl.formSubmitted = false;
         amplificationAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
         amplificationAddEditCtrl.sampleIndex = getSampleIndex(amplificationAddEditCtrl.parentCollectionPropertyAllocation);

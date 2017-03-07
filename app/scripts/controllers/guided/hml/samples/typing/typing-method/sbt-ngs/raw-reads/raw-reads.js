@@ -16,7 +16,7 @@
 
         usSpinnerService.stop('index-spinner');
 
-        rawReadsCtrl.addGssp = function () {
+        rawReadsCtrl.addRawRead = function () {
             usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,

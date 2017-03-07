@@ -14,7 +14,6 @@
         rawReadsAddEditCtrl.scope = $scope;
         rawReadsAddEditCtrl.formSubmitted = false;
         rawReadsAddEditCtrl.rawRead = rawRead;
-        rawReadsAddEditCtrl.edit = edit;
         rawReadsAddEditCtrl.hml = hmlModel;
         rawReadsAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
         rawReadsAddEditCtrl.sampleIndex = getSampleIndex(rawReadsAddEditCtrl.parentCollectionPropertyAllocation);

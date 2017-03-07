@@ -13,7 +13,7 @@
 
         gsspAddEditCtrl.hml = hmlModel;
         gsspAddEditCtrl.scope = $scope;
-        gsspAddEditCtrl.panelData = appConfig.typingPanels;
+        gsspAddEditCtrl.panelData = appConfig.gsspPanels;
         gsspAddEditCtrl.formSubmitted = false;
         gsspAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
         gsspAddEditCtrl.sampleIndex = getSampleIndex(gsspAddEditCtrl.parentCollectionPropertyAllocation);

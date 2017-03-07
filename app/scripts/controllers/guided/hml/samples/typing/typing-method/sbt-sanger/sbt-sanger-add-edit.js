@@ -20,7 +20,7 @@
         sbtSangerAddEditCtrl.sbtSanger = sbtSanger;
         sbtSangerAddEditCtrl.expandedPanels = {
             properties: false,
-            amplication: false,
+            amplification: false,
             subAmplification: false
         };
 

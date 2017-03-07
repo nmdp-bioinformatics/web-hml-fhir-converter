@@ -13,7 +13,7 @@
 
         subAmplificationAddEditCtrl.hml = hmlModel;
         subAmplificationAddEditCtrl.scope = $scope;
-        subAmplificationAddEditCtrl.panelData = appConfig.typingPanels;
+        subAmplificationAddEditCtrl.panelData = appConfig.subAmplificationPanels;
         subAmplificationAddEditCtrl.formSubmitted = false;
         subAmplificationAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
         subAmplificationAddEditCtrl.sampleIndex = getSampleIndex(subAmplificationAddEditCtrl.parentCollectionPropertyAllocation);
