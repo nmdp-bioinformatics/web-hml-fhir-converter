@@ -16,7 +16,7 @@
 
         usSpinnerService.stop('index-spinner');
 
-        diploidCombinationCtrl.addGenotype = function () {
+        diploidCombinationCtrl.addDiploidCombination = function () {
             usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,

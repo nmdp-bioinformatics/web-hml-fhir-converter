@@ -20,7 +20,7 @@
             usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/guided/samples/typing/allele-assignment/glstring/glstring-add-edit.html',
+                templateUrl: 'views/guided/hml/samples/typing/allele-assignment/glstring/glstring-add-edit.html',
                 controller: 'glstringAddEdit',
                 controllerAs: 'glstringAddEditCtrl',
                 resolve: {

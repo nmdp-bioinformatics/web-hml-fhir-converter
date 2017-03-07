@@ -8,7 +8,7 @@
         /* jshint validthis:true */
         var diploidCombinationAddEditCtrl = this;
 
-        diploidCombinationAddEditCtrl.scope = $scope;
+        $scope.parentCtrl = diploidCombinationAddEditCtrl;
         usSpinnerService.stop('index-spinner');
 
         diploidCombinationAddEditCtrl.hml = hmlModel;

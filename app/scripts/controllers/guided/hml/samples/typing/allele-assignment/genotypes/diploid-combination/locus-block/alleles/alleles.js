@@ -16,7 +16,7 @@
 
         usSpinnerService.stop('index-spinner');
 
-        allelesCtrl.addGenotype = function () {
+        allelesCtrl.addAllele = function () {
             usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,

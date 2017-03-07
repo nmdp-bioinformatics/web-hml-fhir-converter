@@ -8,7 +8,7 @@
         /* jshint validthis:true */
         var locusBlockAddEditCtrl = this;
 
-        locusBlockAddEditCtrl.scope = $scope;
+        $scope.parentCtrl = locusBlockAddEditCtrl;
         usSpinnerService.stop('index-spinner');
 
         locusBlockAddEditCtrl.hml = hmlModel;

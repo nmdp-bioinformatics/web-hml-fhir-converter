@@ -8,7 +8,7 @@
         /* jshint validthis:true */
         var allelesAddEditCtrl = this;
 
-        allelesAddEditCtrl.scope = $scope;
+        $scope.parentCtrl = allelesAddEditCtrl;
         usSpinnerService.stop('index-spinner');
 
         allelesAddEditCtrl.hml = hmlModel;

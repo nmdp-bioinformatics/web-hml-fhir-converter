@@ -16,7 +16,7 @@
 
         usSpinnerService.stop('index-spinner');
 
-        locusBlockCtrl.addGenotype = function () {
+        locusBlockCtrl.addLocusBlock = function () {
             usSpinnerService.spin('index-spinner');
             var modalInstance = $uibModal.open({
                 animation: true,

@@ -8,7 +8,7 @@
         /* jshint validthis:true */
         var genotypesAddEditCtrl = this;
 
-        genotypesAddEditCtrl.scope = $scope;
+        $scope.parentCtrl = genotypesAddEditCtrl;
         usSpinnerService.stop('index-spinner');
 
         genotypesAddEditCtrl.hml = hmlModel;
