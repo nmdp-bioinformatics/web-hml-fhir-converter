@@ -17,14 +17,14 @@
                                 <form name="typingAddEditCtrl.inputForm">
                                     <div class="form-group" data-ng-class="{ 'has-error': typingAddEditCtrl.inputForm.geneFamily.$invalid && typingAddEditCtrl.formSubmitted }">
                                         <label for="geneFamily" class="control-label">Gene Family:</label>
-                                        <input id="geneFamily" name="geneFamily" type="text" class="form-control input-sm" data-ng-model="typingAddEditCtrl.hml.samples[typingAddEditCtrl.sampleIndex].typing.geneFamily" placeholder="Gene Family" required />
+                                        <input id="geneFamily" name="geneFamily" type="text" class="form-control input-sm" data-ng-model="typingAddEditCtrl.typing.geneFamily" placeholder="Gene Family" required />
                                         <div class="help-block" data-ng-show="typingAddEditCtrl.inputForm.geneFamily.$error.required && typingAddEditCtrl.formSubmitted">
                                             <small>Gene Family is Required</small>
                                         </div>
                                     </div>
                                     <div class="form-group" data-ng-class="{ 'has-error': typingAddEditCtrl.inputForm.date.$invalid && typingAddEditCtrl.formSubmitted }">
                                         <label for="date" class="control-label">Date:</label>
-                                        <input id="date" name="date" uib-datepicker-popup="{{ typingAddEditCtrl.dateFormat }}" data-ng-model="typingAddEditCtrl.hml.samples[typingAddEditCtrl.sampleIndex].typing.date"
+                                        <input id="date" name="date" uib-datepicker-popup="{{ typingAddEditCtrl.dateFormat }}" data-ng-model="typingAddEditCtrl.typing.date"
                                              class="form-control input-sm" datpicker-options="typingAddEditCtrl.dateOptions" data-ng-required="true"
                                              data-ng-click="typingAddEditCtrl.openDatePicker()" is-open="typingAddEditCtrl.dateOpen" alt-input-formats="altInputFormats" />
                                     </div>
