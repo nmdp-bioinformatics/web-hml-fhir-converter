@@ -179,6 +179,11 @@
                 'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-sanger/sbt-sanger.html',
                 'controller': 'sbtSanger',
                 'controllerAs': 'sbtSangerCtrl'
+            },
+            'sbtNgs': {
+                'templateUrl': 'views/guided/hml/samples/typing/typing-method/sbt-ngs/sbt-ngs.html',
+                'controller': 'sbtNgs',
+                'controllerAs': 'sbtNgsCtrl'
             }
         },
         'ssoPanels': {

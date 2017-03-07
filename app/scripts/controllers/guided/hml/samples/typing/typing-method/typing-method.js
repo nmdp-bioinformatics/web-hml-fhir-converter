@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typingMethod ($scope, $uibModal, appConfig, objectModelFactory) {
+    function typingMethod ($scope, $uibModal, objectModelFactory, usSpinnerService) {
         /* jshint validthis:true */
         var typingMethodCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -12,6 +12,7 @@
         typingMethodCtrl.scope = $scope;
         typingMethodCtrl.hml = parentCtrl.hml;
         typingMethodCtrl.sampleIndex = parentCtrl.sampleIndex;
+        typingMethodCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
 
         typingMethodCtrl.addTypingMethodEntry = function () {
             var modalInstance = $uibModal.open({
@@ -41,8 +42,16 @@
                 }
             });
         };
+
+        function returnPropertyLocator () {
+            return [
+                { propertyString: 'samples', propertyIndex: typingMethodCtrl.sampleIndex, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'typingMethod', propertyIndex: -1, isArray: false }
+            ];
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingMethod', typingMethod);
-    typingMethod.$inject = ['$scope', '$uibModal', 'appConfig', 'objectModelFactory'];
+    typingMethod.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
 }());

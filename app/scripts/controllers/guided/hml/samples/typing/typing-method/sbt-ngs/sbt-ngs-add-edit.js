@@ -20,7 +20,7 @@
         sbtNgsAddEditCtrl.sbtNgs = sbtNgs;
         sbtNgsAddEditCtrl.expandedPanels = {
             properties: false,
-            amplication: false,
+            amplification: false,
             subAmplification: false
         };
 

@@ -55,5 +55,5 @@
 
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('ssoAddEdit', ssoAddEdit);
-    ssoAddEdit.$inject = ['$scope', '$uibModalInstance', 'sso', 'hmlModel', 'parentCollectionPropertyAllocation', 'usSpinnerService'];
+    ssoAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'sso', 'hmlModel', 'parentCollectionPropertyAllocation', 'usSpinnerService'];
 }());

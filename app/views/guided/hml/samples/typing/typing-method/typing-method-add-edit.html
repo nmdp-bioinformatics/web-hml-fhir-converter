@@ -38,6 +38,15 @@
                                     controlleras="{{ typingMethodAddEditCtrl.panelData.sbtSanger.controllerAs }}"></dynamic-controller>
                             </div>
                         </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" data-ng-click="typingMethodAddEditCtrl.togglePanel('sbtNgs')">
+                                <h5 class="panel-title">SBT Ngs</h5>
+                            </div>
+                            <div class="panel-body" data-ng-show="typingMethodAddEditCtrl.expandedPanels.sbtNgs">
+                                <dynamic-controller templateurl="{{ typingMethodAddEditCtrl.panelData.sbtNgs.templateUrl }}" controller="{{ typingMethodAddEditCtrl.panelData.sbtNgs.controller }}"
+                                    controlleras="{{ typingMethodAddEditCtrl.panelData.sbtNgs.controllerAs }}"></dynamic-controller>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

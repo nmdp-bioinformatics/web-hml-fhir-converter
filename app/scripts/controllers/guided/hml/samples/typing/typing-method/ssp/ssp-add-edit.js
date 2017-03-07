@@ -55,5 +55,5 @@
 
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('sspAddEdit', sspAddEdit);
-    sspAddEdit.$inject = ['$scope', '$uibModalInstance', 'ssp', 'hmlModel', 'parentCollectionPropertyAllocation', 'usSpinnerService'];
+    sspAddEdit.$inject = ['$scope', 'appConfig', '$uibModalInstance', 'ssp', 'hmlModel', 'parentCollectionPropertyAllocation', 'usSpinnerService'];
 }());
