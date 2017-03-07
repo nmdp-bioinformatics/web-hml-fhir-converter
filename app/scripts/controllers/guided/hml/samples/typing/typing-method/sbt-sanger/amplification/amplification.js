@@ -4,13 +4,59 @@
 (function () {
     'use strict';
 
-    function amplification ($scope) {
+    function amplification ($scope, $uibModal, objectModelFactory, usSpinnerService) {
         /* jshint validthis:true */
-        var amplificationCtrl = this;
+        var amplificationCtrl = this,
+            parentCtrl = $scope.parentCtrl;
 
         amplificationCtrl.scope = $scope;
+        amplificationCtrl.hml = parentCtrl.hml;
+        amplificationCtrl.sampleIndex = parentCtrl.sampleIndex;
+        amplificationCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+
+        usSpinnerService.stop('index-spinner');
+
+        amplificationCtrl.addAmplification = function () {
+            usSpinnerService.spin('index-spinner');
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/guided/hml/samples/typing/typing-method/sbt-sanger/amplification/amplification-add-edit.html',
+                controller: 'amplificationAddEdit',
+                controllerAs: 'amplificationAddEditCtrl',
+                resolve: {
+                    amplification: function () {
+                        return objectModelFactory.getModelByName('Amplification');
+                    },
+                    hmlModel: function () {
+                        return amplificationCtrl.hml;
+                    },
+                    parentCollectionPropertyAllocation: function () {
+                        return amplificationCtrl.parentCollectionPropertyAllocation;
+                    },
+                    edit: function () {
+                        return false;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (result) {
+                if (result) {
+
+                }
+            });
+        };
+
+        function returnPropertyLocator () {
+            return [
+                { propertyString: 'samples', propertyIndex: amplificationCtrl.sampleIndex, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'typingMethod', propertyIndex: -1, isArray: false },
+                { propertyString: 'sbtSanger', propertyIndex: -1, isArray: false },
+                { propertyString: 'amplification', propertyIndex: -1, isArray: true }
+            ];
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('amplification', amplification);
-    amplification.$inject = ['$scope'];
+    amplification.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
 }());
