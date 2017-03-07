@@ -47,5 +47,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('rawReadsAddEdit', rawReadsAddEdit);
-    rawReadsAddEdit.$inject = ['$scope', '$uibModalInstance', 'rawRead', 'hmlModel', 'parentCollectionPropertyAllocation', usSpinnerService];
+    rawReadsAddEdit.$inject = ['$scope', '$uibModalInstance', 'rawRead', 'hmlModel', 'parentCollectionPropertyAllocation', 'usSpinnerService'];
 }());
