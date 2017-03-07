@@ -200,6 +200,27 @@
                 'controllerAs': 'propertiesCtrl'
             }
         },
+        'genotypesPanels': {
+            'diploidCombination': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/genotypes/diploid-combination/diploid-combination.html',
+                'controller': 'diploidCombination',
+                'controllerAs': 'diploidCombinationCtrl'
+            }
+        },
+        'diploidCombinationPanels': {
+            'locusBlock': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/genotypes/diploid-combination/locus-block/locus-block.html',
+                'controller': 'locusBlock',
+                'controllerAs': 'locusBlockCtrl'
+            }
+        },
+        'locusBlockPanels': {
+            'alleles': {
+                'templateUrl': 'views/guided/hml/samples/typing/allele-assignment/genotypes/diploid-combination/locus-block/alleles/alleles.html',
+                'controller': 'alleles',
+                'controllerAs': 'allelesCtrl'
+            }
+        },
         'sbtNgsPanels': {
             'properties': {
                 'templateUrl': 'views/guided/hml/properties/properties.html',
