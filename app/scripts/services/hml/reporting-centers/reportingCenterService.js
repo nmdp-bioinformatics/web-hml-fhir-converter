@@ -28,7 +28,7 @@
             addSingleReportingCenterTerminology: function (reportingCenter) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'reportingCenter',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',
@@ -45,7 +45,7 @@
             removeSingleReportingCenterTerminology: function (reportingCenter) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'reportingCenter',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'DELETE',
@@ -62,7 +62,7 @@
             updateSingleReportingCenterTerminology: function (reportingCenter) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'reportingCenter',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'PUT',
@@ -79,7 +79,7 @@
             getTypeaheadOptions: function (maxResults, query) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'reportingCenter/' + maxResults,
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',

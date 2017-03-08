@@ -28,7 +28,7 @@
             addSinglePropertyTerminology: function (property) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'property',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',
@@ -45,7 +45,7 @@
             removeSinglePropertyTerminology: function (property) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'property',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'DELETE',
@@ -62,7 +62,7 @@
             updateSinglePropertyTerminology: function (property) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'property',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'PUT',
@@ -79,7 +79,7 @@
             getTypeaheadOptions: function (maxResults, query) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'property/' + maxResults,
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',

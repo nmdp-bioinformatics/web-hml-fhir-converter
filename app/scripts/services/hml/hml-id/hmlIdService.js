@@ -28,7 +28,7 @@
             addSingleHmlIdTerminology: function (hmlId) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hmlId',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',
@@ -45,7 +45,7 @@
             removeSingleHmlIdTerminology: function (hmlId) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hmlId',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'DELETE',
@@ -62,7 +62,7 @@
             updateSingleHmlIdTerminology: function (hmlId) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hmlId',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'PUT',
@@ -79,7 +79,7 @@
             getTypeaheadOptions: function (maxResults, query) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'hmlId/' + maxResults,
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',

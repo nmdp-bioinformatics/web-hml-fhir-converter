@@ -41,11 +41,14 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
-                    typingCtrl.hml = hmlService.updateHml(
-                        modelUpdater.removeTempIds(
-                        modelUpdater.updateModel(
-                        typingCtrl.hml, modelUpdater.convertPropertyMapToRamda(
-                        returnPropertyMap()), result)));
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyMap()),
+                        updatedModel = modelUpdater.updateModel(typingCtrl.hml, propertyMap, result);
+
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        typingCtrl.hml = hmlResult;
+                        parentCtrl.hml = typingCtrl.hml;
+                    });
                 }
             });
         };

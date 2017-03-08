@@ -28,7 +28,7 @@
             addSingleSampleTerminology: function (sample) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'sample',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',
@@ -45,7 +45,7 @@
             removeSingleSampleTerminology: function (sample) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'sample',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'DELETE',
@@ -62,7 +62,7 @@
             updateSingleSampleTerminology: function (sample) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'sample',
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'PUT',
@@ -79,7 +79,7 @@
             getTypeaheadOptions: function (maxResults, query) {
                 var defer = $q.defer(),
                     url = appConfig.resource_server_base_url + 'sample/' + maxResults,
-                    headers = httpHeaderTransform.postHeaderForResourceSever();
+                    headers = httpHeaderTransform.postHeaderForResourceServer();
 
                 $http({
                     method: 'POST',

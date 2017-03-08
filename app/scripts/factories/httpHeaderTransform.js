@@ -18,7 +18,7 @@
                 };
             },
 
-            postHeaderForResourceSever: function () {
+            postHeaderForResourceServer: function () {
                 return {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
