@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function typing ($scope, $uibModal, appConfig, objectModelFactory, usSpinnerService) {
+    function typing ($scope, $uibModal, appConfig, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis: true */
         var typingCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -41,16 +41,20 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
-
+                    typingCtrl.hml = hmlService.updateHml(
+                        modelUpdater.removeTempIds(
+                        modelUpdater.updateModel(
+                        typingCtrl.hml, modelUpdater.convertPropertyMapToRamda(
+                        returnPropertyMap()), result)));
                 }
             });
         };
 
-        function returnPropertyLocator() {
+        function returnPropertyLocator () {
             return setLocatorIndexes(appConfig.propertiesParentMap.typingParent);
         }
 
-        function setLocatorIndexes(config) {
+        function setLocatorIndexes (config) {
             for (var i = 0; i < config.length; i++) {
                 if (config[i].propertyString === 'samples') {
                     config[i].propertyIndex = typingCtrl.sampleIndex;
@@ -59,8 +63,16 @@
 
             return config;
         }
+
+        function returnPropertyMap () {
+            return [
+                { propertyString: 'samples', propertyIndex: typingCtrl.sampleIndex, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false }
+            ];
+        }
+
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typing', typing);
-    typing.$inject = ['$scope', '$uibModal', 'appConfig', 'objectModelFactory', 'usSpinnerService'];
+    typing.$inject = ['$scope', '$uibModal', 'appConfig', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());
