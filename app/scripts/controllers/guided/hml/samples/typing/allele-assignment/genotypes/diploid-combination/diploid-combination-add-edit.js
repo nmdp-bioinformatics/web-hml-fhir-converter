@@ -30,13 +30,8 @@
             $uibModalInstance.close();
         };
 
-        diploidCombinationAddEditCtrl.add = function (form) {
-            typingAddEditCtrl.formSubmitted = true;
-
-            if (!form.$invalid) {
-                diploidCombinationAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(diploidCombinationAddEditCtrl.diploidCombination);
-            }
+        diploidCombinationAddEditCtrl.add = function () {
+            $uibModalInstance.close(diploidCombinationAddEditCtrl.diploidCombination);
         };
 
         diploidCombinationAddEditCtrl.togglePanel = function (panelName) {

@@ -33,7 +33,7 @@
         };
 
         typingMethodAddEditCtrl.add = function () {
-
+            $uibModalInstance.close(typingMethodAddEditCtrl.typingMethod);
         };
 
         typingMethodAddEditCtrl.togglePanel = function (panelName) {

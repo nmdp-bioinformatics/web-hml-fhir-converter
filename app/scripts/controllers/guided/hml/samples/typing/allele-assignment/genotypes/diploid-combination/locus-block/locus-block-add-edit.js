@@ -30,13 +30,8 @@
             $uibModalInstance.close();
         };
 
-        locusBlockAddEditCtrl.add = function (form) {
-            locusBlockAddEditCtrl.formSubmitted = true;
-
-            if (!form.$invalid) {
-                locusBlockAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(locusBlockAddEditCtrl.locusBlock);
-            }
+        locusBlockAddEditCtrl.add = function () {
+            $uibModalInstance.close(locusBlockAddEditCtrl.locusBlock);
         };
 
         locusBlockAddEditCtrl.togglePanel = function (panelName) {

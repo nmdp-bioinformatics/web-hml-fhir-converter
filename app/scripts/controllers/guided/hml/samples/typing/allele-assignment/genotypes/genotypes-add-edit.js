@@ -30,13 +30,8 @@
             $uibModalInstance.close();
         };
 
-        genotypesAddEditCtrl.add = function (form) {
-            genotypesAddEditCtrl.formSubmitted = true;
-
-            if (!form.$invalid) {
-                genotypesAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(genotypesAddEditCtrl.genotype);
-            }
+        genotypesAddEditCtrl.add = function () {
+            $uibModalInstance.close(genotypesAddEditCtrl.genotype);
         };
 
         genotypesAddEditCtrl.togglePanel = function (panelName) {

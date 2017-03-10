@@ -26,13 +26,8 @@
             $uibModalInstance.close();
         };
 
-        glstringAddEditCtrl.add = function (form) {
-            glstringAddEditCtrl.formSubmitted = true;
-
-            if (!form.$invalid) {
-                glstringAddEditCtrl.formSubmitted = false;
-                $uibModalInstance.close(glstringAddEditCtrl.glstring);
-            }
+        glstringAddEditCtrl.add = function () {
+            $uibModalInstance.close(glstringAddEditCtrl.glstring);
         };
 
         function getSampleIndex (propertyMap) {
