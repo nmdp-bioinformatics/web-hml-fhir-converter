@@ -10,6 +10,7 @@
                 var lens = R.lensPath(propertyMap);
                 return R.set(lens, newValue, model);
             },
+
             convertPropertyMapToRamda: function (propertyMap) {
                 var parsedMap = [],
                     parseMap = function (item) {
@@ -22,6 +23,7 @@
                 R.forEach(parseMap, propertyMap);
                 return parsedMap;
             },
+
             removeTempIds: function (model) {
                 var handleArray = function (item) {
                         R.mapObjIndexed(hasNonMongoId, item);
@@ -43,6 +45,10 @@
                     };
 
                 R.mapObjIndexed(hasNonMongoId, model);
+            },
+
+            returnObjectFromHml: function (propertyMap, hml) {
+                return R.path(propertyMap, hml);
             }
         };
 

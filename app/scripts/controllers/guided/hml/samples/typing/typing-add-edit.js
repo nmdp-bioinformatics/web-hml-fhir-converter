@@ -18,6 +18,7 @@
         typingAddEditCtrl.parentCollectionPropertyAllocation = parentCollectionPropertyAllocation;
         typingAddEditCtrl.sampleIndex = getSampleIndex(typingAddEditCtrl.parentCollectionPropertyAllocation);
         typingAddEditCtrl.typing = typing;
+        typingAddEditCtrl.disabled = false;
         typingAddEditCtrl.expandedPanels = {
             properties: false,
             alleleAssignment: false,

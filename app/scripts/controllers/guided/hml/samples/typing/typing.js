@@ -13,6 +13,11 @@
         typingCtrl.hml = parentCtrl.hml;
         typingCtrl.sampleIndex = parentCtrl.sampleIndex;
         typingCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        typingCtrl.typing = {};
+        typingCtrl.ctrlAs = 'typingAddEditCtrl';
+        typingCtrl.ctrl = 'modelAddEditWrapperCtrl';
+        typingCtrl.modelName = 'typing';
+        typingCtrl.addEditTemplateUrl = 'views/guided/hml/samples/typing/typing-add-edit.html';
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,6 +46,7 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
                     var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyMap()),
                         updatedModel = modelUpdater.updateModel(typingCtrl.hml, propertyMap, result);
 
@@ -48,6 +54,8 @@
                     hmlService.updateHml(updatedModel).then(function (hmlResult) {
                         typingCtrl.hml = hmlResult;
                         parentCtrl.hml = typingCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        typingCtrl.typing = modelUpdater.returnObjectFromHml(propertyMap, typingCtrl.hml);
                     });
                 }
             });
