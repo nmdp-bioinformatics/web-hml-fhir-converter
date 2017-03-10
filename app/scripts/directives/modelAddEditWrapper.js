@@ -5,8 +5,6 @@
     'use strict';
 
     function modelAddEditWrapper () {
-        var contentUrl;
-
         return {
             restrict: 'E',
             scope: {

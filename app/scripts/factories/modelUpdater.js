@@ -5,6 +5,7 @@
     'use strict';
 
     function modelUpdater (guidGenerator) {
+        /* globals R: true */
         var factory = {
             updateModel: function (model, propertyMap, newValue) {
                 var lens = R.lensPath(propertyMap);
@@ -16,7 +17,7 @@
                     parseMap = function (item) {
                         parsedMap.push(item.propertyString);
                         if (item.isArray && item.propertyIndex > -1) {
-                            parsedMap.push(item.propertyIndex)
+                            parsedMap.push(item.propertyIndex);
                         }
                     };
 
