@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function variant ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function variant ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var variantCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -15,6 +15,7 @@
         variantCtrl.hml = parentCtrl.hml;
         variantCtrl.sampleIndex = parentCtrl.sampleIndex;
         variantCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        variantCtrl.variant = {};
 
         variantCtrl.addVariant = function () {
             usSpinnerService.spin('index-spinner');
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(variantCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        variantCtrl.hml = hmlResult;
+                        parentCtrl.hml = variantCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        variantCtrl.variant = modelUpdater.returnObjectFromHml(propertyMap, variantCtrl.hml);
+                    });
                 }
             });
         };
@@ -58,5 +69,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('variant', variant);
-    variant.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    variant.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

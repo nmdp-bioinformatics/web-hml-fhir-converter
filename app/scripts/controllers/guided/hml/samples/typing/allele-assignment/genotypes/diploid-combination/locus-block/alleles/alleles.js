@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function alleles ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function alleles ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var allelesCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         allelesCtrl.hml = parentCtrl.hml;
         allelesCtrl.sampleIndex = parentCtrl.sampleIndex;
         allelesCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        allelesCtrl.alleles = [];
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(allelesCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        allelesCtrl.hml = hmlResult;
+                        parentCtrl.hml = allelesCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        allelesCtrl.alleles = modelUpdater.returnObjectFromHml(propertyMap, allelesCtrl.hml);
+                    });
                 }
             });
         };
@@ -60,5 +71,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('alleles', alleles);
-    alleles.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    alleles.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

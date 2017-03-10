@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function sbtNgs ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function sbtNgs ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var sbtNgsCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -15,6 +15,7 @@
         sbtNgsCtrl.hml = parentCtrl.hml;
         sbtNgsCtrl.sampleIndex = parentCtrl.sampleIndex;
         sbtNgsCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        sbtNgsCtrl.sbtNgs = {};
 
         sbtNgsCtrl.addSbtNgs = function () {
             usSpinnerService.spin('index-spinner');
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(sbtNgsCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        sbtNgsCtrl.hml = hmlResult;
+                        parentCtrl.hml = sbtNgsCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        sbtNgsCtrl.sbtNgs = modelUpdater.returnObjectFromHml(propertyMap, sbtNgsCtrl.hml);
+                    });
                 }
             });
         };
@@ -57,5 +68,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('sbtNgs', sbtNgs);
-    sbtNgs.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    sbtNgs.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

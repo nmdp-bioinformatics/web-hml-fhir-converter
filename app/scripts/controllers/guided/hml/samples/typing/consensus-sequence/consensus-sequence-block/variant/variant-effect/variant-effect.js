@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function variantEffect ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function variantEffect ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var variantEffectCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         variantEffectCtrl.hml = parentCtrl.hml;
         variantEffectCtrl.sampleIndex = parentCtrl.sampleIndex;
         variantEffectCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        variantEffectCtrl.varientEffect = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(variantEffectCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        variantEffectCtrl.hml = hmlResult;
+                        parentCtrl.hml = variantEffectCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        variantEffectCtrl.varientEffect = modelUpdater.returnObjectFromHml(propertyMap, variantEffectCtrl.hml);
+                    });
                 }
             })
         };
@@ -59,5 +70,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('variantEffect', variantEffect);
-    variantEffect.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    variantEffect.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

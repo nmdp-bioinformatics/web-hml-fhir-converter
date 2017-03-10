@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function referenceSequence ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function referenceSequence ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var referenceSequenceCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -15,6 +15,7 @@
         referenceSequenceCtrl.hml = parentCtrl.hml;
         referenceSequenceCtrl.sampleIndex = parentCtrl.sampleIndex;
         referenceSequenceCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        referenceSequenceCtrl.referenceSequence = {};
 
         referenceSequenceCtrl.addReferenceSequence = function () {
             usSpinnerService.spin('index-spinner');
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(referenceSequenceCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        referenceSequenceCtrl.hml = hmlResult;
+                        parentCtrl.hml = referenceSequenceCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        referenceSequenceCtrl.referenceSequence = modelUpdater.returnObjectFromHml(propertyMap, referenceSequenceCtrl.hml);
+                    });
                 }
             });
         };
@@ -58,5 +69,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('referenceSequence', referenceSequence);
-    referenceSequence.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    referenceSequence.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

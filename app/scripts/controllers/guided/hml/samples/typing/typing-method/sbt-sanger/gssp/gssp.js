@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function gssp ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function gssp ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var gsspCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         gsspCtrl.hml = parentCtrl.hml;
         gsspCtrl.sampleIndex = parentCtrl.sampleIndex;
         gsspCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        gsspCtrl.gssp = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(gsspCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        gsspCtrl.hml = hmlResult;
+                        parentCtrl.hml = gsspCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        gsspCtrl.gssp = modelUpdater.returnObjectFromHml(propertyMap, gsspCtrl.hml);
+                    });
                 }
             });
         };
@@ -58,5 +69,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('gssp', gssp);
-    gssp.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    gssp.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

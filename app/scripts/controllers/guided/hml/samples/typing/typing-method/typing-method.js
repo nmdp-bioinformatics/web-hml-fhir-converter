@@ -4,15 +4,18 @@
 (function () {
     'use strict';
 
-    function typingMethod ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function typingMethod ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var typingMethodCtrl = this,
             parentCtrl = $scope.parentCtrl;
+
+        usSpinnerService.stop('index-spinner');
 
         typingMethodCtrl.scope = $scope;
         typingMethodCtrl.hml = parentCtrl.hml;
         typingMethodCtrl.sampleIndex = parentCtrl.sampleIndex;
         typingMethodCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        typingMethodCtrl.typingMethod = {};
 
         typingMethodCtrl.addTypingMethodEntry = function () {
             var modalInstance = $uibModal.open({
@@ -38,7 +41,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyMap()),
+                        updatedModel = modelUpdater.updateModel(typingMethodCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        typingMethodCtrl.hml = hmlResult;
+                        parentCtrl.hml = typingMethodCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        typingMethodCtrl.typingMethod = modelUpdater.returnObjectFromHml(propertyMap, typingMethodCtrl.hml);
+                    });
                 }
             });
         };
@@ -50,8 +63,16 @@
                 { propertyString: 'typingMethod', propertyIndex: -1, isArray: false }
             ];
         }
+
+        function returnPropertyMap () {
+            return [
+                { propertyString: 'samples', propertyIndex: typingCtrl.sampleIndex, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'typingMethod', propertyIndex: -1, isArray: false }
+            ];
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typingMethod', typingMethod);
-    typingMethod.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    typingMethod.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

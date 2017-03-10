@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function consensusSequenceBlock ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function consensusSequenceBlock ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var consensusSequenceBlockCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -15,6 +15,7 @@
         consensusSequenceBlockCtrl.hml = parentCtrl.hml;
         consensusSequenceBlockCtrl.sampleIndex = parentCtrl.sampleIndex;
         consensusSequenceBlockCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        consensusSequenceBlockCtrl.consensusSequence = {};
 
         consensusSequenceBlockCtrl.addConsensusSequenceBlock = function () {
             usSpinnerService.spin('index-spinner');
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(consensusSequenceBlockCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        consensusSequenceBlockCtrl.hml = hmlResult;
+                        parentCtrl.hml = consensusSequenceBlockCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        consensusSequenceBlockCtrl.ssp = modelUpdater.returnObjectFromHml(propertyMap, consensusSequenceBlockCtrl.hml);
+                    });
                 }
             });
         };
@@ -57,5 +68,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('consensusSequenceBlock', consensusSequenceBlock);
-    consensusSequenceBlock.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    consensusSequenceBlock.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

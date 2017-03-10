@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function sequenceQuality ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function sequenceQuality ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var sequenceQualityCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -15,6 +15,7 @@
         sequenceQualityCtrl.hml = parentCtrl.hml;
         sequenceQualityCtrl.sampleIndex = parentCtrl.sampleIndex;
         sequenceQualityCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        sequenceQualityCtrl.sequenceQuality = {};
 
         sequenceQualityCtrl.addSequenceQuality = function () {
             usSpinnerService.spin('index-spinner');
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(sequenceQualityCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        sequenceQualityCtrl.hml = hmlResult;
+                        parentCtrl.hml = sequenceQualityCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        sequenceQualityCtrl.sequenceQuality = modelUpdater.returnObjectFromHml(propertyMap, sequenceQualityCtrl.hml);
+                    });
                 }
             });
         };
@@ -58,5 +69,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('sequenceQuality', sequenceQuality);
-    sequenceQuality.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    sequenceQuality.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

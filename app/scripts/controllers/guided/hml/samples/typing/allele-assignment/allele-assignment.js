@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function alleleAssignment ($scope, $uibModal, appConfig, usSpinnerService, objectModelFactory) {
+    function alleleAssignment ($scope, $uibModal, appConfig, usSpinnerService, objectModelFactory, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var alleleAssignmentCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         alleleAssignmentCtrl.hml = parentCtrl.hml;
         alleleAssignmentCtrl.sampleIndex = parentCtrl.sampleIndex;
         alleleAssignmentCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        alleleAssignmentCtrl.alleleAssignment = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyMap()),
+                        updatedModel = modelUpdater.updateModel(alleleAssignmentCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        alleleAssignmentCtrl.hml = hmlResult;
+                        parentCtrl.hml = alleleAssignmentCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        alleleAssignmentCtrl.alleleAssignment = modelUpdater.returnObjectFromHml(propertyMap, alleleAssignmentCtrl.hml);
+                    });
                 }
             });
         };
@@ -59,8 +70,16 @@
 
             return config;
         }
+
+        function returnPropertyMap () {
+            return [
+                { propertyString: 'samples', propertyIndex: alleleAssignmentCtrl.sampleIndex, isArray: true },
+                { propertyString: 'typing', propertyIndex: -1, isArray: false },
+                { propertyString: 'alleleAssignment', propertyIndex: -1, isArray: false }
+            ];
+        }
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('alleleAssignment', alleleAssignment);
-    alleleAssignment.$inject = ['$scope', '$uibModal', 'appConfig', 'usSpinnerService', 'objectModelFactory'];
+    alleleAssignment.$inject = ['$scope', '$uibModal', 'appConfig', 'usSpinnerService', 'objectModelFactory', 'modelUpdater', 'hmlService'];
 }());

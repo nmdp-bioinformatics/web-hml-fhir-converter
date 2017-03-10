@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function subAmplification ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function subAmplification ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var subAmplificationCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         subAmplificationCtrl.hml = parentCtrl.hml;
         subAmplificationCtrl.sampleIndex = parentCtrl.sampleIndex;
         subAmplificationCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        subAmplificationCtrl.subAmplification = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(subAmplificationCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        subAmplificationCtrl.hml = hmlResult;
+                        parentCtrl.hml = subAmplificationCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        subAmplificationCtrl.subAmplification = modelUpdater.returnObjectFromHml(propertyMap, subAmplificationCtrl.hml);
+                    });
                 }
             });
         };
@@ -58,5 +69,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('subAmplification', subAmplification);
-    subAmplification.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    subAmplification.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

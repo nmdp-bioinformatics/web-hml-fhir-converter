@@ -81,7 +81,6 @@
                 { propertyString: 'typing', propertyIndex: -1, isArray: false }
             ];
         }
-
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('typing', typing);

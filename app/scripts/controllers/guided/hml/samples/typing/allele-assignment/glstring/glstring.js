@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function glstring ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function glstring ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var glstringCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         glstringCtrl.hml = parentCtrl.hml;
         glstringCtrl.sampleIndex = parentCtrl.sampleIndex;
         glstringCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        glstringCtrl.glstring = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(glstringCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        glstringCtrl.hml = hmlResult;
+                        parentCtrl.hml = glstringCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        glstringCtrl.glstring = modelUpdater.returnObjectFromHml(propertyMap, glstringCtrl.hml);
+                    });
                 }
             });
         };
@@ -57,5 +68,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('glstring', glstring);
-    glstring.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    glstring.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

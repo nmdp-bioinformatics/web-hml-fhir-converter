@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function locusBlock ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function locusBlock ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var locusBlockCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         locusBlockCtrl.hml = parentCtrl.hml;
         locusBlockCtrl.sampleIndex = parentCtrl.sampleIndex;
         locusBlockCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        locusBlockCtrl.locusBlock = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(locusBlockCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        locusBlockCtrl.hml = hmlResult;
+                        parentCtrl.hml = locusBlockCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        locusBlockCtrl.locusBlock = modelUpdater.returnObjectFromHml(propertyMap, locusBlockCtrl.hml);
+                    });
                 }
             });
         };
@@ -59,5 +70,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('locusBlock', locusBlock);
-    locusBlock.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    locusBlock.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());

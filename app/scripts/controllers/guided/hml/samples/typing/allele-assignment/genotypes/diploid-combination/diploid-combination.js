@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function diploidCombination ($scope, $uibModal, objectModelFactory, usSpinnerService) {
+    function diploidCombination ($scope, $uibModal, objectModelFactory, usSpinnerService, modelUpdater, hmlService) {
         /* jshint validthis:true */
         var diploidCombinationCtrl = this,
             parentCtrl = $scope.parentCtrl;
@@ -13,6 +13,7 @@
         diploidCombinationCtrl.hml = parentCtrl.hml;
         diploidCombinationCtrl.sampleIndex = parentCtrl.sampleIndex;
         diploidCombinationCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
+        diploidCombinationCtrl.diploidCombination = {};
 
         usSpinnerService.stop('index-spinner');
 
@@ -41,7 +42,17 @@
 
             modalInstance.result.then(function (result) {
                 if (result) {
+                    usSpinnerService.spin('index-spinner');
+                    var propertyMap = modelUpdater.convertPropertyMapToRamda(returnPropertyLocator()),
+                        updatedModel = modelUpdater.updateModel(diploidCombinationCtrl.hml, propertyMap, result);
 
+                    modelUpdater.removeTempIds(updatedModel);
+                    hmlService.updateHml(updatedModel).then(function (hmlResult) {
+                        diploidCombinationCtrl.hml = hmlResult;
+                        parentCtrl.hml = diploidCombinationCtrl.hml;
+                        usSpinnerService.stop('index-spinner');
+                        diploidCombinationCtrl.diploidCombination = modelUpdater.returnObjectFromHml(propertyMap, diploidCombinationCtrl.hml);
+                    });
                 }
             });
         };
@@ -58,5 +69,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('diploidCombination', diploidCombination);
-    diploidCombination.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService'];
+    diploidCombination.$inject = ['$scope', '$uibModal', 'objectModelFactory', 'usSpinnerService', 'modelUpdater', 'hmlService'];
 }());
