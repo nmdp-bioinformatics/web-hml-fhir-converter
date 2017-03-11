@@ -14,10 +14,6 @@
         typingCtrl.sampleIndex = parentCtrl.sampleIndex;
         typingCtrl.parentCollectionPropertyAllocation = returnPropertyLocator();
         typingCtrl.typing = {};
-        typingCtrl.ctrlAs = 'typingAddEditCtrl';
-        typingCtrl.ctrl = 'modelAddEditWrapperCtrl';
-        typingCtrl.modelName = 'typing';
-        typingCtrl.addEditTemplateUrl = 'views/guided/hml/samples/typing/typing-add-edit.html';
 
         usSpinnerService.stop('index-spinner');
 
