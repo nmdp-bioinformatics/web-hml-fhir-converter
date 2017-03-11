@@ -41,6 +41,7 @@ module.exports = function(config) {
       'bower_components/angular-spinner/dist/angular-spinner.min.js',
       'bower_components/ramda/dist/ramda.js',
       'bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js',
+      'bower_components/angular-json-tree/dist/angular-json-tree.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

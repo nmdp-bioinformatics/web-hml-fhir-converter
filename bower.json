@@ -18,7 +18,8 @@
     "angular-momentjs": "^0.2.2",
     "angular-spinner": "^1.0.1",
     "ramda": "^0.23.0",
-    "angular-ui-bootstrap-datetimepicker": "^2.5.0"
+    "angular-ui-bootstrap-datetimepicker": "^2.5.0",
+    "angular-json-tree": "^1.0.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -33,5 +34,9 @@
         "dist/js/bootstrap.js"
       ]
     }
+  },
+  "resolutions": {
+    "jquery": "~2.1.4",
+    "angular": "1.5.9"
   }
 }

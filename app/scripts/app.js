@@ -34,7 +34,8 @@ var app = angular.module('hmlFhirAngularClientApp', [
     'ui.grid',
     'ui.grid.selection',
     'angular-momentjs',
-    'angularSpinner'
+    'angularSpinner',
+    'angular-json-tree'
   ]);
 
   app.config(function ($routeProvider) {
