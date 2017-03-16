@@ -15,11 +15,18 @@
                         <div class="col-md-12">
                             <div class="form">
                                 <form name="glstringAddEditCtrl.inputForm">
-                                    <div class="form-group" data-ng-class="{ 'has-error': glstringAddEditCtrl.inputForm.geneFamily.$invalid && glstringAddEditCtrl.formSubmitted }">
-                                        <label for="alleleDb" class="control-label">Uri:</label>
-                                        <input id="alleleDb" name="alleleDb" type="text" class="form-control input-sm" data-ng-model="glstringAddEditCtrl.glstring.uri" placeholder="Uri" required />
-                                        <div class="help-block" data-ng-show="glstringAddEditCtrl.inputForm.geneFamily.$error.required && glstringAddEditCtrl.formSubmitted">
+                                    <div class="form-group" data-ng-class="{ 'has-error': glstringAddEditCtrl.inputForm.uri.$invalid && glstringAddEditCtrl.formSubmitted }">
+                                        <label for="uri" class="control-label">Uri:</label>
+                                        <input id="uri" name="uri" type="text" class="form-control input-sm" data-ng-model="glstringAddEditCtrl.glstring.uri" placeholder="Uri" required />
+                                        <div class="help-block" data-ng-show="glstringAddEditCtrl.inputForm.uri.$error.required && glstringAddEditCtrl.formSubmitted">
                                             <small>Uri is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" data-ng-class="{ 'has-error': glstringAddEditCtrl.inputForm.value.$invalid && glstringAddEditCtrl.formSubmitted }">
+                                        <label for="value" class="control-label">Value:</label>
+                                        <input id="value" name="value" type="text" class="form-control input-sm" data-ng-model="glstringAddEditCtrl.glstring.value" placeholder="Value" required />
+                                        <div class="help-block" data-ng-show="glstringAddEditCtrl.inputForm.value.$error.required && glstringAddEditCtrl.formSubmitted">
+                                            <small>Value is Required</small>
                                         </div>
                                     </div>
                                 </form>

@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    function upload ($scope, files, $uibModal, $uibModalInstance, uploadService, toaster, $location) {
+    function upload ($scope, files, $uibModal, $uibModalInstance, uploadService, toaster, $location, conversion) {
         /*jshint validthis: true */
         var uploadCtrl = this;
 
@@ -17,6 +17,12 @@
 
         uploadCtrl.close = function () {
             $uibModalInstance.close();
+        };
+
+        uploadCtrl.convert = function (file) {
+            conversion.convertXmlHmlToObject(file.xml).then(function (hml) {
+                var test = hml;
+            });
         };
 
         uploadCtrl.displayMiringWarnings = function (warnings, file) {
@@ -104,5 +110,5 @@
     }
 
     angular.module('hmlFhirAngularClientApp.controllers').controller('upload', upload);
-    upload.$inject = ['$scope', 'files', '$uibModal', '$uibModalInstance', 'uploadService', 'toaster', '$location'];
+    upload.$inject = ['$scope', 'files', '$uibModal', '$uibModalInstance', 'uploadService', 'toaster', '$location', 'conversion'];
 }());

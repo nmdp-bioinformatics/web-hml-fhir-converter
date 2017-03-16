@@ -26,6 +26,9 @@
                                 <label for="validMiring">{{ file.result['miring-report']['miring-compliant'] === 'true' || 'warnings' ? 'Miring Compliant' : 'Non-Miring Compliant' }}</label>
                                 <button type="button" class="btn btn-link inline-text-button" data-ng-show="file.result['miring-report']['miring-compliant'] !== 'true'" aria-hidden="true"
                                         data-ng-click="uploadCtrl.displayMiringWarnings(file.result['miring-report']['validation-warnings'], file)">( Warnings! )</button>
+                                <div class="pull-right" data-ng-show="file.result['miring-report']['hml-compliant]">
+                                    <button type="button" class="btn btn-primary file-upload-button-continue" data-ng-click="uploadCtrl.convert(file)">Convert</button>
+                                </div>
                             </div>
                         </div>
                     </div>
