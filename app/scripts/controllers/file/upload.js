@@ -21,7 +21,7 @@
 
         uploadCtrl.convert = function (file) {
             conversion.convertXmlHmlToObject(file.xml).then(function (hml) {
-                var test = hml;
+                
             });
         };
 
