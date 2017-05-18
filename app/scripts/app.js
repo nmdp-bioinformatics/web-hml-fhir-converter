@@ -40,11 +40,6 @@ var app = angular.module('hmlFhirAngularClientApp', [
 
   app.config(function ($routeProvider, $locationProvider) {
 
-    $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-    });
-
     $routeProvider
       .when('/', {
           templateUrl: 'views/main.html',
@@ -121,4 +116,7 @@ var app = angular.module('hmlFhirAngularClientApp', [
           controllerAs: 'aboutCtrl'
       })
       .otherwise({ redirectTo: '/' });
+
+    $locationProvider.html5Mode(true);
+
   });
