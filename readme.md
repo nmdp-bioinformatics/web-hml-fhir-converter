@@ -7,7 +7,7 @@ version 0.15.1.
 
 Running this application locally requires Node package manager, this can be obtained at: https://nodejs.org/en/.  It is recommended that you use the 'Current (v 7.2.1)' version of node.js.  Bower will also be required, this can easily be installed by in the build & development section.  
 
-Ruby is required to install compass. Please see build & devopment section for details.
+Ruby is required to install compass. Please see build & development section for details.
 
 ## Build & development (Build / Run Environment)
 

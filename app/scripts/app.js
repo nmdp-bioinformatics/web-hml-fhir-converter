@@ -38,7 +38,13 @@ var app = angular.module('hmlFhirAngularClientApp', [
     'angular-json-tree'
   ]);
 
-  app.config(function ($routeProvider) {
+  app.config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+
     $routeProvider
       .when('/', {
           templateUrl: 'views/main.html',
