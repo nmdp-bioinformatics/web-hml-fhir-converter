@@ -23,6 +23,12 @@
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 };
+            },
+
+            getPostFileUploadMultiPart: function () {
+                return {
+                    'Content-Type': undefined
+                }
             }
         };
 

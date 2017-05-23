@@ -22,6 +22,24 @@
                 });
 
                 return defer.promise;
+            },
+
+            uploadMultiPartFile: function (file) {
+                 var defer = $q.defer(),
+                     url = appConfig.resource_server_base_url + 'conversion/hmlToFhir/',
+                    headers = httpHeaderTransform.getPostFileUploadMultiPart(),
+                    formData = new FormData();
+
+                formData.append('file', file);
+
+                $http.post(url, formData, {
+                    transformRequest: angular.identity,
+                    headers: headers
+                }).success(function (result) {
+                    defer.resolve(result);
+                });
+
+                return defer.promise;
             }
         };
 

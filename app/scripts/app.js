@@ -46,6 +46,11 @@ var app = angular.module('hmlFhirAngularClientApp', [
           controller: 'main',
           controllerAs: 'mainCtrl'
       })
+      .when('/batch', {
+          templateUrl: '/views/file/batch.html',
+          controller: 'batch',
+          controllerAs: 'batchCtrl'
+      })
       .when('/guided', {
           templateUrl: '/views/guided/guided-types.html',
           controller: 'guidedTypes',
@@ -117,6 +122,6 @@ var app = angular.module('hmlFhirAngularClientApp', [
       })
       .otherwise({ redirectTo: '/' });
 
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 
   });
